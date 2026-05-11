@@ -116,7 +116,9 @@ L'arrêt fondateur de la Cour de cassation l'a posé clairement à propos de pro
 
 ### Et le matériel implanté ? Une responsabilité distincte du producteur
 
-Lorsque le dommage résulte d'une prothèse défectueuse — comme dans l'affaire des prothèses mammaires PIP — c'est principalement le **producteur** du dispositif médical qui répond du défaut, en vertu des articles <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032041532" target="_blank" rel="noopener noreferrer nofollow">1245 et suivants du Code civil</a> (responsabilité du fait des produits défectueux). Le chirurgien, lui, ne supporte pas une responsabilité de plein droit du seul fait d'avoir implanté la prothèse : sa responsabilité ne peut être engagée que si une **faute propre** lui est reprochée (choix d'un produit dont il aurait dû connaître le défaut, défaut de surveillance, manquement au devoir d'information). Une action *in solidum* contre le chirurgien et le producteur reste possible dans certains cas.
+Lorsque le dommage résulte d'une prothèse défectueuse — comme dans l'affaire des prothèses mammaires PIP — c'est principalement le **producteur** du dispositif médical qui répond du défaut. Ce régime de responsabilité de plein droit est posé par les articles <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032041532" target="_blank" rel="noopener noreferrer nofollow">1245 et suivants du Code civil</a>.
+
+Le chirurgien, lui, ne supporte **pas** une responsabilité automatique du seul fait d'avoir implanté la prothèse. Sa responsabilité ne peut être engagée que si une **faute propre** lui est reprochée : choix d'un produit dont il aurait dû connaître le défaut, défaut de surveillance, manquement au devoir d'information. Une action *in solidum* contre le chirurgien et le producteur reste néanmoins possible dans certains cas.
 
 ### Et la clinique ? Une responsabilité qui peut s'ajouter
 
@@ -207,7 +209,11 @@ Statistique utile : sur l'ensemble des contentieux 2007-2024, **58 % des victime
 
 Lorsque les faits revêtent une gravité particulière — exercice illégal de la médecine, blessures involontaires graves, manquement délibéré aux règles de sécurité — la voie pénale est ouverte. Plainte au procureur de la République, le cas échéant constitution de partie civile pour obtenir des dommages et intérêts en parallèle.
 
-**Variante : la plainte commune au parquet.** Lorsque plusieurs victimes du même praticien se regroupent, une plainte collective peut être déposée. Récemment, à Bayonne, cinq patientes ont déposé une plainte commune au parquet contre un chirurgien esthétique pour blessures involontaires et atteinte à l'intégrité physique après des augmentations mammaires — au total dix plaintes visent ce praticien selon *Sud Ouest* (2026). Ce regroupement renforce la portée du dossier sans constituer pour autant une « action de groupe en santé » au sens strict de l'article L. 1143-1 du Code de la santé publique — cette dernière étant réservée aux dommages causés par un produit de santé défectueux (ex. prothèses PIP).
+**Variante : la plainte commune au parquet.** Lorsque plusieurs victimes du même praticien se regroupent, une plainte collective peut être déposée auprès du procureur.
+
+Récemment, à Bayonne, cinq patientes ont déposé une plainte commune contre un chirurgien esthétique pour blessures involontaires et atteinte à l'intégrité physique après des augmentations mammaires — au total dix plaintes visent ce praticien selon *Sud Ouest* (2026).
+
+Ce regroupement renforce la portée du dossier. Il ne constitue toutefois pas une « action de groupe en santé » au sens strict de l'article L. 1143-1 du Code de la santé publique — cette dernière étant réservée aux dommages causés par un produit de santé défectueux (ex. prothèses PIP).
 
 > ⚠️ **Témoignez sans risquer une plainte en diffamation.** La <a href="https://www.legifrance.gouv.fr/loda/article_lc/LEGITEXT000006070722" target="_blank" rel="noopener noreferrer nofollow">loi du 29 juillet 1881 (article 29)</a> distingue la libre critique — protégée — de la diffamation — sanctionnée. Le critère : un **fait précis non prouvable** = diffamation ; un **ressenti subjectif** = libre critique. Vous pouvez écrire *« je ne recommande pas »* ou *« accueil décevant »* : vous êtes protégée. Les termes *« charlatan »*, *« surfacturation »*, *« faux diagnostics »* peuvent en revanche se retourner contre vous : la Cour d'appel de Rennes a récemment condamné l'auteure d'un avis Google qualifiant un médecin de *« charlatan »* à 3 000 euros de dommages et intérêts (CA Rennes, 17 février 2026). Pour le reste, passez par les voies officielles.
 
@@ -285,6 +291,18 @@ Cette situation relève de l'exercice illégal de la médecine (Article L. 4161-
 ### Puis-je laisser un avis négatif sur Google sans risquer une plainte en diffamation ?
 
 Le critère jurisprudentiel (loi du 29 juillet 1881, article 29) est clair : un fait précis non prouvable = diffamation ; un ressenti subjectif = libre critique. Vous pouvez écrire *« je ne recommande pas »* ou *« accueil décevant »* — vous êtes protégée. Mais les termes *« charlatan »*, *« surfacturation »*, *« faux diagnostics »* vous exposent : la Cour d'appel de Rennes a récemment condamné l'auteure d'un avis Google diffamatoire à 3 000 euros de dommages et intérêts (17 février 2026).
+
+### Quel est le délai pour agir après une chirurgie esthétique ratée ?
+
+Le délai légal de prescription en matière de responsabilité médicale est de **dix ans à compter de la consolidation du dommage** (Article L. 1142-28 du Code de la santé publique). « Consolidation » signifie le moment où l'état de santé n'évolue plus. La voie pénale a un délai plus court : six ans à compter de l'acte ou de la découverte des faits pour un délit. En matière étrangère (tourisme médical), certains pays imposent six mois à deux ans seulement — agissez vite et conservez les preuves dès les premières heures.
+
+### Quelle est la différence entre la CCI et l'ONIAM ?
+
+La **CCI** (Commission de Conciliation et d'Indemnisation) est une instance régionale qui rend un **avis** sur la responsabilité — gratuite, accessible sans avocat. Elle saisit ensuite l'**ONIAM** (Office national d'indemnisation des accidents médicaux) ou l'assureur du praticien selon la cause retenue. L'ONIAM est l'organisme **payeur** au titre de la solidarité nationale, lorsqu'il y a aléa thérapeutique sans faute. En chirurgie esthétique pure, l'ONIAM est exclu, mais la CCI reste compétente pour faire indemniser une **faute** par l'assureur du chirurgien.
+
+### Puis-je obtenir une consultation préalable avec un avocat avant d'engager une procédure ?
+
+Oui. La plupart des cabinets, dont le Cabinet Plouton, proposent un **premier rendez-vous d'information** permettant d'évaluer la solidité de votre dossier, les voies de recours adaptées et les chances d'indemnisation, sans engagement. C'est particulièrement utile avant d'accepter une offre amiable, de saisir la CCI ou de déposer plainte. Apportez votre dossier médical complet, les photos avant/après datées, les devis et factures, et tout échange écrit avec le praticien ou son assureur.
 
 ---
 

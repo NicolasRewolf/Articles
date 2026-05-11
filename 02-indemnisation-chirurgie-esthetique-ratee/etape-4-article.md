@@ -185,6 +185,8 @@ Tous les médecins en exercice sont tenus de souscrire une assurance de responsa
 
 Les Commissions de Conciliation et d'Indemnisation, gérées par l'ONIAM, peuvent être saisies par toute victime d'un accident médical grave. La procédure est **gratuite**, ne nécessite **pas obligatoirement d'avocat** (en 2024, 57 % des demandes ont été déposées sans avocat) et inclut une **expertise médicale prise en charge** par l'ONIAM.
 
+Pour les dossiers ouverts en Nouvelle-Aquitaine, c'est la **CCI Grand Ouest** qui instruit les demandes du ressort — l'une des sept CCI régionales de France métropolitaine (630 demandes initiales reçues en 2024 selon le rapport ONIAM).
+
 Conditions de gravité requises (Article D. 1142-1 CSP, alternatives) : taux d'AIPP supérieur à 24 % ; arrêt d'activité professionnelle d'au moins 6 mois ; déficit fonctionnel temporaire d'au moins 50 % pendant 6 mois minimum ; cas exceptionnels de troubles particulièrement graves.
 
 > **CCI en chiffres — rapport ONIAM 2024**
@@ -196,6 +198,8 @@ Conditions de gravité requises (Article D. 1142-1 CSP, alternatives) : taux d'A
 ### Étape 3 — Le tribunal judiciaire (ou administratif)
 
 Si la voie amiable échoue ou si vous souhaitez aller plus loin, le **tribunal judiciaire** est compétent pour les actes pratiqués par un chirurgien libéral ou dans une clinique privée. Le **tribunal administratif** prend le relais pour les actes effectués dans un établissement public — cas rare en chirurgie esthétique pure. La procédure dure en pratique 2 à 4 ans, mais permet d'obtenir une indemnisation intégrale.
+
+À Bordeaux, le **tribunal judiciaire** (Place de la République) est compétent pour les actes pratiqués dans le ressort de la cour d'appel de Bordeaux — soit la Gironde, la Dordogne, le Lot-et-Garonne et la Charente.
 
 Statistique utile : sur l'ensemble des contentieux 2007-2024, **58 % des victimes ayant refusé une première offre ONIAM** ont finalement obtenu une indemnisation par l'office (ONIAM RA 2024, p. 26). Ne pas céder à la première offre, lorsqu'elle est insuffisante, est souvent statistiquement payant.
 
@@ -288,6 +292,18 @@ Le critère jurisprudentiel (loi du 29 juillet 1881, article 29) est clair : un 
 
 Une chirurgie esthétique ratée bouleverse plus que l'apparence — elle ébranle la confiance dans le corps médical et expose à un parcours juridique complexe. La voie amiable couvre 80 % des situations. Pour les autres — séquelles permanentes, exercice illégal de la médecine, plainte collective, refus de l'assureur du chirurgien — un avocat est souvent la seule manière de rétablir l'équilibre.
 
-Le Cabinet Plouton intervient depuis plus de 20 ans aux côtés des victimes d'erreurs médicales et accompagne les démarches devant les CCI, les juridictions civiles et pénales.
+Le Cabinet Plouton, installé au cœur de Bordeaux (45 Cours d'Alsace-et-Lorraine, à proximité du tribunal judiciaire), intervient depuis plus de 20 ans aux côtés des victimes d'erreurs médicales en Nouvelle-Aquitaine et au-delà, et accompagne les démarches devant les CCI, les juridictions civiles et pénales.
 
 **[Demander un premier rendez-vous au Cabinet Plouton — Bordeaux](https://www.jplouton-avocat.fr/honoraires-rendez-vous)**
+
+---
+
+## À propos de l'auteur
+
+> **Maître Julien Plouton** — avocat au Barreau de Bordeaux, a prêté serment en 2004 après une formation à l'École de Formation du Barreau de Paris (EFB). Diplômé d'un **DESS en droit des affaires et fiscalité**, d'un **DEA en droit européen** et d'un **master spécialisé HEC en droit et management international**, il a fondé le **Cabinet Plouton en 2009**, situé au 45 Cours d'Alsace-et-Lorraine à Bordeaux.
+>
+> Il est membre de l'**Institut du Dommage Corporel (IDC)**, de l'**Association des Avocats Pénalistes (ADAP)** et de l'**Institut du Droit des Affaires du Barreau de Bordeaux (IDA)**. Depuis plus de vingt ans, il accompagne les victimes d'erreurs médicales, d'accidents de la route et de violences, ainsi que les personnes mises en cause en matière pénale, en Nouvelle-Aquitaine et au-delà.
+>
+> [En savoir plus sur le cabinet](https://www.jplouton-avocat.fr/notre-cabinet) • [Demander un premier rendez-vous](https://www.jplouton-avocat.fr/honoraires-rendez-vous)
+
+*Dernière mise à jour : mai 2026.*

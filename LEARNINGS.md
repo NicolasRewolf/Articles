@@ -1,0 +1,204 @@
+# LEARNINGS — Pipeline éditorial Cabinet Plouton
+
+> Capitalisation transverse. Mise à jour **après chaque article** : ce qui a marché, ce qui a coincé, raccourcis identifiés.
+
+---
+
+## Learnings techniques (Wix)
+
+### LEARN-001 — Slugs sans accent (règle stricte)
+**Contexte :** intégration éditoriale Wix Studio.
+**Constat :** les accents dans les slugs Wix créent des doublons raw/percent-encoded (`/exemple-d-éclat` vs `/exemple-d-%C3%A9clat`), néfaste SEO (cannibalisation, dilution PageRank).
+**Règle :** tous les slugs sans accent. Translittérer (`é → e`, `à → a`, etc.). **Pas d'audit rétro** sur les articles existants — règle pour les nouveaux uniquement (décision Nicolas 2026-05-11).
+**Statut :** sauvegardée en mémoire persistante (`feedback_slugs_sans_accent.md`).
+
+### LEARN-002 — HTML/Ricos obligatoire dans l'éditeur Wix (pas de Markdown)
+**Contexte :** copier-coller du livrable final dans l'éditeur Wix.
+**Constat :** le Markdown ne survit pas au paste dans l'éditeur Wix Studio (formatage cassé, listes éclatées, liens perdus).
+**Règle :** livrable final en **HTML balisé** ou **Ricos JSON** via API. Pour les premiers articles, copier-coller direct du Markdown dans Wix Studio fonctionne **mais nécessite que Nicolas refasse la mise en page manuellement** (validé 2026-05-11).
+
+### LEARN-003 — Wix Ricos : 3 patterns d'encadrés validés (test 2026-05-11)
+**Testé sur draft test du 11/05/2026 :**
+- ✅ **BLOCKQUOTE** = rendu "encadré" (barre verticale + indentation) — usage : définitions, encadrés chiffrés, mini-CTAs inline
+- ✅ **DIVIDER** = trait horizontal centré entre sections (`lineStyle: SINGLE, width: MEDIUM, alignment: CENTER`)
+- ✅ **COLLAPSIBLE_LIST** = FAQ accordéon (chevron, 1ʳᵉ Q ouverte par défaut) — usage : FAQ structurée pour citabilité LLM
+**Note :** ces 3 types fonctionnent via l'API Wix Blog v3 `/draft-posts` en payload Ricos JSON.
+
+### LEARN-004 — Push API Wix : limite pratique sur articles longs
+**Contexte :** push d'un article ~2 900 mots via `CallWixSiteAPI` MCP.
+**Constat :** le Ricos JSON compact pèse ~58 KB (~14.5K tokens). Lors du push, le body inline du tool call est trop lourd à passer pour un article complet en un seul appel (Read tool plafonne à 25K tokens ; output tokens lourd à produire).
+**Fallback validé :** copier-coller le markdown directement dans l'éditeur Wix Studio, puis polissage manuel par Nicolas (qui veut de toute façon refaire la mise en page).
+**Piste pour automatiser plus tard :** push API en plusieurs PATCHes cumulatifs avec chunks de richContent, OU script Python qui POSTe via curl en récupérant l'auth Wix d'une manière indirecte (à creuser).
+
+### LEARN-005 — Parser markdown → Ricos (script local)
+**Contexte :** `scripts/md_to_ricos.py` créé pour automatiser la conversion.
+**Couvert :** H2/H3, paragraphes, listes à puces, blockquotes, dividers, COLLAPSIBLE_LIST auto en FAQ, inline (bold, italic, link, **bold+link** imbriqué).
+**Limites identifiées :** les bullets `- ` à l'intérieur des blockquotes ne sont pas reconvertis en BULLETED_LIST (restent en texte brut avec tiret). À traiter dans une v2 du parser si on relance le push API.
+**Statut :** parser fonctionnel mais perfectible. Stocké dans `scripts/md_to_ricos.py`.
+
+### LEARN-006 — PISTE OAuth (Légifrance + Judilibre) : vérifier la bonne souscription
+**Contexte :** activation API Data Gouv PISTE.
+**Constat :** un premier set de credentials (`f8c5...` / `9e51...`) a échoué avec `invalid_client`. Le deuxième set (`bc60...` / `8b68...`) a fonctionné immédiatement.
+**Hypothèse :** la première fois, les credentials étaient probablement ceux d'une app non validée ou non souscrite à Judilibre.
+**Règle :** récupérer les credentials sur l'écran de **souscription Judilibre Sandbox** spécifiquement, pas sur l'écran général de l'app.
+**Statut :** API maintenant fonctionnelle ; scripts `scripts/piste_auth.py`, `scripts/judilibre.py`, `scripts/legifrance.py` opérationnels (modulo problème SSL Python 3.14 macOS — fallback curl OK).
+
+---
+
+## Learnings éditoriaux
+
+### LEARN-007 — Intro : phrase psychologique avant le chiffre brutal
+**Contexte :** "decision moment" du lecteur (les premières lignes).
+**Constat :** ouvrir sur une vérité psychologique du persona (*"Quand un accident à moto arrive, le choc physique n'est souvent pas le plus dur"*) résonne mieux qu'un chiffre brutal en tête.
+**Pattern validé :** phrase psychologique → chiffre brutal sourcé (paragraphe 2) → bullets de promesse → signature autorité cabinet.
+**Réutilisable :** sur tous les articles "victime de…" qui touchent à un vécu spécifique (motard, accident travail, victime violence, etc.).
+
+### LEARN-008 — TDM 6 entrées H2 cliquables
+**Contexte :** article long-form (>2 000 mots).
+**Constat :** une table des matières juste après l'intro améliore (a) la navigation du lecteur en scanning, (b) la citabilité GEO (les LLM scannent la TDM en priorité).
+**Pattern :** liste à puces numérotée avec liens d'ancrage `#section-slug`. Chaque H2 cible reçoit un `id` correspondant (à mapper dans le push Ricos ou manuellement dans Wix).
+
+### LEARN-009 — Bullets "Ce que vous allez comprendre" dans l'intro
+**Contexte :** signaler la profondeur sans l'imposer au lecteur.
+**Constat :** 4 bullets (3-5 selon contenu) qui annoncent les angles clés = mini-sommaire intégré dans l'intro, format scannable, rassurant.
+**Réutilisable :** dans tout guide pédagogique.
+
+### LEARN-010 — Formulation cabinet > stat externe non sourcée
+**Contexte :** stat « 90 % des victimes transigent pour la moitié » entendue dans le SERP mais sans source primaire.
+**Constat :** la page d'expertise Plouton contient déjà la formulation cabinet officielle (*« Les premières offres formulées par les compagnies d'assurance sont presque toujours sous-évaluées »*) qui supplante n'importe quelle stat externe non sourcée.
+**Règle :** avant d'abandonner ou de chercher loin une stat externe, **vérifier si la page d'expertise du cabinet contient déjà la formulation interne**. Bonus : cross-link vers la page = sourcing + signal de conversion.
+
+### LEARN-011 — Reformulation pédagogique de concepts juridiques
+**Contexte :** présenter la nomenclature Dintilhac à un lecteur non-juriste.
+**Constat :** la page d'expertise propose une triade pédagogique imbattable : *« ce que vous ne pouvez plus faire, ce que vous devez désormais payer, ce que vous avez perdu en qualité de vie »*. Vaut tous les jargons techniques.
+**Règle :** pour chaque concept juridique central, **chercher s'il existe déjà une reformulation pédagogique cabinet** (page d'expertise, autre article) avant d'en inventer une.
+
+---
+
+## Learnings process / workflow
+
+### LEARN-012 — Volume cible data-driven (Plouton 28j)
+**Contexte :** plan initial visait 4 400 mots ; data Plouton montre médiane top performers = 1 700 mots.
+**Constat :** pas de corrélation longueur ↔ trafic sur les top 10 articles ressources Plouton. Pattern lecteur = **scanning** dès qu'on dépasse 1 400 mots.
+**Règle :** cible pragmatique **~2 500-2 800 mots** pour les articles "Ressources et notions juridiques". Plus court = OK si l'angle le permet ; plus long = à justifier par la profondeur distinctive vs concurrence SERP.
+
+### LEARN-013 — Mini-CTA inline #1 post-empathie (hypothèse à valider)
+**Contexte :** 0 % conversion observée sur la catégorie "Ressources et notions juridiques" historiquement.
+**Hypothèse mise en test :** placer un mini-CTA contextuel **après l'intro** (là où l'empathie du lecteur est maximale) plutôt qu'uniquement en fin d'article = levier de conversion.
+**Pattern testé sur article #1 :** *"Vous êtes motard ou proche d'un motard blessé, et ces démarches vous dépassent ? [Parler à un avocat]"*.
+**À mesurer :** taux de clic vers `/honoraires-rendez-vous` sur les 28 prochains jours post-publication. **Si validé**, à réutiliser systématiquement.
+
+### LEARN-014 — Wix MCP > grep sitemap pour catégorisation
+**Contexte :** identifier les articles ressources existants pour le maillage interne.
+**Constat :** grep des slugs `/post/...` du sitemap est approximatif (catégories non visibles). **Wix MCP** (`POST /blog/v3/posts/query` avec filter `categoryIds`) donne la catégorisation officielle et la liste exacte.
+**Règle :** systématiquement utiliser Wix MCP pour la cartographie des articles ressources avant le plan H2/H3 (Étape 3).
+
+### LEARN-015 — Workflow Étape 2 : Bloc D (stats officielles) ajouté au brief
+**Contexte :** stats ONISR essentielles pour hook chiffré + citabilité GEO.
+**Décision (2026-05-11) :** ajout d'un **Bloc D — Données statistiques & rapports officiels** au workflow Étape 2, à côté de A (juridique), B (SEO), C (interne Plouton).
+**Sources mobilisables :** data.gouv.fr (BAAC pour route), ONIAM (médical), CNAM-AT (travail), Santé Publique France (vie courante), INSEE/SSMSI (sécurité publique), Ministère Justice DSED (pénal).
+
+---
+
+## Learnings SEO / GEO
+
+### LEARN-016 — FAQPage schema JSON-LD à ajouter manuellement
+**Contexte :** le COLLAPSIBLE_LIST natif de Wix ne génère **pas** automatiquement le schema FAQPage.
+**Règle :** pour chaque article avec FAQ, livrer un bloc JSON-LD `FAQPage` séparé prêt-à-coller dans le module SEO Wix Studio (ou via widget HTML Embed). Voir `etape-4-faq-schema.json` de chaque article.
+
+### LEARN-017 — Format FAQ pour citabilité LLM
+**Pattern validé :**
+- Question = formulation naturelle utilisateur (proche des PAA SERP)
+- Réponse = **40-80 mots**, commençant par le **concept-clé** (la première phrase doit pouvoir être citée seule par un LLM)
+- Sourcing intégré (lien Légifrance / ONISR dans la réponse)
+
+### LEARN-018 — SERP top 10 + PAA + Related = panorama suffisant
+**Constat :** pour la gap analysis Étape 2 Bloc B, **un seul appel SERP** avec `depth=20` et `people_also_ask_click_depth=1` donne SERP + PAA + Related searches en une fois. Très économe en crédits DataForSEO.
+**Réutilisable :** pas besoin d'enchaîner plusieurs appels pour analyser un sujet.
+
+---
+
+## Learnings juridiques / sourcing
+
+### LEARN-019 — Loi Badinter Article 4 = pivot conducteur VTM (CORRIGÉ 2026-05-11)
+**Constat :** pour tout article touchant à un usager **conducteur** de véhicule terrestre à moteur (motard, automobiliste, conducteur poids-lourd…), **l'article 4 est central** : *« La faute commise par le conducteur du véhicule terrestre à moteur a pour effet de limiter ou d'exclure l'indemnisation des dommages qu'il a subis. »* À la différence des passagers/piétons (article 3 — indemnisation intégrale sauf faute inexcusable cause exclusive).
+**URL Légifrance Art. 4 :** https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000006839431
+**À ne pas confondre :** Article 5 Badinter = dommages aux **BIENS** (équipement détruit, véhicule). Article 6 = préjudice par **ricochet** (proches). Article 12 = délai 8 mois offre. Article 16 / L. 211-13 Code assurances = sanction doublement intérêt légal.
+**Historique :** sur l'article #1, j'ai initialement écrit "article 5" partout (4 occurrences), erreur juridique grave découverte par le fact-check NotebookLM post-rédaction. Corrigée le 2026-05-11.
+**Réutilisable :** sur futurs articles voiture, scooter, camion, etc.
+
+### LEARN-027 — Livraison JSON-LD : directement dans le chat, pas de fichier HTML (durable)
+**Contexte :** Nicolas 2026-05-11, après plusieurs allers-retours infructueux pour coller le schema FAQPage dans le champ "Marquage structuré" de Wix Studio.
+**Constat :** stocker le JSON-LD dans un fichier `.html` ou `.json` séparé ne marche pas bien — le `<script>` est interprété par les previews, et copier-coller le contenu brut depuis un fichier multiplie les sources d'erreur.
+**Règle :** pour le **JSON-LD FAQPage** (et tout autre schema markup destiné à Wix), **livrer le bloc `<script>...</script>` directement dans la réponse chat**, dans un bloc de code Markdown (triple backticks), **JSON minifié one-liner**, avec `type="application/ld+json"` (validé fonctionnel sur Wix Studio).
+**Statut :** sauvegardée en mémoire persistante (`feedback_jsonld_directement_dans_chat.md`).
+
+### LEARN-026 — ANTI-RÉCIDIVE : fact-check juridique obligatoire via NotebookLM AVANT rédaction (durable)
+**Contexte :** sur l'article #1, j'ai produit 3 erreurs juridiques (art. 5/4, art. 6/5, art. 12/16) parce que j'ai rédigé sans interroger NotebookLM, qui contenait pourtant 191 sources authentiques. La WebSearch initiale Étape 2 ne m'avait pas remonté tous les articles pertinents (notamment Art. 4 manquait des résultats SERP), et j'ai extrapolé.
+**Règle (à appliquer dès article #2 et tous les suivants) :**
+1. **AVANT de rédiger** une affirmation juridique précise (n° d'article de loi, n° de pourvoi, fondement juridique), **interroger systématiquement NotebookLM** via `ask_question` quand le notebook contient des sources sur le sujet.
+2. **Citer les textes verbatim** en s'appuyant sur NotebookLM, pas sur WebSearch seul.
+3. **Vérifier 2 fois** chaque numéro d'article cité (NotebookLM + source primaire Légifrance si accessible).
+4. Ce n'est pas optionnel : c'est exactement ce que le brief impose au titre de l'anti-hallucination.
+**Statut :** sauvegardée en mémoire persistante (`feedback_factcheck_juridique_obligatoire.md`).
+
+### LEARN-020 — ONISR : provisoires fin janvier, définitifs fin mai
+**Constat :** l'ONISR publie chaque fin janvier les résultats provisoires de l'année N-1, puis les définitifs fin mai.
+**Règle :** entre fin janvier et fin mai, **mentionner explicitement "résultats provisoires"** dans toute citation chiffrée. Au-delà de mai, utiliser les définitifs.
+
+### LEARN-021 — Anti-hallucination : fourchettes prudentes
+**Pattern validé :** pour les ordres de grandeur juridiques non sourcés (DFP, PEP, agrément), formuler prudemment : *"indicatives", "généralement", "varie selon", "à titre indicatif"*. **Jamais d'affirmation chiffrée présentée comme barème officiel.**
+**Justification :** il n'existe **pas de barème officiel** en France pour les préjudices corporels ; seule la jurisprudence (référentiel Mornet en pratique) sert d'indicateur — par nature variable.
+
+---
+
+## Learnings NotebookLM (workflow chirurgical)
+
+### LEARN-022 — NotebookLM : remplissage ciblé après plan, pas avant
+**Contexte :** NotebookLM MCP installé 2026-05-11.
+**Workflow validé :**
+1. Étape 3 (plan) **sans** NotebookLM
+2. Sur la base du plan, identifier les **zones spécifiques** où on veut sourcer plus profond (ex. : montants Mornet par poste, jurisprudence préjudice esthétique motard)
+3. Nicolas lance des **recherches NotebookLM ciblées** sur ces zones (pas un ratissage large à l'aveugle)
+4. Étape 4 (rédaction) : interroger NotebookLM via `ask_question` pour pomper les sources agrégées
+**Bénéfice :** plus chirurgical, moins de bruit, citations plus pertinentes.
+
+### LEARN-022-bis — NE PAS DÉMARRER l'Étape 4 si NotebookLM est vide (anti-pattern observé article #1)
+**Contexte :** sur l'article #1, j'ai démarré Étape 4 alors que le notebook NotebookLM venait juste d'être créé et était encore vide → je n'ai pas pu utiliser `ask_question`. Sourcing fait uniquement depuis mes propres outils (Read PDF, WebSearch, Wix MCP, curl) — manqué l'opportunité de tester NotebookLM en vraies conditions.
+**Règle (à appliquer dès article #2) :**
+- Avant de lancer Étape 4 → demander explicitement à Nicolas si NotebookLM est **rempli avec les sources prévues en section 7 du plan**
+- Si VIDE : soit attendre, soit prévenir Nicolas qu'on rédige sans NotebookLM (acte conscient)
+- Si REMPLI : pour chaque section où sourcing fin manque → `ask_question` AVANT rédaction du paragraphe
+**Statut :** anti-pattern documenté pour ne pas reproduire.
+
+### LEARN-023 — Workflow général
+Pour chaque nouvel article qui doit aller dans NotebookLM, l'utilisateur :
+1. Crée un nouveau notebook sur notebooklm.google.com
+2. Y dépose les sources (PDF, URLs, copies de jurisprudence)
+3. Copie le share-link
+4. Me le donne → `add_notebook` + `select_notebook` → utilisable en Étape 4
+
+---
+
+### LEARN-025 — Pas de listes à puces dans les blockquotes Wix (durable)
+**Contexte :** observation Nicolas 2026-05-11 lors de la mise en page article #1 dans Wix Studio.
+**Constat :** les BULLETED_LIST imbriquées dans BLOCKQUOTE ne sont pas correctement rendues par Wix Ricos (soit pas supportées, soit rendu cassé).
+**Règle :** pour les encadrés chiffrés ("Les X en chiffres"), **rédiger en prose continue avec séparateurs** (`;` ou `—`), pas de bullets. Si une liste à puces est nécessaire, la **sortir du blockquote** (bloc séparé au-dessus/en-dessous).
+**Statut :** sauvegardée en mémoire persistante (`feedback_pas_de_bullets_dans_blockquote.md`) + intégrée dans le pattern encadré chiffré d'`ARTICLE_TEMPLATE.md`.
+**Implication parser :** `scripts/md_to_ricos.py` à faire évoluer pour détecter les `- ` dans les blockquotes et les transformer en prose plutôt que tenter une BULLETED_LIST imbriquée.
+
+### LEARN-024 — Convention `rel` liens internes vs externes (durable)
+**Contexte :** instruction Nicolas 2026-05-11.
+**Règle :**
+- **Liens internes** (`jplouton-avocat.fr/...`) : aucun `rel`, aucun `target="_blank"` → le lien "suit" (follow par défaut) + nav fluide.
+- **Liens externes** : `target="_blank"` + `rel="noopener noreferrer nofollow"`.
+**Why :** protéger le PageRank interne, ne pas donner d'autorité SEO aux externes, sécurité (`noopener`) + privacy (`noreferrer`) + conserver l'utilisateur sur le site Plouton (nouvel onglet externe).
+**Statut :** sauvegardée en mémoire persistante (`feedback_liens_follow_nofollow.md`) + intégrée dans la checklist qualité d'`ARTICLE_TEMPLATE.md`.
+
+---
+
+## Méta-learning sur le pipeline
+
+### LEARN-META-1 — Une session ≠ tout le workflow
+**Constat :** une seule session conversation a permis de boucler tout le workflow 4 étapes pour l'article #1 (cadrage, collecte, plan, rédaction). Les artefacts sont sauvegardés localement et accessibles cross-sessions via la mémoire persistante (`memory/`).
+**Pour les articles suivants :** repartir des memos + de `BRIEF.md` + `ARTICLE_TEMPLATE.md` + les learnings ci-dessus. Pas besoin de tout re-expliquer.

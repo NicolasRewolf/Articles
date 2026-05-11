@@ -197,12 +197,51 @@ Format BLOCKQUOTE :
 
 ## Étape 4 — Livrables OBLIGATOIRES (ne rien zapper)
 
-Chaque article #N doit produire **4 fichiers dans son dossier** `0N-slug-article/` :
+Chaque article #N doit produire dans son dossier `0N-slug-article/` :
 
-1. **`etape-4-article.md`** — article complet en markdown (lecture/archive + copier-coller Wix)
-2. **`etape-4-metadonnees-wix.md`** — H1, méta-title, méta-description, slug, catégories, tags, image hero+alt, Open Graph, checklist (= livrable séparé qui aurait dû exister sur article #1, oublié, ajouté en correction)
-3. **`etape-4-faq-schema.json`** — JSON-LD FAQPage prêt-à-coller dans module SEO Wix
-4. *(optionnel)* **`etape-4-corrections-rouge.html`** — visualisation des corrections post fact-check NotebookLM si applicable
+1. **`etape-4-article.md`** — article complet en markdown (lecture/archive + copier-coller Wix Studio par Nicolas)
+2. **`etape-4-metadonnees-wix.md`** — **OBLIGATOIRE, NE PAS ZAPPER** — 10 sections prêtes à coller : H1, méta-title ≤ 60, méta-description ≤ 155, slug sans accent, **catégories Wix (2 IDs : Ressources et notions juridiques + thématique)**, tags (10-15), image hero + alt, Open Graph, schema markup, checklist finale 11 points. *(Erreur observée sur article #1 : oublié au début, ajouté en correction sur question explicite de Nicolas.)*
+3. **JSON-LD FAQPage** — **livré DIRECTEMENT dans le chat** (bloc code Markdown, JSON minifié one-liner, avec `type="application/ld+json"`). **PAS de fichier `.json` ou `.html` séparé** (LEARN-027 — validé : Wix Studio rejette les fichiers HTML pour ce champ, copier-coller depuis le chat est l'unique méthode fiable).
+4. *(optionnel)* **`etape-4-corrections-rouge.html`** — visualisation rouge des passages modifiés si fact-check post-rédaction a entraîné des corrections.
+
+## Étape 4 — Fact-check NotebookLM obligatoire AVANT rédaction (LEARN-026 anti-récidive)
+
+**Règle non négociable issue de l'article #1 :** sur l'article #1, j'ai produit 3 erreurs juridiques (Art. 4 confondu avec Art. 5, Art. 5 confondu avec Art. 6, Art. 12 confondu avec Art. 16) parce que j'ai rédigé sans interroger NotebookLM. Anti-pattern documenté, à ne plus reproduire.
+
+**Procédure AVANT de rédiger chaque section juridique :**
+
+1. **Vérifier que le notebook NotebookLM est rempli** sur le sujet de l'article. Si VIDE → alerter Nicolas, attendre qu'il dépose les sources, OU rédiger en mode "fourchettes prudentes" sans affirmations chiffrées précises.
+2. **Pour chaque numéro d'article de loi cité** → `ask_question` NotebookLM pour confirmer (numéro exact + texte verbatim + URL LEGIARTI).
+3. **Pour chaque jurisprudence citée** → `ask_question` pour confirmer (numéro de pourvoi + date + chambre + apport).
+4. **Pour chaque fondement juridique attribué** → `ask_question` pour confirmer (ne JAMAIS extrapoler à partir de SERP top 10).
+5. **Si l'article est central pour l'argumentation** → double-check via WebSearch ciblée `allowed_domains=["legifrance.gouv.fr"]` pour obtenir l'URL LEGIARTI exacte.
+
+→ NotebookLM (5 questions max, regrouper si possible). C'est la règle qui a sauvé l'article #1 du désastre juridique.
+
+## Étape 4 — Procédure de livraison fin de rédaction
+
+À la fin de la rédaction Étape 4, **présenter à Nicolas en un seul message** avec ce format :
+
+```
+🛑 Étape 4 — Phase 1 (rédaction) terminée. STOP avant push API.
+
+Livrables :
+1. 📄 etape-4-article.md — article complet (~2 600-2 800 mots)
+2. 📄 etape-4-metadonnees-wix.md — 10 sections SEO prêtes à coller
+3. JSON-LD FAQPage ci-dessous (copier-coller dans le champ "Marquage 
+   structuré" du panneau SEO Wix Studio du post) :
+
+   ```
+   <script type="application/ld+json">{...JSON minifié one-liner...}</script>
+   ```
+
+Récap fact-check NotebookLM : [N questions posées, M corrections appliquées]
+Sources mobilisées : [résumé bref]
+
+Sur "OK push" → je crée le draft Wix via API en status UNPUBLISHED.
+```
+
+**Ne JAMAIS finir l'Étape 4 sans avoir produit les 3 livrables ci-dessus.**
 
 ## Étape 4 — Article HTML/Ricos Wix-ready (template)
 

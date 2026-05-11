@@ -5,7 +5,7 @@
 
 ---
 
-## Cap général (validé sur article #1)
+## Cap général (validé sur article #1 + patterns cognitifs notebook 2026-05-11)
 
 | Paramètre | Valeur cible |
 |---|---|
@@ -16,6 +16,21 @@
 | **CTA** | 3 au total : mini-CTA inline #1 (post-intro), mini-CTA inline #2 (milieu), CTA final |
 | **Ton** | Sobre, empathique, précision juridique, anti-marketing |
 | **Sourcing** | Chaque chiffre = millésime + source primaire ; chaque article de loi = lien Légifrance |
+| **Densité info (LEARN-028)** | Chaque H2 = 1 chiffre sourcé + 1 cas concret + 1 implication pratique. Pas de creux narratif. |
+| **Phrases (LEARN-030)** | 16-20 mots idéal, **JAMAIS > 40 mots** |
+| **Paragraphes (LEARN-030)** | 1-3 phrases, **1 seule idée** par paragraphe |
+| **Front-loading (LEARN-029)** | Tous H2/H3/paragraphes/bullets commencent par les **2-3 mots les plus porteurs de sens** |
+
+## Pattern Mini-CTA #1 "double-face" (LEARN-031)
+
+Reconnaître les limites = +crédibilité (Modèle de Probabilité d'Élaboration). Pourrait débloquer le 0 % conversion observé historiquement.
+
+**Format** :
+
+> **Vous êtes [persona] confronté à [situation] ?**
+> Ce guide gratuit couvre [80 % des situations / la plupart des cas].
+> Pour les [20 % restants / cas complexes spécifiques] — [exemple concret : *contestation d'expertise, faute opposée par l'assureur, séquelles graves*] — un avocat fait la vraie différence.
+> [CTA spécifique — pas "En savoir plus" ou "Contact" → "Parler à un avocat en accidents de la route" / "Demander un premier RDV d'information"]
 
 ---
 
@@ -343,6 +358,14 @@ Voir `etape-4-faq-schema.json` de chaque article. Structure :
 - [ ] Au moins 1 lien vers page d'expertise + 1 CTA final + 1-2 mini-CTAs inline
 - [ ] Méta-title ≤ 60 caractères
 - [ ] Méta-description ≤ 155 caractères
+- [ ] **Phrases ≤ 40 mots max, idéal 16-20** (LEARN-030 — relire et raccourcir les phrases longues)
+- [ ] **Paragraphes ≤ 3 phrases, 1 seule idée par paragraphe** (LEARN-030)
+- [ ] **Front-loading appliqué** sur tous les H2/H3/bullets : les 2-3 premiers mots portent le sens (LEARN-029)
+- [ ] **Densité info** : chaque H2 contient au moins 1 chiffre sourcé + 1 cas concret + 1 implication pratique (LEARN-028 — pas de creux narratif)
+- [ ] **CTAs spécifiques** : zéro libellé vague (pas de « En savoir plus » / « Cliquez ici » / « Contact ») — LEARN-037
+- [ ] **Pas de jargon obscur** dans les éléments scannés (H2, H3, ancres) — vocabulaire du lecteur, pas du cabinet (LEARN-038)
+- [ ] **Mini-CTA #1 "double-face"** appliqué (reconnaît les limites du guide, précise pour qui un avocat est utile) — LEARN-031
+- [ ] **Storytelling cognitif** en ouverture d'au moins 1 section H2 critique (détails perceptuels ou conceptuels) — LEARN-035
 - [ ] **Push draft only** (UNPUBLISHED) — jamais de publication directe sans validation explicite Nicolas
 - [ ] Mise à jour `LEARNINGS.md` post-publication
 - [ ] Mise à jour `ARTICLE_TEMPLATE.md` si nouveau pattern identifié

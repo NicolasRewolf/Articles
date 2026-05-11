@@ -197,6 +197,93 @@ Pour chaque nouvel article qui doit aller dans NotebookLM, l'utilisateur :
 
 ---
 
+## Patterns cognitifs (issue notebook "Cognition article" — 2026-05-11)
+
+> Source : notebook NotebookLM dédié au copywriting cognitif. 11 patterns durables intégrés pour structurer la rédaction de tous les articles à partir de #2.
+
+### LEARN-028 — Information Foraging Theory + Théorème de la valeur marginale (paradigme)
+**Constat :** le lecteur web n'est pas un "lecteur" mais un "informavore" qui calcule à chaque instant le ratio gain d'information / coût cognitif. Selon le théorème de Charnov, il **quitte la page à la seconde où le taux d'extraction tombe sous la moyenne web**. Pas quand il s'ennuie : quand le rendement marginal chute.
+**Implication :** dimensionner l'article en **"patches" qui s'enrichissent en continu**. Chaque ~250 mots doit livrer une nouvelle information à forte valeur (chiffre sourcé, cas concret, citation, implication pratique). Pas de "creux" narratif.
+**Règle dérivée :** chaque H2 = au moins 1 chiffre sourcé + 1 cas concret + 1 implication pratique. Pas de section uniquement descriptive.
+
+### LEARN-029 — Front-Loading systématique (règle d'écriture)
+**Constat :** lors du balayage vertical du F-pattern, l'œil ne perçoit que les **2-3 premiers mots** de chaque ligne (sous-titres, paragraphes, bullets). Si le mot porteur de sens n'est pas en tête, le lecteur passe à côté.
+**Règle :** tous les sous-titres, paragraphes et items de listes commencent par les mots les plus informatifs.
+**Exemple :**
+- ❌ *« La faute du conducteur est régie par l'article 4 de la loi Badinter… »*
+- ✅ *« Article 4 Badinter : la faute du conducteur peut limiter… »*
+
+### LEARN-030 — Règles quantitatives validées par recherche cognitive
+**Phrases :**
+- **Idéal : 16-20 mots** (équilibre compréhension/effort)
+- **Limite haute absolue : 40 mots** (au-delà = surcharge mémoire de travail, perte du sujet)
+**Paragraphes :**
+- **Idéal : 1-3 phrases** par paragraphe (chunk digeste)
+- **Une seule idée par paragraphe** (mémoire de travail = 5-9 chunks max)
+**Section :**
+- **Pas plus de 5-9 unités d'information** par section avant un saut visuel (encadré, sous-titre, liste)
+**À ajouter dans la checklist qualité d'`ARTICLE_TEMPLATE.md`.**
+
+### LEARN-031 — CTA "double-face" (Modèle de Probabilité d'Élaboration)
+**Constat :** sur un lecteur en quête d'info gratuite (pas un prospect), un CTA purement promotionnel est rejeté. Reconnaître **explicitement les limites** de l'accompagnement augmente la crédibilité perçue (validé par recherche sur la persuasion).
+**Pattern à appliquer sur Mini-CTA #1 (post-empathie) :**
+> *« Vous êtes [persona] confronté à [situation] ? Ce guide gratuit couvre 80 % des situations. Pour les 20 % restants — [cas complexes spécifiques] — un avocat fait la vraie différence. [CTA spécifique →] »*
+**Pourquoi ça marche :** reconnaît l'utilité de l'article (le lecteur n'est PAS obligé de cliquer), précise pour qui c'est utile (filtre les clients potentiels), montre une humilité qui inspire confiance.
+**Hypothèse à mesurer :** ce pattern pourrait débloquer le 0 % conversion observé historiquement sur la catégorie Ressources et notions juridiques.
+
+### LEARN-032 — Théorie de la fluidité de traitement
+**Constat :** le cerveau associe la facilité de traitement (perceptuel : contraste, police claire / conceptuel : structure simple, mots familiers) à des **signaux de vérité et de crédibilité**. Le même contenu rédigé "facile" est jugé plus VRAI qu'écrit "difficile".
+**Implication design :** notre ton sobre + structure claire + design épuré n'est pas qu'esthétique — c'est un **levier de crédibilité scientifiquement validé**. Confirme la voie Plouton, et justifie de ne JAMAIS basculer vers un design plus "marketing" ou complexe.
+**À documenter** comme principe stratégique.
+
+### LEARN-033 — 3 patterns de balayage visuel
+| Pattern | Comportement lecteur | Implication design |
+|---|---|---|
+| **F-Pattern** | Balayage horizontal sur les 2 premiers paragraphes + descente verticale gauche | Info clé dans les 2 premiers paragraphes, front-loading des bordures gauches |
+| **Layer-cake Pattern** (sliding readers) | Balayage **uniquement des titres et sous-titres**, ignore le corps | Titres **descriptifs et informatifs** (pas ornementaux) — le lecteur doit pouvoir reconstituer l'article en ne lisant que H2/H3 |
+| **Spotted Pattern** (balayage tacheté) | Saute les blocs de texte, cherche les **mots en gras, chiffres, liens** | Gras stratégique (jamais décoratif), chiffres saillants, liens explicites |
+
+Notre article doit servir **les 3 patterns simultanément**.
+
+### LEARN-034 — Données chiffrées du comportement lecteur web
+- **25 % du texte lu** en moyenne sur une visite (Nielsen Norman Group)
+- **Visite < 1 minute** en moyenne
+- **67 % d'abandon de formulaire** sur la moindre friction
+- **Commitment Pattern** (lecture profonde) ne s'active que **si le balayage initial convainc** → on conçoit D'ABORD pour le scanner, ensuite pour le lecteur profond
+**Implication :** chaque article doit être "scannable seul" — un scanner doit pouvoir extraire les infos clés sans lire le corps.
+
+### LEARN-035 — Storytelling cognitif (détails perceptuels + conceptuels)
+**Constat :** un récit intégré au début d'un article modifie l'encodage cérébral et capte mieux l'attention qu'une exposition factuelle.
+**Détails à intégrer :**
+- **Perceptuels** : faisant appel aux sens (vue, son, toucher) — *« le bruit de la chute… le casque qui roule sur l'asphalte… »*
+- **Conceptuels** : faisant appel aux émotions / introspection — *« le moment où vous réalisez que vous n'êtes plus le même… »*
+**Application :** notre Intro Version D applique déjà partiellement ce principe (vérité psychologique en phrase 1). À **amplifier** dans les ouvertures de sections H2 cruciales (préjudice esthétique, perte d'agrément, etc.).
+
+### LEARN-036 — Charge d'implication (Need + Search + Evaluation — Laufer & Hulstijn)
+**Constat :** pour qu'un concept juridique soit MÉMORISÉ par le lecteur (et pas juste lu en passant), 3 conditions :
+1. **Need** : besoin perçu de comprendre ce concept
+2. **Search** : mini-effort mental pour saisir le sens (contexte plutôt que définition donnée d'emblée)
+3. **Evaluation** : le lecteur compare le concept à sa propre situation
+**Implication structure :** dans H2 "Postes de préjudice", au lieu de lister/définir, poser une situation ("vous avez des cicatrices sur le visage") puis amener le lecteur à découvrir le poste qui s'applique (PEP). Active les 3 leviers, génère un encodage profond.
+
+### LEARN-037 — CTAs vagues à proscrire (parfum d'information faible)
+**Règle stricte :** bannir absolument *"En savoir plus"*, *"Cliquez ici"*, *"Contact"*. Ces formulations ont un **parfum d'information faible** et n'indiquent pas le bénéfice.
+**Pattern à appliquer :**
+- ❌ *"En savoir plus"*
+- ✅ *"Parler à un avocat spécialisé en accidents de la route"*
+- ❌ *"Contact"*
+- ✅ *"Demander un premier RDV d'information (gratuit, sans engagement)"*
+**À coder dans la checklist qualité d'`ARTICLE_TEMPLATE.md`.**
+
+### LEARN-038 — Bannir le jargon obscur dans les éléments scannés
+**Constat :** les titres, sous-titres et libellés de liens sont scannés rapidement. Si le lecteur doit faire un **effort sémantique** pour comprendre le sens, il **l'ignore**.
+**Règle :** dans tous les éléments à fort balayage (H2, H3, ancres de liens), utiliser le vocabulaire **du lecteur** (qui n'est pas juriste), pas celui du cabinet. Le jargon technique reste OK dans le corps du paragraphe, **avec une définition immédiate**.
+**Exemple :**
+- ❌ H3 : « Le préjudice d'affection »
+- ✅ H3 : « Ce que perdent vos proches : le préjudice d'affection »
+
+---
+
 ## Méta-learning sur le pipeline
 
 ### LEARN-META-1 — Une session ≠ tout le workflow

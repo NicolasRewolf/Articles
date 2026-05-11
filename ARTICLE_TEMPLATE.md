@@ -1,7 +1,7 @@
 # ARTICLE_TEMPLATE — Structure réutilisable affinée
 
 > Squelette des livrables du workflow 4 étapes. **Affiné après chaque article** sur la base des patterns qui ont marché.
-> Dernière mise à jour : 2026-05-11 (post article #1 — Motard blessé indemnisation).
+> Dernière mise à jour : 2026-05-11 (post article #2 — Indemnisation chirurgie esthétique ratée + capitalisation Lucid Media Core Updates mars-avril 2026, LEARN-039 à LEARN-048).
 
 ---
 
@@ -9,13 +9,17 @@
 
 | Paramètre | Valeur cible |
 |---|---|
-| **Volume** | 2 500-2 800 mots (data-driven Plouton 28j — médiane top performers = 1 700, cible un peu au-dessus quand profondeur distinctive justifiée) |
-| **Structure** | 1 H1 + 1 intro + 1 TDM + 5-7 H2 + ~10-15 H3 + FAQ 5-7 Q + CTA final |
-| **Encadrés** | 3-6 définitions (BLOCKQUOTE) + 1-2 encadrés chiffrés (BLOCKQUOTE) |
+| **Volume** | **2 800-3 200 mots** (révisé post Lucid Media — médiane Plouton 28j = 1 700, mais Core Updates 2026 valorisent profondeur + originalité ; cible haute si gap éditorial fort à exploiter) |
+| **Structure** | 1 H1 + 1 intro + 1 TDM + 6-7 H2 + ~12-18 H3 + **FAQ 8-10 Q** + CTA final + **bio auteur** |
+| **Encadrés** | 3-6 définitions (BLOCKQUOTE) + 1-2 encadrés chiffrés (BLOCKQUOTE) + 1-2 encadrés alerte ⚠️ |
 | **Liens internes** | 1 lien tous les ~250 mots — 3 vers pages expertise/CTA + 4-7 vers articles ressources cluster + 2-4 vers affaires cabinet (preuves) |
 | **CTA** | 3 au total : mini-CTA inline #1 (post-intro), mini-CTA inline #2 (milieu), CTA final |
 | **Ton** | Sobre, empathique, précision juridique, anti-marketing |
-| **Sourcing** | Chaque chiffre = millésime + source primaire ; chaque article de loi = lien Légifrance |
+| **Sourcing** | Chaque chiffre = millésime + source primaire ; chaque article de loi = lien Légifrance ; **chaque jurisprudence = n° de pourvoi + date + chambre confirmés** (LEARN-026) |
+| **Information Gain (LEARN-039)** | **Au moins 2-3 éléments distinctifs absents du top 10 SERP** — sans quoi l'article est déclassé. Identifier en Bloc B (gap analysis). |
+| **Bio auteur (LEARN-040)** | Bloc « À propos de l'auteur » obligatoire en pied d'article (E-E-A-T YMYL). Template en bas du fichier. |
+| **Local-first (LEARN-042)** | Au moins **3 ancrages Bordeaux/Nouvelle-Aquitaine** (juridiction locale + adresse cabinet + zone d'intervention). |
+| **Date update visible (LEARN-043)** | Italique en pied : *« Dernière mise à jour : [mois année]. »* (cohérent avec Schema `dateModified`) |
 | **Densité info (LEARN-028)** | Chaque H2 = 1 chiffre sourcé + 1 cas concret + 1 implication pratique. Pas de creux narratif. |
 | **Phrases (LEARN-030)** | 16-20 mots idéal, **JAMAIS > 40 mots** |
 | **Paragraphes (LEARN-030)** | 1-3 phrases, **1 seule idée** par paragraphe |
@@ -176,15 +180,36 @@ Format BLOCKQUOTE :
 ### Mini-CTA inline #2 (après H2 5)
 > Pour aller plus loin sur [thématique], consultez [notre page d'expertise dédiée](URL).
 
-### H2 6 — FAQ (COLLAPSIBLE_LIST)
-- 5-7 questions
-- Chaque réponse : **40-80 mots**, **concept-clé en ouverture** (citabilité LLM)
+### H2 6 — FAQ (COLLAPSIBLE_LIST) — **8-10 questions** (LEARN-044)
+- **8-10 questions** minimum (révisé Lucid Media — vs 5-7 précédemment)
+- Mix : 5 PAA SERP exploitables (Bloc B Étape 2) + 3-5 questions issues des gaps éditoriaux
+- **Privilégier les questions à nuance juridique** (LEARN-045 — anti-AI Overviews) : *« Puis-je écrire X sur Google sans risque ? »*, *« Quelle est la différence entre A et B ? »*, *« Dans quel délai dois-je agir ? »*
+- Chaque réponse : **40-80 mots**, **concept-clé en ouverture** (LEARN-017 citabilité LLM)
 - Sourcing intégré (lien Légifrance/ONISR dans la réponse quand pertinent)
 
 ### CTA final (~100 mots)
 - Phrase de bascule empathique
-- Présentation courte cabinet
+- Présentation courte cabinet + **ancrage local Bordeaux/Nouvelle-Aquitaine** (LEARN-042)
 - Lien fort vers `/honoraires-rendez-vous` ou page expertise
+
+### Bio auteur (LEARN-040) — bloc OBLIGATOIRE en pied d'article
+Format **BLOCKQUOTE** ~150 mots :
+
+```markdown
+---
+
+## À propos de l'auteur
+
+> **Maître Julien Plouton** — avocat au Barreau de Bordeaux, a prêté serment en 2004 après une formation à l'École de Formation du Barreau de Paris (EFB). Diplômé d'un **DESS en droit des affaires et fiscalité**, d'un **DEA en droit européen** et d'un **master spécialisé HEC en droit et management international**, il a fondé le **Cabinet Plouton en 2009**, situé au 45 Cours d'Alsace-et-Lorraine à Bordeaux.
+>
+> Il est membre de l'**Institut du Dommage Corporel (IDC)**, de l'**Association des Avocats Pénalistes (ADAP)** et de l'**Institut du Droit des Affaires du Barreau de Bordeaux (IDA)**. Depuis plus de vingt ans, il accompagne [adapter selon le sujet de l'article — ex. les victimes d'erreurs médicales / d'accidents de la route / les personnes mises en cause en matière pénale] en Nouvelle-Aquitaine et au-delà.
+>
+> [En savoir plus sur le cabinet](https://www.jplouton-avocat.fr/notre-cabinet) • [Demander un premier rendez-vous](https://www.jplouton-avocat.fr/honoraires-rendez-vous)
+
+*Dernière mise à jour : [mois année].*
+```
+
+**À adapter par article** : uniquement la phrase « il accompagne [thématique] » et la date. Le reste est immuable.
 
 ---
 
@@ -318,21 +343,31 @@ COLLAPSIBLE_LIST + ITEMs     → FAQ accordéon
 <p><strong>[<a href="https://www.jplouton-avocat.fr/honoraires-rendez-vous">Prendre rendez-vous avec le Cabinet Plouton</a>]</strong> — Bordeaux, plus de 20 ans d'expérience.</p>
 ```
 
-### Bloc JSON-LD FAQPage (à coller dans le module SEO Wix)
+### Bloc JSON-LD étendu @graph (LEARN-041) — 5 schémas combinés
 
-Voir `etape-4-faq-schema.json` de chaque article. Structure :
+**Livré directement dans le chat** (LEARN-027) en 1 seul bloc `<script type="application/ld+json">` au format `@graph`. À coller dans le champ « Marquage structuré » du panneau SEO Wix Studio. Combine :
+
+1. **Person** (Maître Plouton)
+2. **LegalService** (Cabinet Plouton)
+3. **Article** (article courant)
+4. **BreadcrumbList**
+5. **FAQPage** (8-10 questions)
+
+**Squelette type** (à adapter par article — uniquement `Article.headline`, `Article.description`, `Article.mainEntityOfPage`, `BreadcrumbList[3].name`, `FAQPage.mainEntity[]`) :
 
 ```json
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {"@type": "Question", "name": "Q1 text",
-     "acceptedAnswer": {"@type": "Answer", "text": "Réponse 40-80 mots"}},
-    ...
-  ]
-}
+{"@context":"https://schema.org","@graph":[
+  {"@type":"Person","@id":"https://www.jplouton-avocat.fr/notre-cabinet#julien-plouton","name":"Julien Plouton","givenName":"Julien","familyName":"Plouton","honorificPrefix":"Maître","jobTitle":"Avocat au Barreau de Bordeaux","url":"https://www.jplouton-avocat.fr/notre-cabinet","worksFor":{"@id":"https://www.jplouton-avocat.fr#cabinet"},"alumniOf":[{"@type":"EducationalOrganization","name":"École de Formation du Barreau de Paris (EFB)"},{"@type":"EducationalOrganization","name":"HEC Paris"}],"memberOf":[{"@type":"Organization","name":"Institut du Dommage Corporel (IDC)"},{"@type":"Organization","name":"Association des Avocats Pénalistes (ADAP)"},{"@type":"Organization","name":"Institut du Droit des Affaires du Barreau de Bordeaux (IDA)"}],"description":"Avocat au Barreau de Bordeaux depuis 2004, fondateur du Cabinet Plouton (2009). Spécialisé en défense pénale, indemnisation des victimes et droit des contrats et des personnes."},
+  {"@type":"LegalService","@id":"https://www.jplouton-avocat.fr#cabinet","name":"Cabinet Plouton","url":"https://www.jplouton-avocat.fr","telephone":"+33-5-56-44-35-96","address":{"@type":"PostalAddress","streetAddress":"45 Cours d'Alsace-et-Lorraine","addressLocality":"Bordeaux","postalCode":"33000","addressCountry":"FR"},"areaServed":[{"@type":"AdministrativeArea","name":"Nouvelle-Aquitaine"},{"@type":"AdministrativeArea","name":"Gironde"}],"founder":{"@id":"https://www.jplouton-avocat.fr/notre-cabinet#julien-plouton"},"foundingDate":"2009","priceRange":"€€"},
+  {"@type":"Article","@id":"[URL article]#article","headline":"[H1]","description":"[méta-description]","author":{"@id":"https://www.jplouton-avocat.fr/notre-cabinet#julien-plouton"},"publisher":{"@id":"https://www.jplouton-avocat.fr#cabinet"},"datePublished":"YYYY-MM-DD","dateModified":"YYYY-MM-DD","inLanguage":"fr-FR","mainEntityOfPage":"[URL article]"},
+  {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.jplouton-avocat.fr"},{"@type":"ListItem","position":2,"name":"Ressources et notions juridiques","item":"https://www.jplouton-avocat.fr/comprendre-le-droit"},{"@type":"ListItem","position":3,"name":"[Titre court de l'article]"}]},
+  {"@type":"FAQPage","mainEntity":[...8 à 10 questions...]}
+]}
 ```
+
+**À tester** : [Google Rich Results Test](https://search.google.com/test/rich-results) après publication.
+
+**Anti-pattern** : ne PAS livrer 5 blocs `<script>` séparés — UN seul bloc `@graph` (Wix Studio rejette les blocs multiples sur le même champ).
 
 ### Métadonnées prêtes à coller (Étape 4)
 
@@ -347,27 +382,54 @@ Voir `etape-4-faq-schema.json` de chaque article. Structure :
 
 ## Checklist qualité (à passer avant push)
 
+### Bloc Sourcing & juridique
 - [ ] Toutes les affirmations juridiques sourcées (Légifrance/Judilibre) ou prudemment formulées
 - [ ] `⚠️ À vérifier` retiré ou résolu
+- [ ] **Chaque jurisprudence** = n° de pourvoi + date + chambre **confirmés** (LEARN-026)
+- [ ] **Fact-check NotebookLM** effectué AVANT rédaction sur zones juridiques précises (LEARN-026 anti-récidive)
+
+### Bloc Information Gain & E-E-A-T (Lucid Media 2026)
+- [ ] **Au moins 2-3 éléments distinctifs absents du top 10 SERP** (LEARN-039 — gap analysis formalisée Bloc B)
+- [ ] **Bio auteur Maître Plouton** en pied d'article (LEARN-040) — bloc ~150 mots avec EFB/cabinet 2009/IDC/ADAP/IDA/adresse
+- [ ] **Date de mise à jour visible** en italique en pied (LEARN-043) — cohérente avec Schema `dateModified`
+- [ ] **3 ancrages Bordeaux/Nouvelle-Aquitaine** minimum (LEARN-042) : juridiction locale + adresse cabinet + zone d'intervention
+
+### Bloc Schema markup
+- [ ] **JSON-LD étendu @graph** livré dans le chat — 5 schémas combinés (LEARN-041) : Person + LegalService + Article + BreadcrumbList + FAQPage
+- [ ] Test passé sur [Google Rich Results Test](https://search.google.com/test/rich-results) après publication
+
+### Bloc Standards Wix
 - [ ] **Slug sans accent** (LEARN-001 — règle stricte)
 - [ ] **HTML/Ricos** propre, pas de markdown résiduel dans le contenu final
 - [ ] Liens internes en **URL absolue** (`https://www.jplouton-avocat.fr/...`)
-- [ ] **Convention `rel` respectée** : internes = pas de `rel` (follow par défaut) + pas de `target="_blank"` ; externes = `target="_blank" rel="noopener noreferrer nofollow"` (voir mémoire `feedback_liens_follow_nofollow.md`)
+- [ ] **Convention `rel` respectée** : internes = pas de `rel` + pas de `target="_blank"` ; externes = `target="_blank" rel="noopener noreferrer nofollow"` (LEARN-024)
+- [ ] **Pas de bullets dans blockquotes Wix** (LEARN-025 — prose continue uniquement)
 - [ ] Alt text sur toutes les images
-- [ ] FAQ en fin d'article (avec JSON-LD séparé prêt à coller)
-- [ ] Au moins 1 lien vers page d'expertise + 1 CTA final + 1-2 mini-CTAs inline
 - [ ] Méta-title ≤ 60 caractères
 - [ ] Méta-description ≤ 155 caractères
+
+### Bloc UX & cognitif
 - [ ] **Phrases ≤ 40 mots max, idéal 16-20** (LEARN-030 — relire et raccourcir les phrases longues)
 - [ ] **Paragraphes ≤ 3 phrases, 1 seule idée par paragraphe** (LEARN-030)
 - [ ] **Front-loading appliqué** sur tous les H2/H3/bullets : les 2-3 premiers mots portent le sens (LEARN-029)
 - [ ] **Densité info** : chaque H2 contient au moins 1 chiffre sourcé + 1 cas concret + 1 implication pratique (LEARN-028 — pas de creux narratif)
-- [ ] **CTAs spécifiques** : zéro libellé vague (pas de « En savoir plus » / « Cliquez ici » / « Contact ») — LEARN-037
 - [ ] **Pas de jargon obscur** dans les éléments scannés (H2, H3, ancres) — vocabulaire du lecteur, pas du cabinet (LEARN-038)
-- [ ] **Mini-CTA #1 "double-face"** appliqué (reconnaît les limites du guide, précise pour qui un avocat est utile) — LEARN-031
-- [ ] **Storytelling cognitif** en ouverture d'au moins 1 section H2 critique (détails perceptuels ou conceptuels) — LEARN-035
+- [ ] **Storytelling cognitif** en ouverture d'au moins 1 section H2 critique (LEARN-035)
+
+### Bloc Structure & CTA
+- [ ] **FAQ 8-10 questions** (LEARN-044 — vs 5-7 précédemment) — mix PAA + questions issues des gaps
+- [ ] FAQ privilégie **questions à nuance juridique** (LEARN-045 — anti-AI Overviews)
+- [ ] Au moins 1 lien vers page d'expertise + 1 CTA final + 1-2 mini-CTAs inline
+- [ ] **CTAs spécifiques** : zéro libellé vague (pas de « En savoir plus » / « Cliquez ici » / « Contact ») — LEARN-037
+- [ ] **Mini-CTA #1 « double-face »** appliqué (reconnaît les limites du guide, précise pour qui un avocat est utile) — LEARN-031
+
+### Bloc Cluster & maillage interne
+- [ ] **3-5 cross-links** vers articles du même cluster sémantique (LEARN-047 — 3 deep clusters > 30 shallow)
+- [ ] Date de prochain refresh notée dans le commit message (LEARN-046 — refresh tous les 6 mois)
+
+### Bloc Process
 - [ ] **Push draft only** (UNPUBLISHED) — jamais de publication directe sans validation explicite Nicolas
-- [ ] Mise à jour `LEARNINGS.md` post-publication
+- [ ] Mise à jour `LEARNINGS.md` post-publication si nouveau learning identifié
 - [ ] Mise à jour `ARTICLE_TEMPLATE.md` si nouveau pattern identifié
 - [ ] **Commit Git local** (`git add -A && git commit -m "Article #N : slug"`) — vérifier que `.env` n'est PAS staged
 - [ ] **Push GitHub** vers `origin/main` (`git push origin main`) — **sur confirmation explicite Nicolas uniquement** (voir mémoire `reference_repo_github.md`)

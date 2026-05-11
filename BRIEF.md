@@ -61,11 +61,15 @@ Travail **en silo, étape par étape**, avec **validation explicite** entre chaq
 
 ## 3. Volume & cadence
 
-Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproductible, **capitalisé**.
+Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproductible, **capitalisé**. **Stratégie de clusters profonds** (LEARN-047) : 3 deep clusters (Accidents de la route / Erreurs médicales / Pénal-violences) plutôt que 24 articles disjoints. Cross-linking dense intra-cluster.
+
+**Volume cible révisé** (post Lucid Media) : **2 800-3 200 mots** par article (vs 2 500-2 800 précédemment). Justifié par les Core Updates 2026 qui valorisent profondeur + originalité.
 
 À la fin de chaque article, mise à jour de deux fichiers :
 - `LEARNINGS.md` — ce qui a marché, ce qui a coincé, raccourcis identifiés
 - `ARTICLE_TEMPLATE.md` — structure réutilisable affinée article après article
+
+**Refresh durabilité ranking** (LEARN-046) : tous les **6 mois** après publication, relecture/mise à jour des articles classés (chiffres datés, jurisprudence nouvelle, dateModified). Date de prochain refresh à noter dans le commit message du push initial.
 
 ---
 
@@ -190,23 +194,31 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 
 ## 6. Critères de qualité — NON NÉGOCIABLES
 
-### E-E-A-T
+### E-E-A-T (renforcé Core Updates mars-avril 2026 — LEARN-040)
 - Citations explicites des sources juridiques (Légifrance, Judilibre, codes)
 - Mention expertise du cabinet quand pertinent (sans auto-congratulation)
 - Affaires réelles intégrées si fournies
-- Signature / bio cabinet gérée côté site
+- **Bio auteur Maître Plouton OBLIGATOIRE en pied d'article** (~150 mots — EFB, cabinet 2009, IDC/ADAP/IDA, adresse, zone d'intervention)
+- **Date de mise à jour visible** (LEARN-043 — signal fraîcheur)
+- Photo HD auteur gérée côté Wix Studio
+- Cohérence avec Schema Person + LegalService (LEARN-041 — JSON-LD `@graph` étendu)
 
-### Helpful Content (Google)
+### Helpful Content (Google) + Information Gain (LEARN-039)
 - Contenu pour aider le lecteur, **pas pour ranker**
+- **Au moins 2-3 éléments distinctifs absents du top 10 SERP** (Information Gain — signal primaire des Core Updates 2026). Identifier en Étape 2 Bloc B via gap analysis formalisée. Sans gap démontrable, abandonner ou pivoter le sujet.
 - Réponse complète, pas de teasing artificiel
 - **Pas de bullets reformatés** depuis d'autres pages — vraie prose juridique
 - Pas de "selon les experts" sans sourcer qui
+- **Synthèse profonde** (LEARN-048) : agrégation/cross-tabulation de sources éparses = données originales substitutives quand pas d'historique cabinet
 
-### GEO (Generative Engine Optimization)
+### GEO (Generative Engine Optimization) + Local-first (LEARN-042)
 - Structure citable par LLM : définitions claires, listes ordonnées, encadrés
-- FAQ en fin d'article
-- Données chiffrées sourcées
-- Phrases d'ouverture de section avec le concept clé en clair
+- **FAQ 8-10 questions** en fin d'article (LEARN-044 — vs 5-7 précédemment ; révision Lucid Media)
+- Questions FAQ privilégient la **nuance juridique** (LEARN-045 anti-AI Overviews) plutôt que le factuel pur
+- Données chiffrées sourcées avec millésime + URL primaire
+- Phrases d'ouverture de section avec le concept clé en clair (front-loading LEARN-029)
+- **Ancrage local** : minimum 3 mentions Bordeaux/Nouvelle-Aquitaine (juridiction locale + adresse cabinet + zone d'intervention)
+- **Schema markup `@graph` complet** : 5 schémas combinés (Person + LegalService + Article + BreadcrumbList + FAQPage) — LEARN-041
 
 ### Anti-hallucination — RÈGLE ABSOLUE
 - Toute affirmation juridique → source citée OU formulation prudente explicite ("en général", "le plus souvent")

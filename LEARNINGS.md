@@ -284,6 +284,84 @@ Notre article doit servir **les 3 patterns simultanément**.
 
 ---
 
+## Capitalisation Google Core Updates mars-avril 2026 (source : Lucid Media)
+
+> Source : [Lucid Media — Google March-April 2026 Core Updates](https://www.lucidmedia.co.nz/blog/google-march-april-2026-core-updates/) — audit fait sur article #2, intégré 2026-05-11. 10 learnings durables pour tous les articles à partir de #3.
+
+### LEARN-039 — Information Gain : le signal primaire des Core Updates 2026
+**Constat (Lucid Media) :** *« Pages that say what every other top-10 page already says are being demoted. Pages that add a unique angle, a piece of original data, or a first-hand experience are being lifted. »*
+**Règle :** chaque article doit contenir **au moins 2-3 éléments distinctifs absents du top 10 SERP** identifiés en Étape 2 (gap analysis). Sans ça, on est désindexé/déclassé. Sur l'article #2, 6 gaps occupés (médecine esthétique, exercice illégal ×10, étape 0 reprise, diffamation datée, tourisme médical, motif officiel ONIAM 44,7 %).
+**Procédure Étape 2 enrichie :** dans Bloc B (SEO), formaliser une **section « gap analysis »** (déjà en place — confirmer 5+ gaps occupables, sinon abandonner le sujet ou pivoter).
+
+### LEARN-040 — Bio auteur YMYL obligatoire (E-E-A-T renforcé)
+**Constat (Lucid Media) :** *« YMYL sites without verified author credentials… hit hardest »* sur les Core Updates 2026.
+**Règle (durable) :** chaque article juridique doit se terminer par un **bloc « À propos de l'auteur »** (~150 mots) reprenant : nom complet + titre (Avocat au Barreau de Bordeaux) + année d'inscription au Barreau (2004) + cursus (EFB + DESS droit affaires + DEA droit européen + master HEC) + appartenances professionnelles (IDC, ADAP, IDA) + années d'expérience + adresse du cabinet + lien vers `/notre-cabinet` + lien vers `/honoraires-rendez-vous`. **Photo HD recommandée** (gérée côté Wix).
+**Template prêt-à-coller** : voir `ARTICLE_TEMPLATE.md` section *« Bio auteur Maître Plouton »*.
+**Anti-pattern :** signature anonyme *« Cabinet Plouton »* uniquement (article #2 V1 avant correction).
+
+### LEARN-041 — Schema structuré complet en @graph (5 schémas)
+**Constat (Lucid Media) :** schemas Person + LegalService + Article + BreadcrumbList + FAQPage = signaux forts d'autorité et de structure.
+**Règle :** chaque article Plouton livre **un seul bloc JSON-LD `<script>` au format `@graph`** combinant 5 schémas :
+1. **Person** (Maître Plouton — `@id` stable `https://www.jplouton-avocat.fr/notre-cabinet#julien-plouton`)
+2. **LegalService** (Cabinet Plouton — `@id` stable `https://www.jplouton-avocat.fr#cabinet`)
+3. **Article** (avec `author` + `publisher` + `datePublished` + `dateModified` + `inLanguage`)
+4. **BreadcrumbList** (Accueil > Ressources > article)
+5. **FAQPage** (8-10 questions — cf. LEARN-044)
+**Template prêt-à-coller** : voir `ARTICLE_TEMPLATE.md` section *« JSON-LD étendu @graph »*. À tester via [Google Rich Results Test](https://search.google.com/test/rich-results) après publication.
+
+### LEARN-042 — Local-first / Ancrage géographique systématique (GEO 2026)
+**Constat (Lucid Media) :** *« Local-first content held up better. Sites that lean into local case studies, local data, and locally relevant examples saw less impact. »*
+**Règle (durable Cabinet Plouton) :** chaque article doit inclure **au minimum 3 ancrages locaux Bordeaux/Nouvelle-Aquitaine** :
+- 1 mention de la **juridiction compétente** locale (tribunal judiciaire de Bordeaux pour le ressort Gironde/Dordogne/Lot-et-Garonne/Charente, OU cour d'appel de Bordeaux, OU CCI Grand Ouest, OU CIVI Gironde, etc. — selon thématique)
+- 1 mention de l'**adresse du cabinet** (45 Cours d'Alsace-et-Lorraine, Bordeaux) — typiquement dans le CTA final
+- 1 mention de la **zone d'intervention** (Nouvelle-Aquitaine et au-delà)
+**Exemple validé** : article #2 H3.5.2 (CCI Grand Ouest), H3.5.3 (tribunal judiciaire de Bordeaux), CTA final (adresse cabinet).
+
+### LEARN-043 — Date de mise à jour visible (signal fraîcheur)
+**Constat (Lucid Media) :** *« Revoir articles classées tous 6 mois (refresh dates) »* — la dateModified visible est un signal positif.
+**Règle :** terminer chaque article par une mention italique **« Dernière mise à jour : [mois année]. »** Cohérent avec le `dateModified` du Schema Article (LEARN-041).
+**Procédure refresh :** voir LEARN-046 — relecture/mise à jour tous les 6 mois des articles classés top 10.
+
+### LEARN-044 — FAQ 8-10 questions (vs 5-7 précédemment)
+**Constat (Lucid Media) :** *« Minimum 8-10 FAQ intégrées »* pour citabilité LLM et AI Overviews maximale.
+**Règle (mise à jour) :** la FAQ Plouton passe de **5-7 questions à 8-10 questions** systématiques. Mix : 5 PAA SERP exploitables (DataForSEO Étape 2-B) + 3-5 questions issues des gaps éditoriaux (informations clés que les concurrents ne traitent pas).
+**Format inchangé** : réponses 40-80 mots, concept-clé en ouverture (LEARN-017), sourcing intégré.
+**Validation article #2** : 9 questions au final (6 initiales + 3 ajoutées en Vague 2 : délai prescription, CCI vs ONIAM, consultation préalable).
+
+### LEARN-045 — AI Overviews : cibler la nuance, pas le factuel simple
+**Constat (Lucid Media) :** *« AI Overviews are eating the click… sites are losing clicks not because they ranked lower but because Google answered the question without sending the user through. »*
+**Règle stratégique :** privilégier les angles à **nuance juridique non triviale** qu'un AI Overview ne peut pas trancher en 2 lignes :
+- ✅ *« Pourquoi l'ONIAM ne vous indemnisera (presque) jamais — sauf si l'acte est réparateur »* (nuance + débat)
+- ❌ *« Qu'est-ce que l'ONIAM ? »* (factuel pur — risque AI Overview)
+**Pour la FAQ** : préférer les questions de positionnement/arbitrage *(« Puis-je écrire sur Google sans risquer la diffamation ? »)* aux questions définitionnelles (*« Qu'est-ce que la diffamation ? »*).
+
+### LEARN-046 — Refresh articles classés tous les 6 mois (durabilité ranking)
+**Constat (Lucid Media) :** *« Cadence réduite : 1 article pilier/mois vs 4 articles légers. »* + *« Revoir articles classées tous 6 mois. »*
+**Règle (process pipeline) :** tenir un **calendrier de refresh** des articles publiés. Tous les 6 mois après publication :
+1. Vérifier les chiffres datés (ONIAM RA N+1 sorti ? Mornet mis à jour ?)
+2. Mettre à jour la `dateModified` (Schema Article) + la mention italique en pied (LEARN-043)
+3. Ré-auditer les top 10 SERP (nouveau concurrent ? nouvel angle à occuper ?)
+4. Si jurisprudence majeure : ajouter en H2 dédié ou en FAQ
+**Stockage :** noter la date de prochain refresh dans le commit message du push initial (`Article #N : refresh prévu YYYY-MM`).
+
+### LEARN-047 — Concentration ressources : 3 deep clusters > 30 shallow
+**Constat (Lucid Media) :** *« A site with three deep clusters covering one topic well will outperform a site with thirty shallow clusters. »*
+**Implication pipeline Plouton :** plutôt que 24 articles sur 24 sujets disjoints, structurer en **clusters profonds** :
+- Cluster 1 : Accidents de la route (article #1 motard + futurs articles automobiliste/piéton/passager)
+- Cluster 2 : Erreurs médicales (article #2 chirurgie esthétique + ONIAM/aléa/dossier médical + futurs articles)
+- Cluster 3 : Pénal/violences (à construire)
+**Règle :** chaque nouvel article doit cross-linker **3-5 articles du même cluster** (déjà publiés) ET être référencé en retour par un article pilier futur. Penser le maillage interne dès l'Étape 3 (plan).
+
+### LEARN-048 — Synthèse profonde = données « originales » substitutives
+**Constat (Lucid Media) :** *« Synthesis at depth. Pulling together five disparate sources into a coherent argument »* peut compenser l'absence de données primaires.
+**Règle pour les articles en prospection** (sans historique cabinet — V3 article #2) : compenser le manque de cas réels par une **synthèse originale documentée** :
+- Agrégation de séries chiffrées éclatées (ex. article #2 : série signalements Ordre 2021→2025 ×10, jamais publiée groupée)
+- Cross-tabulation de plusieurs sources officielles (ONIAM + ANSM + DGCCRF + Ordre des médecins dans un même tableau)
+- Mise en regard jurisprudence + texte CSP + chiffre ONIAM (sourcing croisé qu'un AI Overview ne peut pas reconstituer)
+**Anti-pattern :** copier les chiffres bruts de Wikipedia ou paraphraser un article concurrent — déclassement assuré.
+
+---
+
 ## Méta-learning sur le pipeline
 
 ### LEARN-META-1 — Une session ≠ tout le workflow

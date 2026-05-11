@@ -9,11 +9,11 @@
 
 | Paramètre | Valeur cible |
 |---|---|
-| **Volume** | **2 800-3 200 mots** (révisé post Lucid Media — médiane Plouton 28j = 1 700, mais Core Updates 2026 valorisent profondeur + originalité ; cible haute si gap éditorial fort à exploiter) |
-| **Structure** | 1 H1 + 1 intro + 1 TDM + 6-7 H2 + ~12-18 H3 + **FAQ 8-10 Q** + CTA final + **bio auteur** |
+| **Volume** | **2 000-2 500 mots** (révisé Nicolas 2026-05-11 post article #2 — concision > longueur ; médiane Plouton 28j = 1 700 ; profondeur distinctive justifie un peu plus mais pas excessif) |
+| **Structure** | 1 H1 + 1 intro + 1 TDM + **5-6 H2** + ~8-12 H3 + **FAQ 8-10 Q** + CTA final + **bio auteur** |
 | **Encadrés** | 3-6 définitions (BLOCKQUOTE) + 1-2 encadrés chiffrés (BLOCKQUOTE) + 1-2 encadrés alerte ⚠️ |
 | **Liens internes** | 1 lien tous les ~250 mots — 3 vers pages expertise/CTA + 4-7 vers articles ressources cluster + 2-4 vers affaires cabinet (preuves) |
-| **CTA** | 3 au total : mini-CTA inline #1 (post-intro), mini-CTA inline #2 (milieu), CTA final |
+| **CTA** | 3 au total (Nicolas gère le placement final lors de l'ingestion Wix) : mini-CTA inline #1 post-intro, mini-CTA inline #2 dans le corps, CTA final |
 | **Ton** | Sobre, empathique, précision juridique, anti-marketing |
 | **Sourcing** | Chaque chiffre = millésime + source primaire ; chaque article de loi = lien Légifrance ; **chaque jurisprudence = n° de pourvoi + date + chambre confirmés** (LEARN-026) |
 | **Information Gain (LEARN-039)** | **Au moins 2-3 éléments distinctifs absents du top 10 SERP** — sans quoi l'article est déclassé. Identifier en Bloc B (gap analysis). |
@@ -150,7 +150,7 @@ Format BLOCKQUOTE :
 > Le Cabinet Plouton accompagne [thématique] depuis plus de 20 ans. [Parler à un avocat](URL contact).
 
 ### TDM (juste après l'intro)
-- 5-7 entrées H2 avec liens d'ancrage `#section-slug`
+- **5-6 entrées H2 cliquables** (tous les H2 de l'article) avec liens d'ancrage `#section-slug`
 - Chaque H2 reçoit son `id` correspondant
 - Format liste à puces numérotée
 
@@ -177,11 +177,13 @@ Format BLOCKQUOTE :
 - Offre assureur (cross-link page d'expertise + formulation cabinet)
 - Contentieux (lien affaire contentieuse)
 
-### Mini-CTA inline #2 (après H2 5)
+### Mini-CTA inline #2 (vers le milieu du corps)
 > Pour aller plus loin sur [thématique], consultez [notre page d'expertise dédiée](URL).
 
-### H2 6 — FAQ (COLLAPSIBLE_LIST) — **8-10 questions** (LEARN-044)
-- **8-10 questions** minimum (révisé Lucid Media — vs 5-7 précédemment)
+*Nicolas gère le placement final des mini-CTAs lors de l'ingestion Wix — fournir simplement les 3 CTAs (post-intro, milieu, final) dans l'article.*
+
+### Dernier H2 — FAQ (COLLAPSIBLE_LIST) — **8-10 questions** (LEARN-044)
+- **8-10 questions** systématiques (révisé Lucid Media — vs 5-7 précédemment)
 - Mix : 5 PAA SERP exploitables (Bloc B Étape 2) + 3-5 questions issues des gaps éditoriaux
 - **Privilégier les questions à nuance juridique** (LEARN-045 — anti-AI Overviews) : *« Puis-je écrire X sur Google sans risque ? »*, *« Quelle est la différence entre A et B ? »*, *« Dans quel délai dois-je agir ? »*
 - Chaque réponse : **40-80 mots**, **concept-clé en ouverture** (LEARN-017 citabilité LLM)
@@ -229,7 +231,7 @@ Format **BLOCKQUOTE** ~150 mots :
 - **Encadrés définitions** (BLOCKQUOTE) — un par concept juridique central
 - **Encadré chiffré** (BLOCKQUOTE avec titre gras + bullets) — pour le hook chiffré principal
 - **Listes ordonnées** — pour les sections "Les X étapes de...", "Les Y postes de..."
-- **FAQ COLLAPSIBLE_LIST** — 5-7 Q&A
+- **FAQ COLLAPSIBLE_LIST** — **8-10 Q&A** (LEARN-044)
 - **JSON-LD FAQPage** — bloc séparé prêt-à-coller dans module SEO Wix (le COLLAPSIBLE_LIST natif ne génère pas le schema automatiquement)
 ```
 
@@ -244,41 +246,44 @@ Chaque article #N doit produire dans son dossier `0N-slug-article/` :
 3. **JSON-LD FAQPage** — **livré DIRECTEMENT dans le chat** (bloc code Markdown, JSON minifié one-liner, avec `type="application/ld+json"`). **PAS de fichier `.json` ou `.html` séparé** (LEARN-027 — validé : Wix Studio rejette les fichiers HTML pour ce champ, copier-coller depuis le chat est l'unique méthode fiable).
 4. *(optionnel)* **`etape-4-corrections-rouge.html`** — visualisation rouge des passages modifiés si fact-check post-rédaction a entraîné des corrections.
 
-## Étape 4 — Fact-check NotebookLM obligatoire AVANT rédaction (LEARN-026 anti-récidive)
+## Étape 4 — Fact-check juridique obligatoire AVANT rédaction (LEARN-026 + LEARN-049 anti-récidive)
 
-**Règle non négociable issue de l'article #1 :** sur l'article #1, j'ai produit 3 erreurs juridiques (Art. 4 confondu avec Art. 5, Art. 5 confondu avec Art. 6, Art. 12 confondu avec Art. 16) parce que j'ai rédigé sans interroger NotebookLM. Anti-pattern documenté, à ne plus reproduire.
+**Règle non négociable issue de l'article #1 :** j'ai produit 3 erreurs juridiques (Art. Badinter confondus) parce que j'ai rédigé sans sourcing primaire. Anti-pattern documenté.
 
-**Procédure AVANT de rédiger chaque section juridique :**
+**Procédure AVANT de rédiger chaque affirmation juridique précise** (n° d'article, n° de pourvoi, fondement, citation verbatim) :
 
-1. **Vérifier que le notebook NotebookLM est rempli** sur le sujet de l'article. Si VIDE → alerter Nicolas, attendre qu'il dépose les sources, OU rédiger en mode "fourchettes prudentes" sans affirmations chiffrées précises.
-2. **Pour chaque numéro d'article de loi cité** → `ask_question` NotebookLM pour confirmer (numéro exact + texte verbatim + URL LEGIARTI).
-3. **Pour chaque jurisprudence citée** → `ask_question` pour confirmer (numéro de pourvoi + date + chambre + apport).
-4. **Pour chaque fondement juridique attribué** → `ask_question` pour confirmer (ne JAMAIS extrapoler à partir de SERP top 10).
-5. **Si l'article est central pour l'argumentation** → double-check via WebSearch ciblée `allowed_domains=["legifrance.gouv.fr"]` pour obtenir l'URL LEGIARTI exacte.
+1. **WebSearch ciblée** d'abord : `allowed_domains=["legifrance.gouv.fr"]` pour les articles de loi ; recherche libre courdecassation.fr / juricaf.org pour les arrêts. C'est la voie la plus rapide.
+2. **Si WebSearch ne suffit pas / contradictoire / pas confirmé** → **demander à Nicolas un cluster NotebookLM orienté** (LEARN-022) :
+   - Formuler une question précise (LEARN-051 — pas de hard wrap)
+   - Préciser ce que je ferai de la réponse (LEARN-023)
+   - Attendre la synthèse Nicolas → ingérer et dispatcher dans le draft
+3. **Vérifier 2 fois** chaque numéro d'article cité (idéalement 2 sources convergentes — WebSearch + NotebookLM).
+4. **Si toujours non confirmé** → reformulation prudente (LEARN-021) + `⚠️ À vérifier` noir sur blanc dans le draft.
 
-→ NotebookLM (5 questions max, regrouper si possible). C'est la règle qui a sauvé l'article #1 du désastre juridique.
+**Bon réflexe (validé article #2)** : grouper plusieurs zones d'incertitude en **une seule demande NotebookLM** à Nicolas (économise les allers-retours). Mais ne pas surcharger non plus — qualité > quantité.
 
 ## Étape 4 — Procédure de livraison fin de rédaction
 
 À la fin de la rédaction Étape 4, **présenter à Nicolas en un seul message** avec ce format :
 
 ```
-🛑 Étape 4 — Phase 1 (rédaction) terminée. STOP avant push API.
+🛑 Étape 4 — Phase 1 (rédaction) terminée.
 
 Livrables :
-1. 📄 etape-4-article.md — article complet (~2 600-2 800 mots)
+1. 📄 etape-4-article.md — article complet (~2 000-2 500 mots)
 2. 📄 etape-4-metadonnees-wix.md — 10 sections SEO prêtes à coller
-3. JSON-LD FAQPage ci-dessous (copier-coller dans le champ "Marquage 
+3. JSON-LD FAQPage ci-dessous (à coller dans le champ "Marquage 
    structuré" du panneau SEO Wix Studio du post) :
 
    ```
    <script type="application/ld+json">{...JSON minifié one-liner...}</script>
    ```
 
-Récap fact-check NotebookLM : [N questions posées, M corrections appliquées]
+Récap fact-check : [N WebSearch ciblées + M demandes NotebookLM Nicolas]
 Sources mobilisées : [résumé bref]
 
-Sur "OK push" → je crée le draft Wix via API en status UNPUBLISHED.
+Nicolas copie-colle le markdown dans Wix Studio et refait la mise en page
+manuellement (LEARN-002 + LEARN-004). Pas de push API par défaut.
 ```
 
 **Ne JAMAIS finir l'Étape 4 sans avoir produit les 3 livrables ci-dessus.**
@@ -424,7 +429,7 @@ COLLAPSIBLE_LIST + ITEMs     → FAQ accordéon
 - [ ] Date de prochain refresh notée dans le commit message (LEARN-046 — refresh tous les 6 mois)
 
 ### Bloc Process
-- [ ] **Push draft only** (UNPUBLISHED) — jamais de publication directe sans validation explicite Nicolas
+- [ ] **Livrable markdown** (Nicolas copie-colle dans Wix Studio et refait la mise en page — LEARN-002, LEARN-004). Pas de push API par défaut.
 - [ ] Mise à jour `LEARNINGS.md` post-publication si nouveau learning identifié
 - [ ] Mise à jour `ARTICLE_TEMPLATE.md` si nouveau pattern identifié
 - [ ] **Commit Git local** (`git add -A && git commit -m "Article #N : slug"`) — vérifier que `.env` n'est PAS staged

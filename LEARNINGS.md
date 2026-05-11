@@ -77,10 +77,10 @@
 
 ## Learnings process / workflow
 
-### LEARN-012 — Volume cible data-driven (Plouton 28j)
+### LEARN-012 — Volume cible data-driven (Plouton 28j) — RÉVISÉ 2026-05-11
 **Contexte :** plan initial visait 4 400 mots ; data Plouton montre médiane top performers = 1 700 mots.
 **Constat :** pas de corrélation longueur ↔ trafic sur les top 10 articles ressources Plouton. Pattern lecteur = **scanning** dès qu'on dépasse 1 400 mots.
-**Règle :** cible pragmatique **~2 500-2 800 mots** pour les articles "Ressources et notions juridiques". Plus court = OK si l'angle le permet ; plus long = à justifier par la profondeur distinctive vs concurrence SERP.
+**Règle (révisée Nicolas 2026-05-11, post article #2) :** cible pragmatique **~2 000-2 500 mots** pour les articles « Ressources et notions juridiques ». Plus court = OK si l'angle le permet ; plus long = à justifier par profondeur distinctive vs concurrence SERP. *Note : cette cible révisée remplace toutes les mentions antérieures de 2 500-2 800 ou 2 800-3 200 mots dans le pipeline.*
 
 ### LEARN-013 — Mini-CTA inline #1 post-empathie (hypothèse à valider)
 **Contexte :** 0 % conversion observée sur la catégorie "Ressources et notions juridiques" historiquement.
@@ -133,13 +133,15 @@
 **Règle :** pour le **JSON-LD FAQPage** (et tout autre schema markup destiné à Wix), **livrer le bloc `<script>...</script>` directement dans la réponse chat**, dans un bloc de code Markdown (triple backticks), **JSON minifié one-liner**, avec `type="application/ld+json"` (validé fonctionnel sur Wix Studio).
 **Statut :** sauvegardée en mémoire persistante (`feedback_jsonld_directement_dans_chat.md`).
 
-### LEARN-026 — ANTI-RÉCIDIVE : fact-check juridique obligatoire via NotebookLM AVANT rédaction (durable)
-**Contexte :** sur l'article #1, j'ai produit 3 erreurs juridiques (art. 5/4, art. 6/5, art. 12/16) parce que j'ai rédigé sans interroger NotebookLM, qui contenait pourtant 191 sources authentiques. La WebSearch initiale Étape 2 ne m'avait pas remonté tous les articles pertinents (notamment Art. 4 manquait des résultats SERP), et j'ai extrapolé.
-**Règle (à appliquer dès article #2 et tous les suivants) :**
-1. **AVANT de rédiger** une affirmation juridique précise (n° d'article de loi, n° de pourvoi, fondement juridique), **interroger systématiquement NotebookLM** via `ask_question` quand le notebook contient des sources sur le sujet.
-2. **Citer les textes verbatim** en s'appuyant sur NotebookLM, pas sur WebSearch seul.
-3. **Vérifier 2 fois** chaque numéro d'article cité (NotebookLM + source primaire Légifrance si accessible).
-4. Ce n'est pas optionnel : c'est exactement ce que le brief impose au titre de l'anti-hallucination.
+### LEARN-026 — ANTI-RÉCIDIVE : fact-check juridique obligatoire AVANT rédaction (durable, révisé)
+**Contexte :** sur l'article #1, j'ai produit 3 erreurs juridiques (art. 5/4, art. 6/5, art. 12/16) parce que j'ai rédigé sans sourcing primaire fiable.
+**Règle (durable — révisée 2026-05-11 post nouveau workflow NotebookLM) :**
+1. **AVANT de rédiger** une affirmation juridique précise (n° d'article de loi, n° de pourvoi, fondement juridique), confirmer via **au moins une source fiable** (WebSearch ciblée Légifrance/courdecassation.fr/juricaf.org **OU** réponse NotebookLM fournie par Nicolas — LEARN-022 — **OU** document source primaire déposé par Nicolas).
+2. **Citer les textes verbatim** en s'appuyant sur les sources confirmées, pas sur extrapolation SERP.
+3. **Vérifier 2 fois** chaque numéro d'article cité (idéalement 2 sources convergentes).
+4. **Si une affirmation reste non confirmée** → reformulation prudente + `⚠️ À vérifier` (LEARN-049).
+5. **Si je doute en cours de rédaction** → demander à Nicolas un cluster NotebookLM orienté sur la zone (LEARN-022) AVANT de figer le texte.
+**Ce n'est pas optionnel** — c'est ce que le brief impose au titre de l'anti-hallucination.
 **Statut :** sauvegardée en mémoire persistante (`feedback_factcheck_juridique_obligatoire.md`).
 
 ### LEARN-020 — ONISR : provisoires fin janvier, définitifs fin mai
@@ -152,31 +154,47 @@
 
 ---
 
-## Learnings NotebookLM (workflow chirurgical)
+## Learnings NotebookLM (workflow validé Nicolas 2026-05-11)
 
-### LEARN-022 — NotebookLM : remplissage ciblé après plan, pas avant
-**Contexte :** NotebookLM MCP installé 2026-05-11.
-**Workflow validé :**
-1. Étape 3 (plan) **sans** NotebookLM
-2. Sur la base du plan, identifier les **zones spécifiques** où on veut sourcer plus profond (ex. : montants Mornet par poste, jurisprudence préjudice esthétique motard)
-3. Nicolas lance des **recherches NotebookLM ciblées** sur ces zones (pas un ratissage large à l'aveugle)
-4. Étape 4 (rédaction) : interroger NotebookLM via `ask_question` pour pomper les sources agrégées
-**Bénéfice :** plus chirurgical, moins de bruit, citations plus pertinentes.
+### LEARN-022 — NotebookLM = outil de Nicolas, pas le mien (workflow définitif)
+**Contexte :** définition clarifiée par Nicolas après l'article #2.
+**Workflow validé** :
+1. **NotebookLM est l'outil de Nicolas**, pas un MCP que j'utilise directement (le MCP `notebooklm-mcp` a bugué de manière répétée sur l'article #2 — on l'abandonne sauf si Nicolas confirme partage public).
+2. Si **j'ai un doute sur une notion juridique précise** ou si **j'ai besoin de creuser/sécuriser une affirmation** (en Étape 2 collecte, Étape 3 plan, ou Étape 4 rédaction), **je formule une question ciblée à Nicolas** dans le chat.
+3. Nicolas **bâtit alors un cluster d'info orienté** sur ma question (dépose les bonnes sources dans NotebookLM, l'interroge, capture la réponse) et **me fournit la synthèse en retour** (texte copier-collé, fichier .md, etc.).
+4. **J'ingère la réponse** et la dispatche au bon endroit : sourcing du plan, paragraphe du corps, encadré juridique, FAQ, etc.
+5. **Je gère le quand et le si besoin** — pas systématique, uniquement quand ça apporte de la valeur. Pas de question superflue.
+**Bénéfice :** Nicolas a la main sur la qualité du cluster d'info, je reste focalisé sur la rédaction, le MCP NotebookLM (qui bugue) est contourné.
 
-### LEARN-022-bis — NE PAS DÉMARRER l'Étape 4 si NotebookLM est vide (anti-pattern observé article #1)
-**Contexte :** sur l'article #1, j'ai démarré Étape 4 alors que le notebook NotebookLM venait juste d'être créé et était encore vide → je n'ai pas pu utiliser `ask_question`. Sourcing fait uniquement depuis mes propres outils (Read PDF, WebSearch, Wix MCP, curl) — manqué l'opportunité de tester NotebookLM en vraies conditions.
-**Règle (à appliquer dès article #2) :**
-- Avant de lancer Étape 4 → demander explicitement à Nicolas si NotebookLM est **rempli avec les sources prévues en section 7 du plan**
-- Si VIDE : soit attendre, soit prévenir Nicolas qu'on rédige sans NotebookLM (acte conscient)
-- Si REMPLI : pour chaque section où sourcing fin manque → `ask_question` AVANT rédaction du paragraphe
-**Statut :** anti-pattern documenté pour ne pas reproduire.
+### LEARN-023 — Format des demandes NotebookLM à Nicolas
+**Format type pour une demande efficace :**
+1. **Zone d'incertitude précise** : *« Je dois citer Cass. 1re civ. 23 janv. 2019 sur défaut info chirurgien esthétique mais le n° de pourvoi n'est pas confirmé par mes WebSearch. »*
+2. **Question NotebookLM formulée pour Nicolas** : prêt-à-coller dans son interface NotebookLM (en bloc code Markdown, sans retours à la ligne forcés). Voir LEARN-051 pour la mise en forme.
+3. **Ce que je vais faire de la réponse** : *« Si confirmé → je cite verbatim avec n° pourvoi dans H2.3 ; si infirmé → je retire l'arrêt et je formule prudemment. »*
+**Pattern validé** sur Q5 article #2 (apports SOFCPRE / tourisme médical / diffamation / action de groupe — tous intégrés en A.5-ter et A.5-bis).
 
-### LEARN-023 — Workflow général
-Pour chaque nouvel article qui doit aller dans NotebookLM, l'utilisateur :
-1. Crée un nouveau notebook sur notebooklm.google.com
-2. Y dépose les sources (PDF, URLs, copies de jurisprudence)
-3. Copie le share-link
-4. Me le donne → `add_notebook` + `select_notebook` → utilisable en Étape 4
+### LEARN-049 — Anti-récidive : ne PAS rédiger une affirmation juridique précise sans sourcing fiable (renommé depuis LEARN-022-bis)
+**Contexte :** sur l'article #1, j'ai produit 3 erreurs juridiques (art. Badinter confondus) parce que j'ai rédigé sans sourcing primaire. Anti-pattern documenté.
+**Règle absolue (durable) :** avant de rédiger une affirmation juridique précise (n° d'article de loi, n° de pourvoi, fondement juridique, citation verbatim), je dois disposer d'**au moins une source fiable** parmi :
+- **WebSearch ciblée** `allowed_domains=["legifrance.gouv.fr"]` ou sur courdecassation.fr / juricaf.org
+- **Réponse NotebookLM** fournie par Nicolas (LEARN-022)
+- **Document source primaire** déposé par Nicolas (PDF ONIAM RA, SOFCPRE, etc.)
+**Si AUCUNE source fiable trouvée** :
+- Reformulation prudente (« la jurisprudence tend à reconnaître », « en général », « à titre indicatif ») — LEARN-021
+- Marquage `⚠️ À vérifier` noir sur blanc dans le draft
+- Mention explicite à Nicolas : *« Je ne peux pas confirmer X — veux-tu me préparer un cluster NotebookLM ? »*
+**Anti-pattern observé article #2** : j'avais initialement cité Cass. 1re civ. 23 janv. 2019 sur défaut info chirurgien esthétique sans confirmation directe → remplacé en Étape 4 par Cass. 1re civ. 12 juillet 2012 n° 11-17.510 (confirmé) après WebSearch ciblée. Bonne réaction post fact-check, mais aurait pu coûter une erreur juridique.
+
+### LEARN-050 — MCP NotebookLM : abandonné par défaut (compte de service Google différent)
+**Contexte :** sur l'article #2, le MCP NotebookLM `notebooklm-mcp` a échoué de manière répétée avec l'erreur *« Could not find NotebookLM chat input. Please ensure the notebook page has loaded correctly. »*
+**Diagnostic** : le navigateur headless du MCP utilise probablement un compte Google différent de celui de Nicolas. Sauf à passer le notebook en partage public (*« Anyone with the link »*), l'MCP ne peut pas accéder au notebook.
+**Décision Nicolas 2026-05-11** : on n'utilise PAS le MCP NotebookLM par défaut. Le workflow validé (LEARN-022) passe par Nicolas qui copie-colle les réponses du chat NotebookLM dans notre conversation.
+**Si on veut un jour ré-essayer** : exiger explicitement le partage public du notebook + tester avec une question courte avant tout.
+
+### LEARN-051 — Format des questions à coller dans NotebookLM (pas de hard wrap)
+**Constat 2026-05-11 :** j'avais initialement formaté mes 5 questions NotebookLM avec des retours à la ligne forcés (~65 caractères) — ce qui rendait le copier-coller dégueulasse côté Nicolas (texte cassé dans l'interface web NotebookLM).
+**Règle :** lorsque je livre une question à coller dans NotebookLM (LEARN-023), utiliser **un bloc code Markdown avec prose continue, sans retours à la ligne forcés**. NotebookLM gère sa propre mise en forme.
+**Anti-pattern à éviter** : `cat <<EOF` style ou wrap à 65/80 caractères.
 
 ---
 

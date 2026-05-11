@@ -16,7 +16,7 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 
 **À lire avant d'attaquer** :
 - [`BRIEF.md`](BRIEF.md) — brief utilisateur intégral (workflow détaillé, ton, critères qualité)
-- [`LEARNINGS.md`](LEARNINGS.md) — **37 learnings capitalisés** (patterns + anti-patterns, dont LEARN-039 à LEARN-048 issus de l'audit Lucid Media Core Updates mars-avril 2026)
+- [`LEARNINGS.md`](LEARNINGS.md) — **51 learnings capitalisés** (LEARN-001 à LEARN-051, patterns + anti-patterns ; LEARN-039 à 048 issus de l'audit Lucid Media Core Updates ; LEARN-049 à 051 workflow NotebookLM clarifié)
 - [`ARTICLE_TEMPLATE.md`](ARTICLE_TEMPLATE.md) — structure des livrables, checklist qualité (bio auteur, JSON-LD FAQPage seul, FAQ 8-10)
 - `MEMORY.md` (auto-chargée en système prompt) — 6 règles durables non négociables
 
@@ -28,7 +28,7 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 ~/Desktop/Articles/
 ├── README.md                 ← TU ES ICI (point d'entrée)
 ├── BRIEF.md                  ← brief utilisateur (workflow 4 étapes)
-├── LEARNINGS.md              ← 27 learnings (à mettre à jour après chaque article)
+├── LEARNINGS.md              ← 51 learnings (à mettre à jour après chaque article)
 ├── ARTICLE_TEMPLATE.md       ← structure réutilisable (à affiner après chaque article)
 ├── .env                      ← credentials PISTE Data Gouv (GITIGNORED)
 ├── .env.example              ← template
@@ -65,18 +65,18 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 
 À charger via `ToolSearch` au moment opportun :
 
-| Étape | MCP / Outil | Tools clés |
+| Étape | Outil | Usage |
 |---|---|---|
-| **2-A** Juridique | NotebookLM | `mcp__notebooklm__ask_question` (avec `source_format: "footnotes"`) |
+| **2-A** Juridique | WebSearch ciblée | `allowed_domains=["legifrance.gouv.fr"]` + courdecassation.fr + juricaf.org — **1er recours fact-check** |
 | **2-A** Juridique | scripts locaux | `python3 scripts/judilibre.py search "..."` (via Bash) |
-| **2-A** Juridique | WebSearch | recherches ciblées `allowed_domains=["legifrance.gouv.fr"]` |
+| **2-A** Juridique | **NotebookLM via Nicolas** (LEARN-022) | Si WebSearch ne suffit pas : Claude formule la question → Nicolas la pose à NotebookLM → Claude ingère la réponse. **PAS via MCP** par défaut (LEARN-050) |
 | **2-B** SEO | DataForSEO MCP | `mcp__dataforseo__serp_organic_live_advanced` (avec PAA), `kw_data_google_ads_search_volume`, `dataforseo_labs_google_keyword_overview` |
 | **2-C** Interne Plouton | Wix MCP | `mcp__cde94955-..._CallWixSiteAPI` (query categories + posts) |
 | **2-C** Interne Plouton | curl Bash | scrape HTML brut + parse JSON-LD pour extraire détails affaires cabinet |
 | **2-D** Stats | data.gouv.fr MCP | `mcp__33cdbda6-..._search_datasets`, `list_dataset_resources`, `query_resource_data` |
 | **2-D** Stats | WebFetch | sources officielles (ONISR, ONIAM, INSEE, etc.) |
-| **4** Fact-check obligatoire | NotebookLM | `ask_question` AVANT chaque section juridique (LEARN-026 anti-récidive) |
-| **4** Push Wix draft | Wix MCP | `CallWixSiteAPI` POST `/blog/v3/draft-posts` (status UNPUBLISHED only) |
+| **3-4** Fact-check obligatoire (LEARN-026 + LEARN-049 anti-récidive) | WebSearch ciblée d'abord, **NotebookLM via Nicolas en backup** | Avant chaque affirmation juridique précise (n° article, n° pourvoi, fondement) |
+| **4** Ingestion Wix | **Copier-coller manuel par Nicolas** (LEARN-002 + LEARN-004) | Push API facultatif et fragile (échec > 25K tokens) |
 | **4** Git/GitHub | Bash | `git add -A`, `git commit`, `git push origin main` (sur confirmation explicite) |
 
 ---
@@ -123,14 +123,14 @@ Auto-chargées en début de session via `MEMORY.md`. Détails dans `~/.claude/pr
 7. Étape 3 : plan H2/H3 + intro Version D + TDM + mini-CTAs.
 8. STOP fin Étape 3 → validation → Étape 4.
 9. Étape 4 :
-   a. Demander à Nicolas : "Le notebook NotebookLM est-il rempli sur ce sujet ?"
-   b. Si OUI : `ask_question` pour fact-check les zones risquées AVANT rédaction.
-   c. Si NON : alerter Nicolas, attendre, OU rédiger en mode "fourchettes prudentes".
-   d. Produire les 4 livrables Étape 4 (article.md + metadonnees-wix.md + JSON-LD dans le chat + corrections-rouge.html optionnel).
-   e. Le markdown est copié-collé dans Wix Studio par Nicolas (lui-même fait la mise en page).
-   f. Méta-données SEO renseignées via le panneau SEO Wix Studio (slug, titre SEO, description SEO, catégories, tags, image hero + alt, JSON-LD FAQ).
+   a. Fact-check juridique d'abord via WebSearch ciblée (Légifrance/courdecassation.fr/juricaf.org).
+   b. **Si je doute** sur une notion ou un n° de pourvoi : formuler une question à Nicolas (LEARN-022) → il bâtit un cluster NotebookLM orienté → me fournit la réponse → j'ingère et dispatche dans le draft.
+   c. Si toujours non confirmé → reformulation prudente + `⚠️ À vérifier` (LEARN-021 + LEARN-049).
+   d. Produire les 3 livrables Étape 4 (article.md + metadonnees-wix.md + JSON-LD FAQPage dans le chat).
+   e. Nicolas copie-colle le markdown dans Wix Studio et refait la mise en page (LEARN-002 + LEARN-004).
+   f. Méta-données SEO renseignées via le panneau SEO Wix Studio (slug, titre, description, **2 catégories** = Ressources et notions juridiques + thématique, tags, image hero + alt, JSON-LD FAQPage).
    g. Mise à jour LEARNINGS.md + ARTICLE_TEMPLATE.md si nouveau pattern.
-10. Commit Git local (`git add -A && git commit -m "Article #N : slug"`).
+10. Commit Git local (`git add -A && git commit -m "Article #N : slug"` + mention refresh prévu M+6 — LEARN-046).
 11. Push GitHub sur "OK push" explicite uniquement (`git push origin main`).
 ```
 
@@ -187,19 +187,21 @@ Recommandation : taguer chaque article dans **2 catégories simultanées** (= Re
 
 ---
 
-## Volume cible & ton (rappel learnings — révisé Lucid Media 2026)
+## Volume cible & ton (rappel learnings — révisé Nicolas 2026-05-11)
 
-- **2 800-3 200 mots** (révisé post Core Updates mars-avril 2026 — vs 2 500-2 800 précédemment ; Lucid Media valorise profondeur + originalité).
+- **2 000-2 500 mots** (révisé post article #2 — concision > longueur ; médiane Plouton 28j = 1 700, on vise un peu au-dessus pour la profondeur distinctive).
+- **5-6 H2** (TDM = tous les H2 cliquables) + ~8-12 H3.
+- **2 catégories Wix systématiques** : *Ressources et notions juridiques* + une catégorie thématique reliée au sujet.
 - **Ton sobre + empathique**, anti-marketing. Pas de "appel maintenant", pas d'étoiles Google, pas d'urgence factice.
 - **Persona** : visiteur en quête d'info juridique, souvent en détresse post-accident. Empathie d'abord.
-- **3 CTA** : 1 mini-CTA post-intro (empathie max), 1 mini-CTA au milieu (preuve sociale), 1 CTA final.
+- **3 CTA** : 1 mini-CTA post-intro, 1 mini-CTA dans le corps, 1 CTA final. *Nicolas gère le placement final lors de l'ingestion Wix — on fournit les 3 sans s'obsesser sur leur position exacte.*
 - **Bio auteur Maître Plouton OBLIGATOIRE** en pied d'article (LEARN-040 E-E-A-T YMYL).
 - **3 ancrages locaux Bordeaux/Nouvelle-Aquitaine** minimum (LEARN-042).
-- **FAQ 8-10 questions** (LEARN-044 — vs 5-7 précédemment).
+- **FAQ 8-10 questions** (LEARN-044).
 - **Schema FAQPage seul** par article (LEARN-041 — les autres schémas sont gérés au niveau du site Plouton).
 - **Date de mise à jour visible** en italique en pied (LEARN-043).
 - **Sourcing rigoureux** : chaque chiffre = millésime + URL primaire. Chaque article de loi = lien Légifrance. Chaque jurisprudence = n° de pourvoi + date + chambre.
-- **Anti-hallucination** : fourchettes prudentes ("indicatives", "généralement", "varie") quand pas de source primaire trouvée. ⚠️ `À vérifier` noir sur blanc si doute.
+- **Anti-hallucination (LEARN-049)** : fourchettes prudentes ("indicatives", "généralement", "varie") quand pas de source primaire trouvée. ⚠️ `À vérifier` noir sur blanc si doute. Si je doute → demander à Nicolas un cluster NotebookLM (LEARN-022).
 - **Information Gain (LEARN-039)** : au moins 2-3 éléments distinctifs absents du top 10 SERP. Sans gap démontrable → abandonner ou pivoter.
 - **Clusters profonds (LEARN-047)** : 3 clusters (Route / Erreurs médicales / Pénal) plutôt que 24 articles disjoints. Cross-linking intra-cluster systématique.
 - **Refresh durabilité (LEARN-046)** : tous les 6 mois après publication.
@@ -218,4 +220,4 @@ Recommandation : taguer chaque article dans **2 catégories simultanées** (= Re
 
 ---
 
-*Dernière mise à jour : 2026-05-11 (post article #2, capitalisation Lucid Media Core Updates mars-avril 2026 — LEARN-039 à LEARN-048 : Information Gain, bio auteur YMYL, JSON-LD FAQPage seul, local-first, FAQ 8-10, refresh 6 mois, clusters profonds).*
+*Dernière mise à jour : 2026-05-12 (cleanup cohérence 4 fichiers pipeline — volume cible révisé 2 000-2 500, H2 5-6, 2 catégories systématiques, workflow NotebookLM clarifié via Nicolas, push manuel par défaut ; LEARN-039 à LEARN-051).*

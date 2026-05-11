@@ -63,7 +63,7 @@ Travail **en silo, étape par étape**, avec **validation explicite** entre chaq
 
 Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproductible, **capitalisé**. **Stratégie de clusters profonds** (LEARN-047) : 3 deep clusters (Accidents de la route / Erreurs médicales / Pénal-violences) plutôt que 24 articles disjoints. Cross-linking dense intra-cluster.
 
-**Volume cible révisé** (post Lucid Media) : **2 800-3 200 mots** par article (vs 2 500-2 800 précédemment). Justifié par les Core Updates 2026 qui valorisent profondeur + originalité.
+**Volume cible** (révisé Nicolas 2026-05-11 post article #2) : **2 000-2 500 mots** par article. Concision > longueur. La médiane top performers Plouton 28j est à 1 700 mots ; on vise un peu au-dessus pour la profondeur distinctive, sans excès.
 
 À la fin de chaque article, mise à jour de deux fichiers :
 - `LEARNINGS.md` — ce qui a marché, ce qui a coincé, raccourcis identifiés
@@ -98,7 +98,7 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 
 *De quoi je dispose pour écrire un article de référence ?*
 
-**Livrable :** dossier de notes brutes en **3 blocs**.
+**Livrable :** dossier de notes brutes en **4 blocs** (A juridique, B SEO, C interne Plouton, D stats — ajouté 2026-05-11).
 
 **Bloc A — Matière juridique (fondation non négociable)**
 - Articles de loi pertinents (API Data Gouv / Légifrance)
@@ -135,6 +135,8 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 
 Présentation : notes structurées, citables, **pas encore de rédaction**.
 
+**Ordre recommandé d'attaque (LEARN-018)** : **Bloc B en premier** (SERP+volumes+PAA via DataForSEO en un seul appel) → ça résout souvent l'incertitude sur l'angle avant d'investir sur la matière juridique. Puis A/C/D.
+
 🛑 STOP — validation requise avant Étape 3.
 
 ### Étape 3 — Plan d'article justifié
@@ -152,27 +154,27 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
   - Justification
   - Sources
 - **Stratégie de liens internes** : pages d'expertise (placement, ancre, raison), autres ressources, CTA
-- **Stratégie GEO** : encadrés définitions, FAQ 4–7 Q (réponses 40–80 mots), données chiffrées sourcées, listes ordonnées
+- **Stratégie GEO** : encadrés définitions, **FAQ 8-10 Q** (LEARN-044 — réponses 40-80 mots), données chiffrées sourcées, listes ordonnées
 
 🛑 STOP — validation requise avant Étape 4.
 
-### Étape 4 — Rédaction & déploiement Wix
+### Étape 4 — Rédaction & ingestion Wix
 
-*Comment livrer un article Wix-ready, sans reformatage manuel ?*
+*Comment livrer un article propre que Nicolas peut directement ingérer dans Wix Studio ?*
 
-**Livrable :**
-- Article complet en **HTML Wix-ready** (le markdown ne survit pas au paste dans l'éditeur Wix)
-- Balisage structuré : H1, H2, H3, listes, encadrés, FAQ (schema-ready)
-- **Liens internes** en URLs absolues (`https://www.jplouton-avocat.fr/...`)
-- Méta-données prêtes : titre, description, slug, tags
+**Livrable** (3 fichiers + 1 livraison chat) :
+- `etape-4-article.md` — article complet en **markdown** (LEARN-002 — Nicolas copie-colle et refait la mise en page Ricos manuellement ; pas de push API par défaut, LEARN-004)
+- Balisage structuré : H1, H2, H3, listes, encadrés, FAQ
+- **Liens internes** en URLs absolues (`https://www.jplouton-avocat.fr/...`), convention `rel` follow/nofollow (LEARN-024)
+- `etape-4-metadonnees-wix.md` — méta SEO prêtes à coller : titre ≤ 60 c, description ≤ 155 c, slug sans accent (LEARN-001), **2 catégories Wix** (Ressources et notions juridiques + catégorie thématique), tags
+- **JSON-LD FAQPage livré dans le chat** (LEARN-027 + LEARN-041 — bloc `<script>` minifié, FAQPage seul ; Person/LegalService gérés au niveau site Plouton)
 - Suggestions d'images (sources libres + alt text, ou brief génération)
 
 **Push Wix :**
-- HTML préparé en local
-- Validation finale demandée
-- Sur "OK push", déploiement via **API Wix REST** (site ID : `0870235c-b92d-4a69-a2f4-25a976ae5f0c`) — **draft uniquement**, jamais publié sans ordre explicite
+- Par défaut : **Nicolas copie-colle le markdown** dans l'éditeur Wix Studio et refait la mise en page (LEARN-002 + LEARN-004 validés).
+- Push API Wix REST possible mais facultatif et fragile (échec > 25K tokens). Si tenté, **draft uniquement** (status `UNPUBLISHED`), jamais publié sans ordre explicite.
 
-**Post-livraison :** mise à jour de `LEARNINGS.md` et `ARTICLE_TEMPLATE.md`.
+**Post-livraison :** mise à jour de `LEARNINGS.md` et `ARTICLE_TEMPLATE.md`. Date de prochain refresh dans le commit message (LEARN-046).
 
 ---
 
@@ -183,12 +185,12 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 | API DataForSEO (40€ crédits) | Volumes, SERP, related keywords, questions | Étape 2 |
 | API Data Gouv (Légifrance + Judilibre) | Matière juridique sourcée | Étape 2 |
 | MCP data.gouv.fr | Stats officielles (BAAC, INSEE, ONIAM…) — Bloc D | Étape 2 |
-| MCP Supabase *(optionnel)* | Suggestions liens internes (projet `links`) | Étape 2 / 3 |
-| MCP NotebookLM *(optionnel)* — github.com/PleasePrompto/notebooklm-mcp | Notebooks de recherche parallèles | Étape 2 |
-| Repo `cooked` — github.com/NicolasRewolf/cooked | Perfs actuelles du site, calibrage | Étape 1 |
-| API Wix REST | Push article (site ID ci-dessus) | Étape 4 |
+| **WebSearch ciblée** `allowed_domains=["legifrance.gouv.fr"]` + courdecassation.fr + juricaf.org | Sourcing primaire juridique (1er recours fact-check) | Toutes |
+| **NotebookLM via Nicolas** (LEARN-022) — pas via MCP par défaut (LEARN-050) | Cluster d'info ciblé quand Claude doute : Claude formule la question → Nicolas la pose à NotebookLM → Claude ingère la réponse | Étape 2, 3, 4 selon besoin |
+| Wix MCP | Cartographie articles ressources + push draft (facultatif) | Étape 2-C, 4 |
+| API Wix REST | Push article (site ID `0870235c-b92d-4a69-a2f4-25a976ae5f0c`) — facultatif, draft only | Étape 4 |
 | Sitemap — jplouton-avocat.fr/sitemap.xml | Cartographie interne | Étape 2 / 3 |
-| Web search | Veille externe + sourcing complémentaire | Toutes |
+| WebSearch / WebFetch | Veille externe + sourcing complémentaire | Toutes |
 
 ---
 

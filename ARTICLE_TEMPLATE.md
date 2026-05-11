@@ -307,3 +307,5 @@ Voir `etape-4-faq-schema.json` de chaque article. Structure :
 - [ ] **Push draft only** (UNPUBLISHED) — jamais de publication directe sans validation explicite Nicolas
 - [ ] Mise à jour `LEARNINGS.md` post-publication
 - [ ] Mise à jour `ARTICLE_TEMPLATE.md` si nouveau pattern identifié
+- [ ] **Commit Git local** (`git add -A && git commit -m "Article #N : slug"`) — vérifier que `.env` n'est PAS staged
+- [ ] **Push GitHub** vers `origin/main` (`git push origin main`) — **sur confirmation explicite Nicolas uniquement** (voir mémoire `reference_repo_github.md`)

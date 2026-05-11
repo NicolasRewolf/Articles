@@ -299,15 +299,13 @@ Notre article doit servir **les 3 patterns simultanément**.
 **Template prêt-à-coller** : voir `ARTICLE_TEMPLATE.md` section *« Bio auteur Maître Plouton »*.
 **Anti-pattern :** signature anonyme *« Cabinet Plouton »* uniquement (article #2 V1 avant correction).
 
-### LEARN-041 — Schema structuré complet en @graph (5 schémas)
-**Constat (Lucid Media) :** schemas Person + LegalService + Article + BreadcrumbList + FAQPage = signaux forts d'autorité et de structure.
-**Règle :** chaque article Plouton livre **un seul bloc JSON-LD `<script>` au format `@graph`** combinant 5 schémas :
-1. **Person** (Maître Plouton — `@id` stable `https://www.jplouton-avocat.fr/notre-cabinet#julien-plouton`)
-2. **LegalService** (Cabinet Plouton — `@id` stable `https://www.jplouton-avocat.fr#cabinet`)
-3. **Article** (avec `author` + `publisher` + `datePublished` + `dateModified` + `inLanguage`)
-4. **BreadcrumbList** (Accueil > Ressources > article)
-5. **FAQPage** (8-10 questions — cf. LEARN-044)
-**Template prêt-à-coller** : voir `ARTICLE_TEMPLATE.md` section *« JSON-LD étendu @graph »*. À tester via [Google Rich Results Test](https://search.google.com/test/rich-results) après publication.
+### LEARN-041 — Schema markup : FAQPage uniquement par article (le reste géré côté site Plouton)
+**Contexte :** décision Nicolas 2026-05-11.
+**Constat :** le site `jplouton-avocat.fr` (Wix Studio) gère déjà au niveau global les schémas d'autorité (Person Maître Plouton, LegalService Cabinet Plouton, navigation). Dupliquer ces schémas dans chaque article créerait du **doublon** (mauvais signal Google) sans bénéfice supplémentaire.
+**Règle (durable) :** par article, on livre **uniquement le Schema FAQPage** — bloc `<script type="application/ld+json">` minifié one-liner avec les 8-10 questions de la FAQ (LEARN-044). Pas de `@graph`, pas de Person/LegalService/Article/BreadcrumbList répétés.
+**Livraison** : dans le chat (LEARN-027), à coller dans le champ « Marquage structuré » du panneau SEO Wix Studio du draft post.
+**À tester** après publication : [Google Rich Results Test](https://search.google.com/test/rich-results) sur l'URL publiée — vérifier que FAQPage est détecté **en plus** des schémas globaux du site (pas en doublon).
+**Anti-pattern documenté :** sur l'article #2, j'avais proposé un `@graph` étendu 5 schémas (Person + LegalService + Article + Breadcrumb + FAQPage). À ne PAS reproduire — risque doublon + sources de confusion pour Nicolas (4 fichiers .md modifiés pour rien).
 
 ### LEARN-042 — Local-first / Ancrage géographique systématique (GEO 2026)
 **Constat (Lucid Media) :** *« Local-first content held up better. Sites that lean into local case studies, local data, and locally relevant examples saw less impact. »*

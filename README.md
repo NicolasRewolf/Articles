@@ -17,7 +17,7 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 **À lire avant d'attaquer** :
 - [`BRIEF.md`](BRIEF.md) — brief utilisateur intégral (workflow détaillé, ton, critères qualité)
 - [`LEARNINGS.md`](LEARNINGS.md) — **37 learnings capitalisés** (patterns + anti-patterns, dont LEARN-039 à LEARN-048 issus de l'audit Lucid Media Core Updates mars-avril 2026)
-- [`ARTICLE_TEMPLATE.md`](ARTICLE_TEMPLATE.md) — structure des livrables, checklist qualité (bio auteur, JSON-LD `@graph`, FAQ 8-10)
+- [`ARTICLE_TEMPLATE.md`](ARTICLE_TEMPLATE.md) — structure des livrables, checklist qualité (bio auteur, JSON-LD FAQPage seul, FAQ 8-10)
 - `MEMORY.md` (auto-chargée en système prompt) — 6 règles durables non négociables
 
 ---
@@ -196,7 +196,7 @@ Recommandation : taguer chaque article dans **2 catégories simultanées** (= Re
 - **Bio auteur Maître Plouton OBLIGATOIRE** en pied d'article (LEARN-040 E-E-A-T YMYL).
 - **3 ancrages locaux Bordeaux/Nouvelle-Aquitaine** minimum (LEARN-042).
 - **FAQ 8-10 questions** (LEARN-044 — vs 5-7 précédemment).
-- **Schema `@graph` étendu** : Person + LegalService + Article + BreadcrumbList + FAQPage (LEARN-041).
+- **Schema FAQPage seul** par article (LEARN-041 — les autres schémas sont gérés au niveau du site Plouton).
 - **Date de mise à jour visible** en italique en pied (LEARN-043).
 - **Sourcing rigoureux** : chaque chiffre = millésime + URL primaire. Chaque article de loi = lien Légifrance. Chaque jurisprudence = n° de pourvoi + date + chambre.
 - **Anti-hallucination** : fourchettes prudentes ("indicatives", "généralement", "varie") quand pas de source primaire trouvée. ⚠️ `À vérifier` noir sur blanc si doute.
@@ -218,4 +218,4 @@ Recommandation : taguer chaque article dans **2 catégories simultanées** (= Re
 
 ---
 
-*Dernière mise à jour : 2026-05-11 (post article #2, capitalisation Lucid Media Core Updates mars-avril 2026 — LEARN-039 à LEARN-048 : Information Gain, bio auteur YMYL, JSON-LD `@graph` étendu, local-first, FAQ 8-10, refresh 6 mois, clusters profonds).*
+*Dernière mise à jour : 2026-05-11 (post article #2, capitalisation Lucid Media Core Updates mars-avril 2026 — LEARN-039 à LEARN-048 : Information Gain, bio auteur YMYL, JSON-LD FAQPage seul, local-first, FAQ 8-10, refresh 6 mois, clusters profonds).*

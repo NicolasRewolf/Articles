@@ -19,7 +19,7 @@
 | **Information Gain (LEARN-039)** | **Au moins 2-3 éléments distinctifs absents du top 10 SERP** — sans quoi l'article est déclassé. Identifier en Bloc B (gap analysis). |
 | **Bio auteur (LEARN-040)** | Bloc « À propos de l'auteur » obligatoire en pied d'article (E-E-A-T YMYL). Template en bas du fichier. |
 | **Local-first (LEARN-042)** | Au moins **3 ancrages Bordeaux/Nouvelle-Aquitaine** (juridiction locale + adresse cabinet + zone d'intervention). |
-| **Date update visible (LEARN-043)** | Italique en pied : *« Dernière mise à jour : [mois année]. »* (cohérent avec Schema `dateModified`) |
+| **Date update visible (LEARN-043)** | Italique en pied : *« Dernière mise à jour : [mois année]. »* |
 | **Densité info (LEARN-028)** | Chaque H2 = 1 chiffre sourcé + 1 cas concret + 1 implication pratique. Pas de creux narratif. |
 | **Phrases (LEARN-030)** | 16-20 mots idéal, **JAMAIS > 40 mots** |
 | **Paragraphes (LEARN-030)** | 1-3 phrases, **1 seule idée** par paragraphe |
@@ -343,31 +343,27 @@ COLLAPSIBLE_LIST + ITEMs     → FAQ accordéon
 <p><strong>[<a href="https://www.jplouton-avocat.fr/honoraires-rendez-vous">Prendre rendez-vous avec le Cabinet Plouton</a>]</strong> — Bordeaux, plus de 20 ans d'expérience.</p>
 ```
 
-### Bloc JSON-LD étendu @graph (LEARN-041) — 5 schémas combinés
+### Bloc JSON-LD FAQPage (LEARN-041 — UNIQUEMENT FAQPage par article)
 
-**Livré directement dans le chat** (LEARN-027) en 1 seul bloc `<script type="application/ld+json">` au format `@graph`. À coller dans le champ « Marquage structuré » du panneau SEO Wix Studio. Combine :
+**Décision Nicolas 2026-05-11** : le site `jplouton-avocat.fr` gère déjà au niveau global les schémas Person (Maître Plouton), LegalService (Cabinet Plouton) et Article via Wix Studio. **On ne duplique PAS** ces schémas dans chaque article (risque doublon + signal négatif Google).
 
-1. **Person** (Maître Plouton)
-2. **LegalService** (Cabinet Plouton)
-3. **Article** (article courant)
-4. **BreadcrumbList**
-5. **FAQPage** (8-10 questions)
+**Livré directement dans le chat** (LEARN-027) en 1 seul bloc `<script type="application/ld+json">` minifié one-liner, contenant uniquement les 8-10 questions de la FAQ (LEARN-044). À coller dans le champ « Marquage structuré » du panneau SEO Wix Studio du draft post.
 
-**Squelette type** (à adapter par article — uniquement `Article.headline`, `Article.description`, `Article.mainEntityOfPage`, `BreadcrumbList[3].name`, `FAQPage.mainEntity[]`) :
+**Squelette type** :
 
 ```json
-{"@context":"https://schema.org","@graph":[
-  {"@type":"Person","@id":"https://www.jplouton-avocat.fr/notre-cabinet#julien-plouton","name":"Julien Plouton","givenName":"Julien","familyName":"Plouton","honorificPrefix":"Maître","jobTitle":"Avocat au Barreau de Bordeaux","url":"https://www.jplouton-avocat.fr/notre-cabinet","worksFor":{"@id":"https://www.jplouton-avocat.fr#cabinet"},"alumniOf":[{"@type":"EducationalOrganization","name":"École de Formation du Barreau de Paris (EFB)"},{"@type":"EducationalOrganization","name":"HEC Paris"}],"memberOf":[{"@type":"Organization","name":"Institut du Dommage Corporel (IDC)"},{"@type":"Organization","name":"Association des Avocats Pénalistes (ADAP)"},{"@type":"Organization","name":"Institut du Droit des Affaires du Barreau de Bordeaux (IDA)"}],"description":"Avocat au Barreau de Bordeaux depuis 2004, fondateur du Cabinet Plouton (2009). Spécialisé en défense pénale, indemnisation des victimes et droit des contrats et des personnes."},
-  {"@type":"LegalService","@id":"https://www.jplouton-avocat.fr#cabinet","name":"Cabinet Plouton","url":"https://www.jplouton-avocat.fr","telephone":"+33-5-56-44-35-96","address":{"@type":"PostalAddress","streetAddress":"45 Cours d'Alsace-et-Lorraine","addressLocality":"Bordeaux","postalCode":"33000","addressCountry":"FR"},"areaServed":[{"@type":"AdministrativeArea","name":"Nouvelle-Aquitaine"},{"@type":"AdministrativeArea","name":"Gironde"}],"founder":{"@id":"https://www.jplouton-avocat.fr/notre-cabinet#julien-plouton"},"foundingDate":"2009","priceRange":"€€"},
-  {"@type":"Article","@id":"[URL article]#article","headline":"[H1]","description":"[méta-description]","author":{"@id":"https://www.jplouton-avocat.fr/notre-cabinet#julien-plouton"},"publisher":{"@id":"https://www.jplouton-avocat.fr#cabinet"},"datePublished":"YYYY-MM-DD","dateModified":"YYYY-MM-DD","inLanguage":"fr-FR","mainEntityOfPage":"[URL article]"},
-  {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.jplouton-avocat.fr"},{"@type":"ListItem","position":2,"name":"Ressources et notions juridiques","item":"https://www.jplouton-avocat.fr/comprendre-le-droit"},{"@type":"ListItem","position":3,"name":"[Titre court de l'article]"}]},
-  {"@type":"FAQPage","mainEntity":[...8 à 10 questions...]}
-]}
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Q1 text",
+     "acceptedAnswer": {"@type": "Answer", "text": "Réponse 40-80 mots, concept-clé en ouverture (LEARN-017)"}},
+    ...
+  ]
+}
 ```
 
-**À tester** : [Google Rich Results Test](https://search.google.com/test/rich-results) après publication.
-
-**Anti-pattern** : ne PAS livrer 5 blocs `<script>` séparés — UN seul bloc `@graph` (Wix Studio rejette les blocs multiples sur le même champ).
+**À tester après publication** : [Google Rich Results Test](https://search.google.com/test/rich-results) — vérifier que FAQPage est détecté **en plus** des schémas globaux du site (Person + LegalService gérés côté Wix Studio).
 
 ### Métadonnées prêtes à coller (Étape 4)
 
@@ -395,7 +391,7 @@ COLLAPSIBLE_LIST + ITEMs     → FAQ accordéon
 - [ ] **3 ancrages Bordeaux/Nouvelle-Aquitaine** minimum (LEARN-042) : juridiction locale + adresse cabinet + zone d'intervention
 
 ### Bloc Schema markup
-- [ ] **JSON-LD étendu @graph** livré dans le chat — 5 schémas combinés (LEARN-041) : Person + LegalService + Article + BreadcrumbList + FAQPage
+- [ ] **JSON-LD FAQPage** livré dans le chat (LEARN-041 — UNIQUEMENT FAQPage par article ; Person/LegalService gérés au niveau site Wix)
 - [ ] Test passé sur [Google Rich Results Test](https://search.google.com/test/rich-results) après publication
 
 ### Bloc Standards Wix

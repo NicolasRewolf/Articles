@@ -80,15 +80,11 @@ Bloc opératoire de chirurgie esthétique avec instruments chirurgicaux et envir
 | **og:type** | `article` |
 | **og:url** | `https://www.jplouton-avocat.fr/post/chirurgie-esthetique-ratee-indemnisation` |
 
-## 9. Schema markup — JSON-LD étendu (5 schémas dans un @graph)
+## 9. Schema markup — JSON-LD FAQPage (uniquement)
 
-**Livré directement dans le chat** par message dédié (LEARN-027 — règle durable mémorisée). Bloc unique `<script type="application/ld+json">` au format `@graph` contenant 5 schémas combinés (audit Lucid Media — Google Core Updates mars-avril 2026) :
+**Livré directement dans le chat** par message dédié (LEARN-027 — règle durable mémorisée). Bloc unique `<script type="application/ld+json">` minifié one-liner contenant uniquement le schema FAQPage avec les 9 questions de la section 7 de l'article.
 
-1. **Person** (Maître Julien Plouton — signaux E-E-A-T renforcés YMYL)
-2. **LegalService** / **LocalBusiness** (Cabinet Plouton — ancrage local Bordeaux)
-3. **Article** (article #2 — auteur + publisher + datePublished + dateModified)
-4. **FAQPage** (6 questions — citabilité LLM / AI Overviews)
-5. **BreadcrumbList** (Accueil > Ressources > article)
+**Décision Nicolas 2026-05-11 (LEARN-041 simplifié)** : on ne duplique PAS les schémas Person / LegalService / Article — le site `jplouton-avocat.fr` les gère déjà au niveau global via Wix Studio. Le seul schema spécifique à l'article est le FAQPage.
 
 Ne PAS chercher ce JSON dans un fichier séparé : copier-coller le bloc fourni dans le chat dans le champ « Marquage structuré » du panneau SEO Wix Studio du draft post.
 

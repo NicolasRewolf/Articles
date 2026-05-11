@@ -201,7 +201,7 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 - **Bio auteur Maître Plouton OBLIGATOIRE en pied d'article** (~150 mots — EFB, cabinet 2009, IDC/ADAP/IDA, adresse, zone d'intervention)
 - **Date de mise à jour visible** (LEARN-043 — signal fraîcheur)
 - Photo HD auteur gérée côté Wix Studio
-- Cohérence avec Schema Person + LegalService (LEARN-041 — JSON-LD `@graph` étendu)
+- Photo HD auteur gérée côté Wix Studio (signature ↔ Schema Person déjà en place au niveau site)
 
 ### Helpful Content (Google) + Information Gain (LEARN-039)
 - Contenu pour aider le lecteur, **pas pour ranker**
@@ -218,7 +218,7 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 - Données chiffrées sourcées avec millésime + URL primaire
 - Phrases d'ouverture de section avec le concept clé en clair (front-loading LEARN-029)
 - **Ancrage local** : minimum 3 mentions Bordeaux/Nouvelle-Aquitaine (juridiction locale + adresse cabinet + zone d'intervention)
-- **Schema markup `@graph` complet** : 5 schémas combinés (Person + LegalService + Article + BreadcrumbList + FAQPage) — LEARN-041
+- **Schema markup FAQPage uniquement** par article (LEARN-041 — les schémas Person + LegalService sont gérés au niveau du site Plouton, ne pas dupliquer)
 
 ### Anti-hallucination — RÈGLE ABSOLUE
 - Toute affirmation juridique → source citée OU formulation prudente explicite ("en général", "le plus souvent")

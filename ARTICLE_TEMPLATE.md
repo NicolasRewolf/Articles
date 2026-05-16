@@ -1,7 +1,7 @@
 # ARTICLE_TEMPLATE — Structure réutilisable affinée
 
 > Squelette des livrables du workflow 4 étapes. **Affiné après chaque article** sur la base des patterns qui ont marché.
-> Dernière mise à jour : 2026-05-11 (post article #2 — Indemnisation chirurgie esthétique ratée + capitalisation Lucid Media Core Updates mars-avril 2026, LEARN-039 à LEARN-048).
+> Dernière mise à jour : 2026-05-14 (harmonisation inter-fichiers : gouvernance journal vs règles digérées, suppression des exemples `&&`, alignement LEARN-039 à LEARN-052).
 
 ---
 
@@ -14,7 +14,7 @@
 | **Encadrés** | 3-6 définitions (BLOCKQUOTE) + 1-2 encadrés chiffrés (BLOCKQUOTE) + 1-2 encadrés alerte ⚠️ |
 | **Liens internes** | 1 lien tous les ~250 mots — 3 vers pages expertise/CTA + 4-7 vers articles ressources cluster + 2-4 vers affaires cabinet (preuves) |
 | **CTA** | 3 au total (Nicolas gère le placement final lors de l'ingestion Wix) : mini-CTA inline #1 post-intro, mini-CTA inline #2 dans le corps, CTA final |
-| **Ton** | Sobre, empathique, précision juridique, anti-marketing |
+| **Ton** | Sobre, empathique, précision juridique, anti-marketing — **voix « main tendue » LEARN-052** (adressage direct au « vous », reconnaissance avant info, voix cabinet « nous », CTAs invitation humaine, modulation selon victime/défense pénale) |
 | **Sourcing** | Chaque chiffre = millésime + source primaire ; chaque article de loi = lien Légifrance ; **chaque jurisprudence = n° de pourvoi + date + chambre confirmés** (LEARN-026) |
 | **Information Gain (LEARN-039)** | **Au moins 2-3 éléments distinctifs absents du top 10 SERP** — sans quoi l'article est déclassé. Identifier en Bloc B (gap analysis). |
 | **Bio auteur (LEARN-040)** | Bloc « À propos de l'auteur » obligatoire en pied d'article (E-E-A-T YMYL). Template en bas du fichier. |
@@ -25,16 +25,39 @@
 | **Paragraphes (LEARN-030)** | 1-3 phrases, **1 seule idée** par paragraphe |
 | **Front-loading (LEARN-029)** | Tous H2/H3/paragraphes/bullets commencent par les **2-3 mots les plus porteurs de sens** |
 
-## Pattern Mini-CTA #1 "double-face" (LEARN-031)
+## Pattern Mini-CTA #1 "double-face" (LEARN-031 + LEARN-052)
 
 Reconnaître les limites = +crédibilité (Modèle de Probabilité d'Élaboration). Pourrait débloquer le 0 % conversion observé historiquement.
 
-**Format** :
+**Format combiné LEARN-031 + voix victime LEARN-052** :
 
-> **Vous êtes [persona] confronté à [situation] ?**
-> Ce guide gratuit couvre [80 % des situations / la plupart des cas].
-> Pour les [20 % restants / cas complexes spécifiques] — [exemple concret : *contestation d'expertise, faute opposée par l'assureur, séquelles graves*] — un avocat fait la vraie différence.
-> [CTA spécifique — pas "En savoir plus" ou "Contact" → "Parler à un avocat en accidents de la route" / "Demander un premier RDV d'information"]
+> **Vous traversez [situation difficile / vécu spécifique du persona] ?**
+> Ce guide couvre [80 % des situations / la plupart des cas que nous voyons au cabinet]. Vous pouvez avancer seul sur la plupart des étapes.
+> Pour les [20 % restants / cas complexes spécifiques] — [exemple concret : *contestation d'expertise, lien de causalité fragile, refus ONIAM, séquelles graves*] — **vous n'êtes pas obligé de rester seul**. C'est exactement à ce moment-là qu'un avocat fait la différence.
+> [CTA invitation humaine — *« Si vous voulez en parler »* / *« Premier échange sans engagement »* / *« Faire le point avec un avocat »* — pas "En savoir plus" / "Contact" / "Faire évaluer mon dossier" trop service]
+
+---
+
+## Voix victime / main tendue — pattern systémique (LEARN-052, durable)
+
+**Pourquoi** : retour Nicolas 2026-05-12 sur les articles #1/#2/#3 — trop pédagogiques, pas assez "main tendue". À corriger à partir de l'article #4 et lors des refresh M+6 (LEARN-046).
+
+**Les 7 réflexes à appliquer dans toute la rédaction (pas seulement les CTAs)** :
+
+1. **Adressage direct « vous »** plutôt que « la victime » / « l'intéressé » / « le demandeur »
+2. **Reconnaissance du vécu** en ouverture de section critique (1 phrase avant l'info)
+3. **Voix cabinet « nous »** — *« Nous accompagnons »* > *« Le Cabinet Plouton accompagne »*
+4. **CTAs invitation humaine** — *« Si vous voulez en parler »* > *« Faire évaluer mon dossier »*
+5. **Reconnaissance des limites du guide** au moins une fois — *« Aucun guide ne remplace l'écoute d'un dossier réel. »*
+6. **Lexique actif** — *« Vous avez le droit de »* > *« Il est possible de »*
+7. **Phrases-ponts humaines** entre les sections — éviter les enchaînements secs
+
+**Garde-fous (interdits)** : pathos / *« Vous n'êtes pas seul !!! »* / points d'exclamation marketing / émoji / urgence factice / étoiles Google / condescendance. **L'empathie est un fond stable, pas un effet répétitif.** Précision juridique non négociable (LEARN-026).
+
+**Modulation selon le sujet** :
+- **Victimes** (route, médical, conjugal, CIVI/SARVI, travail/vie courante) → empathie haute
+- **Défense pénale** (droit pénal, stup, affaires, procès criminel, garde à vue) → empathie modulée, **présomption d'innocence centrale**, pas de jugement
+- **Contrats/famille** (divorce, assurances, conso) → empathie sobre, plus pédagogique-pratique
 
 ---
 
@@ -136,18 +159,18 @@ Reconnaître les limites = +crédibilité (Modèle de Probabilité d'Élaboratio
 
 ## Plan H2/H3 justifié
 
-### Intro (~200-250 mots) — Pattern Version D (validé)
-**Structure cognitive optimisée :**
-1. **Phrase psychologique d'ouverture** (vérité du persona — résonne immédiatement)
-2. **Chiffre brutal sourcé** (paragraphe 2 — autorité + légitimation)
-3. **Bullets "Ce que vous allez comprendre"** (4 items — mini-sommaire intégré, scannable)
-4. **Signature autorité cabinet** (1 ligne en italique — ancrage E-E-A-T)
+### Intro (~200-250 mots) — Pattern Version D (validé) + voix victime LEARN-052
+**Structure cognitive optimisée + main tendue :**
+1. **Phrase psychologique d'ouverture en adressage direct** (vérité du persona, « vous » — pas « la victime ») — résonne immédiatement
+2. **Reconnaissance du vécu avant le chiffre** (LEARN-052 réflexe #2) — 1 phrase qui acte la confusion/détresse, avant d'asséner la statistique. Exemple : *« On vous a parlé de X, de Y, peut-être de Z — sans qu'on vous explique vraiment qui fait quoi. C'est normal de s'y perdre. »*
+3. **Chiffre brutal sourcé** (paragraphe 2 — autorité + légitimation, mais après la reconnaissance)
+4. **Bullets "Ce que ce guide vous apporte"** (4 items — mini-sommaire intégré, scannable, en adressage « vous »)
+5. **Signature autorité cabinet en voix « nous »** (LEARN-052 réflexe #3) — *« Nous accompagnons depuis vingt ans des personnes qui traversent ce que vous traversez aujourd'hui. »* (1 ligne en italique — ancrage E-E-A-T)
 
-### Mini-CTA inline #1 (post-intro) — Pattern validé article #1
+### Mini-CTA inline #1 (post-intro) — Pattern « double-face » LEARN-031 + voix victime LEARN-052
 Format BLOCKQUOTE :
 > **Mini-CTA**
-> [Question empathique : "Vous êtes [persona] confronté à [situation], et ces démarches vous dépassent ?"]
-> Le Cabinet Plouton accompagne [thématique] depuis plus de 20 ans. [Parler à un avocat](URL contact).
+> Vous traversez [situation difficile / vécu spécifique du persona] ? Ce guide couvre la plupart des cas en autonomie. Pour les situations complexes — [exemple concret : contestation d'expertise, refus ONIAM, lien fragile] — **vous n'êtes pas obligé de rester seul**. [CTA invitation humaine : *« Si vous voulez en parler »* / *« Premier échange sans engagement »*](URL contact).
 
 ### TDM (juste après l'intro)
 - **5-6 entrées H2 cliquables** (tous les H2 de l'article) avec liens d'ancrage `#section-slug`
@@ -424,13 +447,35 @@ COLLAPSIBLE_LIST + ITEMs     → FAQ accordéon
 - [ ] **CTAs spécifiques** : zéro libellé vague (pas de « En savoir plus » / « Cliquez ici » / « Contact ») — LEARN-037
 - [ ] **Mini-CTA #1 « double-face »** appliqué (reconnaît les limites du guide, précise pour qui un avocat est utile) — LEARN-031
 
+### Bloc Voix victime / main tendue (LEARN-052 — durable, à partir article #4)
+- [ ] **Adressage direct « vous »** — chasser les *« la victime »* / *« l'intéressé »* / *« le demandeur »* en 3ᵉ personne (sauf citations légales)
+- [ ] **Reconnaissance du vécu** avant l'info en ouverture d'au moins 2-3 sections critiques (intro + 1-2 H2 sensibles)
+- [ ] **Voix cabinet « nous »** — *« Nous accompagnons »* dans bio + CTA final + intro (pas systématiquement « Le Cabinet Plouton »)
+- [ ] **CTAs en invitation humaine** — *« Si vous voulez en parler »* / *« Premier échange sans engagement »* (pas *« Faire évaluer mon dossier »* trop service)
+- [ ] **Reconnaissance des limites du guide** au moins une fois (mini-CTA #1 ou CTA final) — *« Aucun guide ne remplace l'écoute d'un dossier réel. »*
+- [ ] **Lexique actif** — *« Vous avez le droit de »* / *« Vous pouvez »* > *« Il est possible de »*
+- [ ] **Phrases-ponts humaines** entre sections (au moins 2 transitions où l'auteur acte qu'il s'adresse à un humain)
+- [ ] **Garde-fous respectés** : pas de pathos, pas d'exclamation marketing, pas d'émoji, pas d'urgence factice, pas d'étoiles ⭐
+- [ ] **Modulation selon le sujet** : victime = empathie haute ; défense pénale = empathie modulée + présomption d'innocence ; contrats/famille = empathie sobre
+
 ### Bloc Cluster & maillage interne
 - [ ] **3-5 cross-links** vers articles du même cluster sémantique (LEARN-047 — 3 deep clusters > 30 shallow)
 - [ ] Date de prochain refresh notée dans le commit message (LEARN-046 — refresh tous les 6 mois)
+
+### Bloc Doctrine Google AI Search 2026 (officielle — ingérée 2026-05-16)
+Source : [Google Search Central — AI Optimization Guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide). Cf. BRIEF.md §6 *Doctrine Google AI Search 2026* pour le détail.
+
+- [ ] **Unique Point of View** clair dès le H1 — pas un *« comment se faire indemniser »* qui pourrait être posé par n'importe quel cabinet. Pivot propriétaire obligatoire (cas cabinet, jurisprudence nommée 2024-2025, angle local NAQ, donnée chiffrée propre, contraste juridique précis).
+- [ ] **Non-commodity content** : ce que Google appelle *« commodity content »* (synthèse générique reformulée) est dévalorisé. Vérifier que **au moins 1 H2** porte une perspective propriétaire qui ne pourrait pas exister sans l'expérience cabinet.
+- [ ] **Couverture du query fan-out** : PAA et related searches (Bloc B) répondus dans le corps ET dans la FAQ — pas uniquement la requête head term.
+- [ ] **Main content visuellement distinguable** des éléments annexes (sidebar, related posts Wix, footer). Vérifier sur l'aperçu Wix mobile + desktop.
+- [ ] **Pas de chunking artificiel** : phrases courtes oui (LEARN-030), mais pas de fragmentation pour "AI-friendly".
+- [ ] **Pas de fichiers ou markup spéciaux IA** : pas de `llms.txt`, pas de structured data inventée. Seul **FAQPage** est gardé (cohérent avec LEARN-041, utile pour rich results normaux).
+- [ ] **Anti-scaled-content** : ne pas dupliquer ce sujet en plusieurs micro-articles. Si plusieurs angles → 1 pilier dense (cohérent avec LEARN-047).
 
 ### Bloc Process
 - [ ] **Livrable markdown** (Nicolas copie-colle dans Wix Studio et refait la mise en page — LEARN-002, LEARN-004). Pas de push API par défaut.
 - [ ] Mise à jour `LEARNINGS.md` post-publication si nouveau learning identifié
 - [ ] Mise à jour `ARTICLE_TEMPLATE.md` si nouveau pattern identifié
-- [ ] **Commit Git local** (`git add -A && git commit -m "Article #N : slug"`) — vérifier que `.env` n'est PAS staged
+- [ ] **Commit Git local** : `git add -A`, vérifier que `.env` n'est PAS staged, puis `git commit -m "Article #N : slug"` (pas de `&&`)
 - [ ] **Push GitHub** vers `origin/main` (`git push origin main`) — **sur confirmation explicite Nicolas uniquement** (voir mémoire `reference_repo_github.md`)

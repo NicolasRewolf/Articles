@@ -1,4 +1,5 @@
 # Brief — Rédaction d'articles "Ressources & Notions Juridiques"
+
 ## Cabinet Plouton — Pipeline éditorial SEO/GEO
 
 > Brief original fourni par Nicolas (REWOLF Studio) — référence persistante du pipeline.
@@ -20,9 +21,10 @@ Travail **en silo, étape par étape**, avec **validation explicite** entre chaq
 
 **Site :** jplouton-avocat.fr — Wix Studio, géré par REWOLF Studio.
 
-**Catégorie d'articles à produire :** "Ressources et Notions Juridiques" (ex. existante : https://www.jplouton-avocat.fr/comprendre-le-droit)
+**Catégorie d'articles à produire :** "Ressources et Notions Juridiques" (ex. existante : [https://www.jplouton-avocat.fr/comprendre-le-droit](https://www.jplouton-avocat.fr/comprendre-le-droit))
 
 **Objectif business des articles :**
+
 1. Driver du trafic SEO via du contenu pédagogique utile
 2. Convertir ce trafic vers les pages d'expertise du cabinet
 3. Déclencher une prise de RDV (page contact ou CTA d'expertise)
@@ -30,6 +32,7 @@ Travail **en silo, étape par étape**, avec **validation explicite** entre chaq
 **Pages d'expertise = cibles de conversion :**
 
 *Défense pénale (5)*
+
 - /defense-penale/droit-penal
 - /defense-penale/trafic-de-stupefiant
 - /defense-penale/proces-criminel
@@ -37,6 +40,7 @@ Travail **en silo, étape par étape**, avec **validation explicite** entre chaq
 - /defense-penale/violences-conjugales-et-feminicides
 
 *Indemnisation des victimes (5)*
+
 - /indemnisation-des-victimes/victimes-de-delits-ou-crimes
 - /indemnisation-des-victimes/accidents-de-la-route
 - /indemnisation-des-victimes/droit-et-accidents-du-travail
@@ -44,6 +48,7 @@ Travail **en silo, étape par étape**, avec **validation explicite** entre chaq
 - /indemnisation-des-victimes/accidents-de-la-vie-courante
 
 *Droit des contrats et des personnes (4)*
+
 - /droit-des-contrats-et-des-personnes/droit-assurances-particuliers-professionnels
 - /droit-des-contrats-et-des-personnes/droit-de-la-famille
 - /droit-des-contrats-et-des-personnes/defense-des-consommateurs
@@ -52,10 +57,38 @@ Travail **en silo, étape par étape**, avec **validation explicite** entre chaq
 **Page contact :** /honoraires-rendez-vous
 
 **Ton éditorial :**
+
 - Pédagogique et sobre (pas de marketing agressif, pas de "sexy")
-- Empathie d'abord sur les sujets victimes
+- **Voix « main tendue » à une personne en détresse** (LEARN-052 — durable, à appliquer à partir de l'article #4)
+- Empathie d'abord sur les sujets victimes ; **empathie modulée + présomption d'innocence** sur les sujets défense pénale
 - Précision juridique non négociable — **zéro hallucination**
 - Accessible sans être niais : prospects en détresse OU en recherche d'info concrète
+
+### Voix victime / main tendue — 7 réflexes opérationnels (LEARN-052)
+
+Le ton doit incarner concrètement le rôle du cabinet (aider des personnes en détresse), pas juste diffuser de l'information juridique. Diagnostic post-articles 1/2/3 : trop de « la victime » en 3ᵉ personne, trop de passif administratif, CTAs trop « service ». À corriger systématiquement à partir de l'article #4.
+
+
+| #   | Réflexe                                     | ❌ Avant                                                     | ✅ Après                                                                                                                                 |
+| --- | ------------------------------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Adressage direct au « vous »**            | « La victime doit saisir l'ONIAM dans un délai de 10 ans. » | « Vous avez 10 ans pour saisir l'ONIAM — un délai long, mais qui passe vite quand le dossier est lourd. »                               |
+| 2   | **Reconnaissance avant info**               | « L'indemnisation et le remboursement sont distincts. »     | « On vous a parlé de "remboursement", peut-être d'ONIAM, sans qu'on vous explique vraiment qui fait quoi. C'est normal de s'y perdre. » |
+| 3   | **Voix cabinet « nous »**                   | « Le Cabinet Plouton accompagne… »                          | « Nous accompagnons depuis vingt ans des personnes qui traversent ce que vous traversez aujourd'hui. »                                  |
+| 4   | **CTAs invitation humaine**                 | « Faire évaluer mon dossier ONIAM »                         | « Si vous voulez en parler — premier échange sans engagement »                                                                          |
+| 5   | **Reconnaissance limites du guide**         | (absent)                                                    | « Aucun article ne remplace l'écoute d'un dossier réel. Si le vôtre vous dépasse, ne restez pas seul. »                                 |
+| 6   | **Lexique actif « vous avez le droit de »** | « Il est possible de refuser une offre »                    | « Vous avez le droit de refuser une offre sous-évaluée. »                                                                               |
+| 7   | **Phrases-ponts humaines entre sections**   | (enchaînement sec)                                          | « Voilà pour la procédure. Mais ce n'est pas le plus dur. Ce qui suit l'est. »                                                          |
+
+
+**Garde-fous (interdits)** : pathos / marketing victime (*« Vous n'êtes pas seul !!! »*) — sirop interdit ; points d'exclamation marketing ; émoji ; urgence factice ; étoiles Google ; condescendance. **L'empathie est un fond stable, pas un effet répétitif.**
+
+**Modulation selon le sujet** :
+
+- **Victimes** (route, médical, violences conjugales, CIVI/SARVI, travail/vie courante) → empathie haute, voix « vous », reconnaissance fréquente
+- **Défense pénale** (droit pénal, stup, affaires, procès criminel, garde à vue) → empathie modulée, présomption d'innocence centrale, respect du mis en cause comme du proche, pas de jugement
+- **Contrats/famille** (divorce, assurances, conso) → empathie sobre, plus pédagogique-pratique
+
+Voir également la **checklist dédiée « Voix victime / main tendue »** dans `ARTICLE_TEMPLATE.md`.
 
 ---
 
@@ -66,6 +99,7 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 **Volume cible** (révisé Nicolas 2026-05-11 post article #2) : **2 000-2 500 mots** par article. Concision > longueur. La médiane top performers Plouton 28j est à 1 700 mots ; on vise un peu au-dessus pour la profondeur distinctive, sans excès.
 
 À la fin de chaque article, mise à jour de deux fichiers :
+
 - `LEARNINGS.md` — ce qui a marché, ce qui a coincé, raccourcis identifiés
 - `ARTICLE_TEMPLATE.md` — structure réutilisable affinée article après article
 
@@ -82,6 +116,7 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 *Pourquoi cet article, pour qui, vers où ?*
 
 **Livrable** (Markdown court, dense) :
+
 - Sujet (titre de travail)
 - Intention de recherche cible : informationnelle / commerciale / navigationnelle / mixte
 - Requête principale (head term) visée
@@ -101,6 +136,7 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 **Livrable :** dossier de notes brutes en **4 blocs** (A juridique, B SEO, C interne Plouton, D stats — ajouté 2026-05-11).
 
 **Bloc A — Matière juridique (fondation non négociable)**
+
 - Articles de loi pertinents (API Data Gouv / Légifrance)
 - Jurisprudence clé (API Data Gouv / Judilibre)
 - Procédures, délais, formes — sourcés
@@ -108,6 +144,7 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 - Règle : toute info juridique DOIT être sourcée (URL ou référence article).
 
 **Bloc B — Données SEO (API DataForSEO — 40€ crédits)**
+
 - Volumes de recherche + variantes (`keywords_data/google_ads/search_volume`)
 - SERP top 10 sur requête principale (`serp/google/organic/live/advanced`) : URLs, titres, type, structure, longueur
 - Questions PAA, autocomplete, related searches
@@ -115,12 +152,14 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 - **Gap analysis** : quel angle reste à occuper ?
 
 **Bloc C — Contexte interne Plouton**
+
 - Articles déjà publiés sur sujets connexes (sitemap jplouton-avocat.fr/sitemap.xml)
 - Affaires réelles du cabinet à intégrer (fournies au cas par cas)
 - Pages d'expertise pertinentes pour linking sortant
 - Suggestions de liens internes via projet `links` si pertinent (MCP Supabase optionnel)
 
 **Bloc D — Données statistiques & rapports officiels** *(ajouté 2026-05-11)*
+
 - Sources institutionnelles chiffrées pour étayer l'article et renforcer E-E-A-T + citabilité LLM.
 - Référentiels par famille d'expertise :
   - **Accidents de la route** : [BAAC / ONISR sur data.gouv.fr](https://www.data.gouv.fr/datasets/bases-de-donnees-annuelles-des-accidents-corporels-de-la-circulation-routiere-annees-de-2005-a-2024/) (annuel 2005→2024, licence ouverte)
@@ -144,6 +183,7 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 *Comment je structure cet article pour servir l'intention ET la conversion ?*
 
 **Livrable Markdown :**
+
 - H1 final + 3 variantes
 - Méta-title (≤ 60 car.) + méta-description (≤ 155 car.)
 - Slug recommandé — **sans accent** (learning : accents = doublons raw/percent-encoded sur Wix)
@@ -163,6 +203,7 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 *Comment livrer un article propre que Nicolas peut directement ingérer dans Wix Studio ?*
 
 **Livrable** (3 fichiers + 1 livraison chat) :
+
 - `etape-4-article.md` — article complet en **markdown** (LEARN-002 — Nicolas copie-colle et refait la mise en page Ricos manuellement ; pas de push API par défaut, LEARN-004)
 - Balisage structuré : H1, H2, H3, listes, encadrés, FAQ
 - **Liens internes** en URLs absolues (`https://www.jplouton-avocat.fr/...`), convention `rel` follow/nofollow (LEARN-024)
@@ -171,6 +212,7 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 - Suggestions d'images (sources libres + alt text, ou brief génération)
 
 **Push Wix :**
+
 - Par défaut : **Nicolas copie-colle le markdown** dans l'éditeur Wix Studio et refait la mise en page (LEARN-002 + LEARN-004 validés).
 - Push API Wix REST possible mais facultatif et fragile (échec > 25K tokens). Si tenté, **draft uniquement** (status `UNPUBLISHED`), jamais publié sans ordre explicite.
 
@@ -180,23 +222,26 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 
 ## 5. Outils à disposition
 
-| Outil | Usage | Étape |
-|---|---|---|
-| API DataForSEO (40€ crédits) | Volumes, SERP, related keywords, questions | Étape 2 |
-| API Data Gouv (Légifrance + Judilibre) | Matière juridique sourcée | Étape 2 |
-| MCP data.gouv.fr | Stats officielles (BAAC, INSEE, ONIAM…) — Bloc D | Étape 2 |
-| **WebSearch ciblée** `allowed_domains=["legifrance.gouv.fr"]` + courdecassation.fr + juricaf.org | Sourcing primaire juridique (1er recours fact-check) | Toutes |
-| **NotebookLM via Nicolas** (LEARN-022) — pas via MCP par défaut (LEARN-050) | Cluster d'info ciblé quand Claude doute : Claude formule la question → Nicolas la pose à NotebookLM → Claude ingère la réponse | Étape 2, 3, 4 selon besoin |
-| Wix MCP | Cartographie articles ressources + push draft (facultatif) | Étape 2-C, 4 |
-| API Wix REST | Push article (site ID `0870235c-b92d-4a69-a2f4-25a976ae5f0c`) — facultatif, draft only | Étape 4 |
-| Sitemap — jplouton-avocat.fr/sitemap.xml | Cartographie interne | Étape 2 / 3 |
-| WebSearch / WebFetch | Veille externe + sourcing complémentaire | Toutes |
+
+| Outil                                                                                            | Usage                                                                                                                          | Étape                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------- |
+| API DataForSEO (40€ crédits)                                                                     | Volumes, SERP, related keywords, questions                                                                                     | Étape 2                    |
+| API Data Gouv (Légifrance + Judilibre)                                                           | Matière juridique sourcée                                                                                                      | Étape 2                    |
+| MCP data.gouv.fr                                                                                 | Stats officielles (BAAC, INSEE, ONIAM…) — Bloc D                                                                               | Étape 2                    |
+| **WebSearch ciblée** `allowed_domains=["legifrance.gouv.fr"]` + courdecassation.fr + juricaf.org | Sourcing primaire juridique (1er recours fact-check)                                                                           | Toutes                     |
+| **NotebookLM via Nicolas** (LEARN-022) — pas via MCP par défaut (LEARN-050)                      | Cluster d'info ciblé quand Claude doute : Claude formule la question → Nicolas la pose à NotebookLM → Claude ingère la réponse | Étape 2, 3, 4 selon besoin |
+| Wix MCP                                                                                          | Cartographie articles ressources + push draft (facultatif)                                                                     | Étape 2-C, 4               |
+| API Wix REST                                                                                     | Push article (site ID `0870235c-b92d-4a69-a2f4-25a976ae5f0c`) — facultatif, draft only                                         | Étape 4                    |
+| Sitemap — jplouton-avocat.fr/sitemap.xml                                                         | Cartographie interne                                                                                                           | Étape 2 / 3                |
+| WebSearch / WebFetch                                                                             | Veille externe + sourcing complémentaire                                                                                       | Toutes                     |
+
 
 ---
 
 ## 6. Critères de qualité — NON NÉGOCIABLES
 
 ### E-E-A-T (renforcé Core Updates mars-avril 2026 — LEARN-040)
+
 - Citations explicites des sources juridiques (Légifrance, Judilibre, codes)
 - Mention expertise du cabinet quand pertinent (sans auto-congratulation)
 - Affaires réelles intégrées si fournies
@@ -206,6 +251,7 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 - Photo HD auteur gérée côté Wix Studio (signature ↔ Schema Person déjà en place au niveau site)
 
 ### Helpful Content (Google) + Information Gain (LEARN-039)
+
 - Contenu pour aider le lecteur, **pas pour ranker**
 - **Au moins 2-3 éléments distinctifs absents du top 10 SERP** (Information Gain — signal primaire des Core Updates 2026). Identifier en Étape 2 Bloc B via gap analysis formalisée. Sans gap démontrable, abandonner ou pivoter le sujet.
 - Réponse complète, pas de teasing artificiel
@@ -213,7 +259,36 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 - Pas de "selon les experts" sans sourcer qui
 - **Synthèse profonde** (LEARN-048) : agrégation/cross-tabulation de sources éparses = données originales substitutives quand pas d'historique cabinet
 
+### Doctrine Google AI Search 2026 (officielle — ingérée 2026-05-16)
+
+Source : [Google Search Central — AI features and your website (AI Optimization Guide)](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide). Document officiel Google publié/mis à jour le 15 mai 2026, qui cadre **comment optimiser pour les fonctionnalités IA de Google Search** (AI Overviews, AI Mode). Cette doctrine **prime** sur toute "best practice GEO/AEO" circulant en ligne.
+
+**Principe central** : *« AI features in Google Search are rooted in our core Search ranking and quality systems »*. **Il n'y a pas de stratégie séparée GEO/AEO** — c'est du SEO appliqué au retrieval IA. Mécanismes sous le capot :
+
+- **RAG (Retrieval-Augmented Generation)** : Search core retrieve les pages pertinentes, l'IA review puis génère une réponse avec **clickable links**.
+- **Query Fan-Out** : l'IA génère des **requêtes sœurs concurrentes** pour enrichir le retrieval. Implication pipeline : couvrir non seulement le head term mais les **questions PAA + related searches** dans le corps de l'article (notre FAQ 8-10 + cluster cross-link y répondent déjà).
+
+**Règles à appliquer (ce que Google demande explicitement)** :
+
+1. **Unique Point of View** non négociable. Le commodity content (*"7 tips for first-time homebuyers"*) est dévalorisé ; le non-commodity ancré dans une expérience propriétaire (*"Why we waived the inspection and saved money"*) est récompensé. **Notre traduction Plouton** : H1 et angle doivent porter une perspective propriétaire (cas cabinet, données fraîches agrégées, angle local NAQ) — pas la reformulation d'un Service-Public.fr ou d'un confrère.
+2. **Non-commodity content** dès le H1. Si le H1 *« comment se faire indemniser »* pourrait être posé par n'importe quel cabinet, il échoue. Privilégier les formulations à pivot (*« pourquoi votre indemnisation diffère de »*, *« la qualification qui décide de »*, *« nommer l'escroquerie, agir »*).
+3. **People-first content**. Écrire pour humains, structure claire (headings, paragraphes, images quand pertinent).
+4. **Anti-scaled-content-abuse**. Créer un article séparé pour chaque variation de requête = **abus** (spam policy). Donc 1 pilier dense qui couvre plusieurs angles > 5 articles redondants. Cohérent avec notre stratégie clusters profonds (LEARN-047).
+5. **Foundational technical structure** : crawlable + indexable + eligible to be shown with snippet. Main content **visuellement distinguable** des éléments annexes (sidebar, ads, related). Réduire les duplicates.
+
+**Mythbusting officiel Google (ce qu'on PEUT arrêter de stresser)** :
+
+- ❌ **`llms.txt` PAS REQUIS** — *« You don't need to create new machine readable files, AI text files, markup, or Markdown to appear in generative AI search. »*
+- ❌ **Chunking artificiel PAS REQUIS** — *« There's no requirement to break your content into tiny pieces for AI to better understand it. »*
+- ❌ **Pas de "AI-friendly writing style"** spécial — l'IA comprend synonymes et sens général.
+- ❌ **Pas besoin de capter chaque long-tail variation** — l'IA fait le mapping sémantique.
+- ❌ **Mentions inauthentiques inefficaces** — *« Seeking inauthentic 'mentions' across the web isn't as helpful as it might seem. »* → focus contenu de qualité, pas link building artificiel.
+- ⚠️ **Structured data : pas requis pour AI Search**, mais **reste utile pour les rich results normaux** → on garde **FAQPage** (cohérent avec LEARN-041) et c'est suffisant.
+
+**Implication directe sur nos H1 et notre angle** : à chaque nouvel article, se poser la question *« Ce H1 pourrait-il être posé par n'importe quel cabinet ? »* Si oui, reformuler avant validation Étape 3. Le H1 doit porter un **pivot propriétaire** (jurisprudence récente nommée, cas cabinet réel, angle local NAQ, donnée chiffrée propre, ou contraste juridique précis).
+
 ### GEO (Generative Engine Optimization) + Local-first (LEARN-042)
+
 - Structure citable par LLM : définitions claires, listes ordonnées, encadrés
 - **FAQ 8-10 questions** en fin d'article (LEARN-044 — vs 5-7 précédemment ; révision Lucid Media)
 - Questions FAQ privilégient la **nuance juridique** (LEARN-045 anti-AI Overviews) plutôt que le factuel pur
@@ -223,13 +298,16 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 - **Schema markup FAQPage uniquement** par article (LEARN-041 — les schémas Person + LegalService sont gérés au niveau du site Plouton, ne pas dupliquer)
 
 ### Anti-hallucination — RÈGLE ABSOLUE
+
 - Toute affirmation juridique → source citée OU formulation prudente explicite ("en général", "le plus souvent")
 - **Doute = signalé dans le livrable** au lieu d'inventer
 - Si source manquante : `⚠️ À vérifier — source non trouvée` noir sur blanc
 
 ### Standards techniques Wix (learnings)
+
 - Slugs **sans accent**
-- **HTML** dans le contenu final, pas de markdown
+- `**etape-4-article.md`** : rédaction et archive en **Markdown** (source de travail)
+- **Contenu publié dans Wix** : rendu **HTML/Ricos** propre, sans markdown résiduel après mise en forme
 - Liens internes en **URLs absolues**
 - Images : alt text systématique, taille raisonnable
 

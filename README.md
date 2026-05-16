@@ -16,9 +16,21 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 
 **À lire avant d'attaquer** :
 - [`BRIEF.md`](BRIEF.md) — brief utilisateur intégral (workflow détaillé, ton, critères qualité)
-- [`LEARNINGS.md`](LEARNINGS.md) — **51 learnings capitalisés** (LEARN-001 à LEARN-051, patterns + anti-patterns ; LEARN-039 à 048 issus de l'audit Lucid Media Core Updates ; LEARN-049 à 051 workflow NotebookLM clarifié)
 - [`ARTICLE_TEMPLATE.md`](ARTICLE_TEMPLATE.md) — structure des livrables, checklist qualité (bio auteur, JSON-LD FAQPage seul, FAQ 8-10)
-- `MEMORY.md` (auto-chargée en système prompt) — 6 règles durables non négociables
+- [`LEARNINGS.md`](LEARNINGS.md) — **journal vivant** (allégé après digestion 2026-05-13). Contient les observations fraîches non encore stabilisées + la procédure de digestion à reproduire avant chaque nouvel article.
+- [`LEARNINGS-archive.md`](LEARNINGS-archive.md) — **historique des 49 learnings promus** (LEARN-001 à LEARN-052) vers BRIEF/TEMPLATE, avec cartographie complète des destinations + 7 entrées techniques/stratégiques préservées comme référence consultable.
+- `MEMORY.md` (auto-chargée en système prompt) — 6 règles durables non négociables.
+
+**Gouvernance des 4 fichiers** (post-digestion 2026-05-13) :
+
+| Fichier | Rôle | Mise à jour |
+|---|---|---|
+| `BRIEF.md` | Règles durables business + ton + workflow + outils. Auto-suffisant. | Rare, validation Nicolas obligatoire. |
+| `ARTICLE_TEMPLATE.md` | Squelette structurel des livrables + checklist qualité. Auto-suffisant. | Modérée, à chaque évolution structurelle confirmée. |
+| `LEARNINGS.md` | Journal vivant — observations fraîches en attente de promotion. **Vise < 100 lignes**. | Post-article + digestion avant chaque nouvel article. |
+| `LEARNINGS-archive.md` | Historique append-only des learnings promus + savoirs techniques préservés. | Append seulement (jamais éditer le passé). |
+
+**Critère de promotion** : un learning passe de `LEARNINGS.md` aux fichiers de règles quand il est (1) confirmé sur 2 articles distincts, (2) opérationnel, et (3) inutile à lire deux fois s'il vit déjà ailleurs. Procédure détaillée en pied de `LEARNINGS.md`.
 
 ---
 
@@ -28,8 +40,9 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 ~/Desktop/Articles/
 ├── README.md                 ← TU ES ICI (point d'entrée)
 ├── BRIEF.md                  ← brief utilisateur (workflow 4 étapes)
-├── LEARNINGS.md              ← 51 learnings (à mettre à jour après chaque article)
 ├── ARTICLE_TEMPLATE.md       ← structure réutilisable (à affiner après chaque article)
+├── LEARNINGS.md              ← journal vivant (< 100 lignes) — observations fraîches non promues
+├── LEARNINGS-archive.md      ← historique des 49 learnings promus + 7 savoirs techniques préservés
 ├── .env                      ← credentials PISTE Data Gouv (GITIGNORED)
 ├── .env.example              ← template
 ├── .gitignore                ← exclusions
@@ -88,7 +101,7 @@ Auto-chargées en début de session via `MEMORY.md`. Détails dans `~/.claude/pr
 1. **Slugs sans accent** — règle stricte pour les nouveaux articles Wix (translittération obligatoire). Pas d'audit rétro.
 2. **Liens internes follow / externes nofollow** — internes (`jplouton-avocat.fr/...`) = pas de `rel`, pas de `target="_blank"`. Externes = `target="_blank" rel="noopener noreferrer nofollow"`.
 3. **Pas de bullets dans blockquotes Wix** — listes à puces interdites dans citations. Encadrés chiffrés en prose continue (séparateurs `;` ou `—`).
-4. **Fact-check juridique obligatoire via NotebookLM** — toute affirmation juridique précise (n° article, jurisprudence) validée AVANT rédaction. Anti-récidive sur les erreurs juridiques de l'article #1.
+4. **Fact-check juridique obligatoire AVANT rédaction** — toute affirmation juridique précise (n° article, jurisprudence) validée d'abord via WebSearch ciblée (Légifrance/courdecassation.fr/juricaf.org), puis NotebookLM via Nicolas si doute ou source manquante.
 5. **JSON-LD livré dans le chat** — schemas markup Wix (FAQPage, etc.) livrés en bloc code Markdown dans la conversation, minifié one-liner, avec `type="application/ld+json"`. Pas de fichier HTML intermédiaire.
 6. **Repo Git/GitHub** — `~/Desktop/Articles` lié à `github.com/NicolasRewolf/Articles.git`. Commit après chaque article. Push **sur confirmation explicite uniquement** (jamais auto).
 
@@ -130,7 +143,7 @@ Auto-chargées en début de session via `MEMORY.md`. Détails dans `~/.claude/pr
    e. Nicolas copie-colle le markdown dans Wix Studio et refait la mise en page (LEARN-002 + LEARN-004).
    f. Méta-données SEO renseignées via le panneau SEO Wix Studio (slug, titre, description, **2 catégories** = Ressources et notions juridiques + thématique, tags, image hero + alt, JSON-LD FAQPage).
    g. Mise à jour LEARNINGS.md + ARTICLE_TEMPLATE.md si nouveau pattern.
-10. Commit Git local (`git add -A && git commit -m "Article #N : slug"` + mention refresh prévu M+6 — LEARN-046).
+10. Commit Git local : `git add -A`, vérifier que `.env` n'est pas inclus, puis `git commit -m "Article #N : slug"` (+ mention refresh prévu M+6 — LEARN-046). Pas de chaînage `&&`.
 11. Push GitHub sur "OK push" explicite uniquement (`git push origin main`).
 ```
 
@@ -193,6 +206,7 @@ Recommandation : taguer chaque article dans **2 catégories simultanées** (= Re
 - **5-6 H2** (TDM = tous les H2 cliquables) + ~8-12 H3.
 - **2 catégories Wix systématiques** : *Ressources et notions juridiques* + une catégorie thématique reliée au sujet.
 - **Ton sobre + empathique**, anti-marketing. Pas de "appel maintenant", pas d'étoiles Google, pas d'urgence factice.
+- **Voix « main tendue » LEARN-052** (durable, à partir article #4) : adressage direct « vous » / reconnaissance du vécu avant info / voix cabinet « nous » / CTAs invitation humaine / lexique actif / modulation victime vs défense pénale. Voir BRIEF.md section Ton éditorial + ARTICLE_TEMPLATE.md bloc dédié + checklist.
 - **Persona** : visiteur en quête d'info juridique, souvent en détresse post-accident. Empathie d'abord.
 - **3 CTA** : 1 mini-CTA post-intro, 1 mini-CTA dans le corps, 1 CTA final. *Nicolas gère le placement final lors de l'ingestion Wix — on fournit les 3 sans s'obsesser sur leur position exacte.*
 - **Bio auteur Maître Plouton OBLIGATOIRE** en pied d'article (LEARN-040 E-E-A-T YMYL).
@@ -205,19 +219,21 @@ Recommandation : taguer chaque article dans **2 catégories simultanées** (= Re
 - **Information Gain (LEARN-039)** : au moins 2-3 éléments distinctifs absents du top 10 SERP. Sans gap démontrable → abandonner ou pivoter.
 - **Clusters profonds (LEARN-047)** : 3 clusters (Route / Erreurs médicales / Pénal) plutôt que 24 articles disjoints. Cross-linking intra-cluster systématique.
 - **Refresh durabilité (LEARN-046)** : tous les 6 mois après publication.
+- **Doctrine Google AI Search 2026 (LEARN-053, ingérée 2026-05-16)** : pas de stratégie GEO/AEO séparée — c'est du SEO appliqué au retrieval IA (RAG + Query Fan-Out). Unique Point of View obligatoire dès le H1 (anti-commodity). Mythbusting officiel Google : `llms.txt` pas requis, chunking artificiel pas requis, structured data pas requis pour AI mais utile pour rich results (on garde FAQPage seul). Détail dans [BRIEF.md §6](BRIEF.md) et [ARTICLE_TEMPLATE.md checklist](ARTICLE_TEMPLATE.md). Source officielle : [Google Search Central — AI Optimization Guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide).
 
 ---
 
 ## En cas de doute
 
-- Lis **`BRIEF.md`** pour le détail des règles
-- Lis **`LEARNINGS.md`** pour les patterns validés et les anti-patterns
-- Lis **`ARTICLE_TEMPLATE.md`** pour la structure des livrables
-- Consulte **`memory/MEMORY.md`** + les feedback files pour les règles durables
-- Pose la question à Nicolas plutôt que d'extrapoler
+- Lis **`BRIEF.md`** pour le détail des règles business + workflow.
+- Lis **`ARTICLE_TEMPLATE.md`** pour la structure des livrables + checklist qualité.
+- Consulte **`LEARNINGS-archive.md`** pour comprendre le *pourquoi* d'une règle (chaque entrée est horodatée et liée à un article précis).
+- Consulte **`LEARNINGS.md`** pour les observations fraîches en attente de digestion.
+- Consulte **`memory/MEMORY.md`** + les feedback files pour les règles durables auto-chargées.
+- Pose la question à Nicolas plutôt que d'extrapoler.
 
 **Anti-hallucination** : ne JAMAIS inventer une donnée juridique. Toujours sourcer ou marquer ⚠️.
 
 ---
 
-*Dernière mise à jour : 2026-05-12 (cleanup cohérence 4 fichiers pipeline — volume cible révisé 2 000-2 500, H2 5-6, 2 catégories systématiques, workflow NotebookLM clarifié via Nicolas, push manuel par défaut ; LEARN-039 à LEARN-051).*
+*Dernière mise à jour : 2026-05-16 (ingestion Doctrine Google AI Search 2026 — LEARN-053 promu dans BRIEF.md §6 + ARTICLE_TEMPLATE.md checklist + LEARNINGS-archive.md).*

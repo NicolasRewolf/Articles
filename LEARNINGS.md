@@ -4,7 +4,7 @@
 >
 > **Cycle de digestion** : avant chaque nouvel article (à partir du #5), revue rapide de ce fichier. Tout ce qui est confirmé sur 2 articles distincts + opérationnel + non encore promu → on l'écrit dans BRIEF/TEMPLATE et on déplace ici dans `LEARNINGS-archive.md`.
 >
-> **Dernière digestion : 2026-05-13** (post article #4, cycliste renversé). 49 learnings promus vers BRIEF/TEMPLATE, 7 archivés comme savoirs techniques/stratégiques. Voir [`LEARNINGS-archive.md`](LEARNINGS-archive.md) pour l'historique complet et la cartographie des destinations.
+> **Dernière digestion : 2026-05-13** (post article #4, cycliste renversé) + **ingestion LEARN-053 le 2026-05-16** (Doctrine Google AI Search 2026). 50 learnings promus vers BRIEF/TEMPLATE, 7 archivés comme savoirs techniques/stratégiques. Voir [`LEARNINGS-archive.md`](LEARNINGS-archive.md) pour l'historique complet et la cartographie des destinations.
 
 ---
 
@@ -46,15 +46,6 @@ Sinon : reste ici jusqu'à confirmation ou abandon.
 **Pour les articles suivants** : repartir des memos + `BRIEF.md` + `ARTICLE_TEMPLATE.md` + `LEARNINGS-archive.md`. Pas besoin de tout re-expliquer.
 
 **Pourquoi pas promu** : méta-observation utile mais non opérationnelle (pas une règle à appliquer). Pourrait migrer vers `README.md` si on en crée un dédié au pipeline.
-
----
-
-## À surveiller post-article #4 (observations à confirmer)
-
-*Section à alimenter après ingestion Wix de l'article cycliste — observations brutes en attente d'un 2ᵉ article pour confirmation.*
-
-- **Doctrine Google AI Search 2026 ingérée le 2026-05-16** dans BRIEF.md §6 et ARTICLE_TEMPLATE.md (cf. [LEARN-053](LEARNINGS-archive.md#learn-053--doctrine-google-ai-search-2026-savoir-stratégique-de-référence)). À observer sur les articles #6+ : passage systématique du H1 dans le filtre *« Ce H1 pourrait-il être posé par n'importe quel cabinet ? »* avant validation Étape 3. Diagnostic en attente pour les H1 existants (#1 à #5) — possible reformulation #2 chirurgie (*« comment se faire indemniser »* = pattern commodity à challenger).
-- *(autres observations à compléter après publications #4 et #5)*
 
 ---
 

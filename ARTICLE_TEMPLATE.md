@@ -20,14 +20,14 @@
 | **Bio auteur (LEARN-040)** | Bloc « À propos de l'auteur » obligatoire en pied d'article (E-E-A-T YMYL). Template en bas du fichier. |
 | **Local-first (LEARN-042)** | Au moins **3 ancrages Bordeaux/Nouvelle-Aquitaine** (juridiction locale + adresse cabinet + zone d'intervention). |
 | **Date update visible (LEARN-043)** | Italique en pied : *« Dernière mise à jour : [mois année]. »* |
-| **Densité info (LEARN-028)** | Chaque H2 = 1 chiffre sourcé + 1 cas concret + 1 implication pratique. Pas de creux narratif. |
+| **Densité info (LEARN-028)** | Chaque H2 = 1 chiffre sourcé + 1 cas concret + 1 implication pratique. Pas de creux narratif. *Exception : H2 sur concept juridique abstrait sans données disponibles → 1 implication pratique suffit. Ne jamais forcer un chiffre sans source primaire.* |
 | **Phrases (LEARN-030)** | 16-20 mots idéal, **JAMAIS > 40 mots** |
 | **Paragraphes (LEARN-030)** | 1-3 phrases, **1 seule idée** par paragraphe |
 | **Front-loading (LEARN-029)** | Tous H2/H3/paragraphes/bullets commencent par les **2-3 mots les plus porteurs de sens** |
 
 ## Pattern Mini-CTA #1 "double-face" (LEARN-031 + LEARN-052)
 
-Reconnaître les limites = +crédibilité (Modèle de Probabilité d'Élaboration). Pourrait débloquer le 0 % conversion observé historiquement.
+Reconnaître les limites du guide = crédibilité renforcée.
 
 **Format combiné LEARN-031 + voix victime LEARN-052** :
 
@@ -38,26 +38,9 @@ Reconnaître les limites = +crédibilité (Modèle de Probabilité d'Élaboratio
 
 ---
 
-## Voix victime / main tendue — pattern systémique (LEARN-052, durable)
+## Voix victime / main tendue (LEARN-052 — durable, tous articles)
 
-**Pourquoi** : retour Nicolas 2026-05-12 sur les articles #1/#2/#3 — trop pédagogiques, pas assez "main tendue". À corriger à partir de l'article #4 et lors des refresh M+6 (LEARN-046).
-
-**Les 7 réflexes à appliquer dans toute la rédaction (pas seulement les CTAs)** :
-
-1. **Adressage direct « vous »** plutôt que « la victime » / « l'intéressé » / « le demandeur »
-2. **Reconnaissance du vécu** en ouverture de section critique (1 phrase avant l'info)
-3. **Voix cabinet « nous »** — *« Nous accompagnons »* > *« Le Cabinet Plouton accompagne »*
-4. **CTAs invitation humaine** — *« Si vous voulez en parler »* > *« Faire évaluer mon dossier »*
-5. **Reconnaissance des limites du guide** au moins une fois — *« Aucun guide ne remplace l'écoute d'un dossier réel. »*
-6. **Lexique actif** — *« Vous avez le droit de »* > *« Il est possible de »*
-7. **Phrases-ponts humaines** entre les sections — éviter les enchaînements secs
-
-**Garde-fous (interdits)** : pathos / *« Vous n'êtes pas seul !!! »* / points d'exclamation marketing / émoji / urgence factice / étoiles Google / condescendance. **L'empathie est un fond stable, pas un effet répétitif.** Précision juridique non négociable (LEARN-026).
-
-**Modulation selon le sujet** :
-- **Victimes** (route, médical, conjugal, CIVI/SARVI, travail/vie courante) → empathie haute
-- **Défense pénale** (droit pénal, stup, affaires, procès criminel, garde à vue) → empathie modulée, **présomption d'innocence centrale**, pas de jugement
-- **Contrats/famille** (divorce, assurances, conso) → empathie sobre, plus pédagogique-pratique
+→ Règles complètes (7 réflexes, garde-fous, modulation selon victime/défense/contrats) dans **BRIEF.md §2**. Checklist de contrôle en fin de fichier.
 
 ---
 
@@ -265,13 +248,13 @@ Format **BLOCKQUOTE** ~150 mots :
 Chaque article #N doit produire dans son dossier `0N-slug-article/` :
 
 1. **`etape-4-article.md`** — article complet en markdown (lecture/archive + copier-coller Wix Studio par Nicolas)
-2. **`etape-4-metadonnees-wix.md`** — **OBLIGATOIRE, NE PAS ZAPPER** — 10 sections prêtes à coller : H1, méta-title ≤ 60, méta-description ≤ 155, slug sans accent, **catégories Wix (2 IDs : Ressources et notions juridiques + thématique)**, tags (10-15), image hero + alt, Open Graph, schema markup, checklist finale 11 points. *(Erreur observée sur article #1 : oublié au début, ajouté en correction sur question explicite de Nicolas.)*
+2. **`etape-4-metadonnees-wix.md`** — **OBLIGATOIRE, NE PAS ZAPPER** — 10 sections prêtes à coller : H1, méta-title ≤ 60, méta-description ≤ 155, slug sans accent, **catégories Wix (2 IDs : Ressources et notions juridiques + thématique)**, tags (10-15), image hero + alt, Open Graph, schema markup, checklist finale 11 points.
 3. **JSON-LD FAQPage** — **livré DIRECTEMENT dans le chat** (bloc code Markdown, JSON minifié one-liner, avec `type="application/ld+json"`). **PAS de fichier `.json` ou `.html` séparé** (LEARN-027 — validé : Wix Studio rejette les fichiers HTML pour ce champ, copier-coller depuis le chat est l'unique méthode fiable).
 4. *(optionnel)* **`etape-4-corrections-rouge.html`** — visualisation rouge des passages modifiés si fact-check post-rédaction a entraîné des corrections.
 
 ## Étape 4 — Fact-check juridique obligatoire AVANT rédaction (LEARN-026 + LEARN-049 anti-récidive)
 
-**Règle non négociable issue de l'article #1 :** j'ai produit 3 erreurs juridiques (Art. Badinter confondus) parce que j'ai rédigé sans sourcing primaire. Anti-pattern documenté.
+**Règle non négociable :** toute affirmation juridique précise doit être sourcée AVANT rédaction.
 
 **Procédure AVANT de rédiger chaque affirmation juridique précise** (n° d'article, n° de pourvoi, fondement, citation verbatim) :
 
@@ -283,7 +266,7 @@ Chaque article #N doit produire dans son dossier `0N-slug-article/` :
 3. **Vérifier 2 fois** chaque numéro d'article cité (idéalement 2 sources convergentes — WebSearch + NotebookLM).
 4. **Si toujours non confirmé** → reformulation prudente (LEARN-021) + `⚠️ À vérifier` noir sur blanc dans le draft.
 
-**Bon réflexe (validé article #2)** : grouper plusieurs zones d'incertitude en **une seule demande NotebookLM** à Nicolas (économise les allers-retours). Mais ne pas surcharger non plus — qualité > quantité.
+**Bon réflexe** : grouper jusqu'à 5 zones d'incertitude en **une seule demande NotebookLM** à Nicolas (économise les allers-retours). Prioriser les questions dont une erreur serait une affirmation juridique fausse.
 
 ## Étape 4 — Procédure de livraison fin de rédaction
 
@@ -373,7 +356,7 @@ COLLAPSIBLE_LIST + ITEMs     → FAQ accordéon
 
 ### Bloc JSON-LD FAQPage (LEARN-041 — UNIQUEMENT FAQPage par article)
 
-**Décision Nicolas 2026-05-11** : le site `jplouton-avocat.fr` gère déjà au niveau global les schémas Person (Maître Plouton), LegalService (Cabinet Plouton) et Article via Wix Studio. **On ne duplique PAS** ces schémas dans chaque article (risque doublon + signal négatif Google).
+Les schémas Person, LegalService et Article sont gérés au niveau du site Wix Studio — **ne pas dupliquer** dans chaque article (risque doublon + signal négatif Google).
 
 **Livré directement dans le chat** (LEARN-027) en 1 seul bloc `<script type="application/ld+json">` minifié one-liner, contenant uniquement les 8-10 questions de la FAQ (LEARN-044). À coller dans le champ « Marquage structuré » du panneau SEO Wix Studio du draft post.
 
@@ -447,7 +430,7 @@ COLLAPSIBLE_LIST + ITEMs     → FAQ accordéon
 - [ ] **CTAs spécifiques** : zéro libellé vague (pas de « En savoir plus » / « Cliquez ici » / « Contact ») — LEARN-037
 - [ ] **Mini-CTA #1 « double-face »** appliqué (reconnaît les limites du guide, précise pour qui un avocat est utile) — LEARN-031
 
-### Bloc Voix victime / main tendue (LEARN-052 — durable, à partir article #4)
+### Bloc Voix victime / main tendue (LEARN-052 — durable, tous articles)
 - [ ] **Adressage direct « vous »** — chasser les *« la victime »* / *« l'intéressé »* / *« le demandeur »* en 3ᵉ personne (sauf citations légales)
 - [ ] **Reconnaissance du vécu** avant l'info en ouverture d'au moins 2-3 sections critiques (intro + 1-2 H2 sensibles)
 - [ ] **Voix cabinet « nous »** — *« Nous accompagnons »* dans bio + CTA final + intro (pas systématiquement « Le Cabinet Plouton »)

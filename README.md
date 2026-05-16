@@ -18,7 +18,7 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 - [`BRIEF.md`](BRIEF.md) — brief utilisateur intégral (workflow détaillé, ton, critères qualité)
 - [`ARTICLE_TEMPLATE.md`](ARTICLE_TEMPLATE.md) — structure des livrables, checklist qualité (bio auteur, JSON-LD FAQPage seul, FAQ 8-10)
 - [`LEARNINGS.md`](LEARNINGS.md) — **journal vivant** (allégé après digestion 2026-05-13). Contient les observations fraîches non encore stabilisées + la procédure de digestion à reproduire avant chaque nouvel article.
-- [`LEARNINGS-archive.md`](LEARNINGS-archive.md) — **historique des 49 learnings promus** (LEARN-001 à LEARN-052) vers BRIEF/TEMPLATE, avec cartographie complète des destinations + 7 entrées techniques/stratégiques préservées comme référence consultable.
+- [`LEARNINGS-archive.md`](LEARNINGS-archive.md) — **historique des 50 learnings promus** (LEARN-001 à LEARN-053) vers BRIEF/TEMPLATE, avec cartographie complète des destinations + 7 entrées techniques/stratégiques préservées comme référence consultable.
 - `MEMORY.md` (auto-chargée en système prompt) — 6 règles durables non négociables.
 
 **Gouvernance des 4 fichiers** (post-digestion 2026-05-13) :
@@ -28,7 +28,7 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 | `BRIEF.md` | Règles durables business + ton + workflow + outils. Auto-suffisant. | Rare, validation Nicolas obligatoire. |
 | `ARTICLE_TEMPLATE.md` | Squelette structurel des livrables + checklist qualité. Auto-suffisant. | Modérée, à chaque évolution structurelle confirmée. |
 | `LEARNINGS.md` | Journal vivant — observations fraîches en attente de promotion. **Vise < 100 lignes**. | Post-article + digestion avant chaque nouvel article. |
-| `LEARNINGS-archive.md` | Historique append-only des learnings promus + savoirs techniques préservés. | Append seulement (jamais éditer le passé). |
+| `LEARNINGS-archive.md` | Historique append-only des 50 learnings promus + savoirs techniques préservés. | Append seulement (jamais éditer le passé). |
 
 **Critère de promotion** : un learning passe de `LEARNINGS.md` aux fichiers de règles quand il est (1) confirmé sur 2 articles distincts, (2) opérationnel, et (3) inutile à lire deux fois s'il vit déjà ailleurs. Procédure détaillée en pied de `LEARNINGS.md`.
 
@@ -42,7 +42,7 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 ├── BRIEF.md                  ← brief utilisateur (workflow 4 étapes)
 ├── ARTICLE_TEMPLATE.md       ← structure réutilisable (à affiner après chaque article)
 ├── LEARNINGS.md              ← journal vivant (< 100 lignes) — observations fraîches non promues
-├── LEARNINGS-archive.md      ← historique des 49 learnings promus + 7 savoirs techniques préservés
+├── LEARNINGS-archive.md      ← historique des 50 learnings promus + 7 savoirs techniques préservés
 ├── .env                      ← credentials PISTE Data Gouv (GITIGNORED)
 ├── .env.example              ← template
 ├── .gitignore                ← exclusions
@@ -149,29 +149,9 @@ Auto-chargées en début de session via `MEMORY.md`. Détails dans `~/.claude/pr
 
 ---
 
-## Pages d'expertise cibles (pour CTA conversion)
+## Pages d'expertise cibles
 
-**Défense pénale (5)** :
-- `/defense-penale/droit-penal`
-- `/defense-penale/trafic-de-stupefiant`
-- `/defense-penale/proces-criminel`
-- `/defense-penale/droit-penal-des-affaires`
-- `/defense-penale/violences-conjugales-et-feminicides`
-
-**Indemnisation des victimes (5)** :
-- `/indemnisation-des-victimes/victimes-de-delits-ou-crimes`
-- `/indemnisation-des-victimes/accidents-de-la-route`
-- `/indemnisation-des-victimes/droit-et-accidents-du-travail`
-- `/indemnisation-des-victimes/accidents-et-erreurs-medicales`
-- `/indemnisation-des-victimes/accidents-de-la-vie-courante`
-
-**Droit des contrats et des personnes (4)** :
-- `/droit-des-contrats-et-des-personnes/droit-assurances-particuliers-professionnels`
-- `/droit-des-contrats-et-des-personnes/droit-de-la-famille`
-- `/droit-des-contrats-et-des-personnes/defense-des-consommateurs`
-- `/droit-des-contrats-et-des-personnes/droit-de-la-famille/avocat-divorce-bordeaux`
-
-**Page conversion principale** : `/honoraires-rendez-vous`
+→ Liste complète des 14 URLs dans **[BRIEF.md §2](BRIEF.md)**. Page conversion principale : `/honoraires-rendez-vous`.
 
 ---
 
@@ -200,26 +180,9 @@ Recommandation : taguer chaque article dans **2 catégories simultanées** (= Re
 
 ---
 
-## Volume cible & ton (rappel learnings — révisé Nicolas 2026-05-11)
+## Volume cible & ton
 
-- **2 000-2 500 mots** (révisé post article #2 — concision > longueur ; médiane Plouton 28j = 1 700, on vise un peu au-dessus pour la profondeur distinctive).
-- **5-6 H2** (TDM = tous les H2 cliquables) + ~8-12 H3.
-- **2 catégories Wix systématiques** : *Ressources et notions juridiques* + une catégorie thématique reliée au sujet.
-- **Ton sobre + empathique**, anti-marketing. Pas de "appel maintenant", pas d'étoiles Google, pas d'urgence factice.
-- **Voix « main tendue » LEARN-052** (durable, à partir article #4) : adressage direct « vous » / reconnaissance du vécu avant info / voix cabinet « nous » / CTAs invitation humaine / lexique actif / modulation victime vs défense pénale. Voir BRIEF.md section Ton éditorial + ARTICLE_TEMPLATE.md bloc dédié + checklist.
-- **Persona** : visiteur en quête d'info juridique, souvent en détresse post-accident. Empathie d'abord.
-- **3 CTA** : 1 mini-CTA post-intro, 1 mini-CTA dans le corps, 1 CTA final. *Nicolas gère le placement final lors de l'ingestion Wix — on fournit les 3 sans s'obsesser sur leur position exacte.*
-- **Bio auteur Maître Plouton OBLIGATOIRE** en pied d'article (LEARN-040 E-E-A-T YMYL).
-- **3 ancrages locaux Bordeaux/Nouvelle-Aquitaine** minimum (LEARN-042).
-- **FAQ 8-10 questions** (LEARN-044).
-- **Schema FAQPage seul** par article (LEARN-041 — les autres schémas sont gérés au niveau du site Plouton).
-- **Date de mise à jour visible** en italique en pied (LEARN-043).
-- **Sourcing rigoureux** : chaque chiffre = millésime + URL primaire. Chaque article de loi = lien Légifrance. Chaque jurisprudence = n° de pourvoi + date + chambre.
-- **Anti-hallucination (LEARN-049)** : fourchettes prudentes ("indicatives", "généralement", "varie") quand pas de source primaire trouvée. ⚠️ `À vérifier` noir sur blanc si doute. Si je doute → demander à Nicolas un cluster NotebookLM (LEARN-022).
-- **Information Gain (LEARN-039)** : au moins 2-3 éléments distinctifs absents du top 10 SERP. Sans gap démontrable → abandonner ou pivoter.
-- **Clusters profonds (LEARN-047)** : 3 clusters (Route / Erreurs médicales / Pénal) plutôt que 24 articles disjoints. Cross-linking intra-cluster systématique.
-- **Refresh durabilité (LEARN-046)** : tous les 6 mois après publication.
-- **Doctrine Google AI Search 2026 (LEARN-053, ingérée 2026-05-16)** : pas de stratégie GEO/AEO séparée — c'est du SEO appliqué au retrieval IA (RAG + Query Fan-Out). Unique Point of View obligatoire dès le H1 (anti-commodity). Mythbusting officiel Google : `llms.txt` pas requis, chunking artificiel pas requis, structured data pas requis pour AI mais utile pour rich results (on garde FAQPage seul). Détail dans [BRIEF.md §6](BRIEF.md) et [ARTICLE_TEMPLATE.md checklist](ARTICLE_TEMPLATE.md). Source officielle : [Google Search Central — AI Optimization Guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide).
+→ Règles complètes dans **[BRIEF.md §2-3](BRIEF.md)** (ton éditorial, volume, cadence, voix victime, clusters) et **[ARTICLE_TEMPLATE.md](ARTICLE_TEMPLATE.md)** (Cap général + checklist qualité).
 
 ---
 

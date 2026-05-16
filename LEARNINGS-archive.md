@@ -4,7 +4,7 @@
 > Chaque entrée est conservée pour traçabilité du *« pourquoi cette règle existe »*.
 > Append-only — ne pas modifier les entrées passées.
 >
-> **Mise en place : 2026-05-13** (post article #4, cycliste renversé). 51 learnings audités, 49 promus, 2 conservés en `LEARNINGS.md` actif.
+> **Mise en place : 2026-05-13** (post article #4, cycliste renversé). 51 learnings audités, 50 promus, 2 conservés en `LEARNINGS.md` actif.
 
 ---
 

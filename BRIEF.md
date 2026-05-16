@@ -59,14 +59,14 @@ Travail **en silo, étape par étape**, avec **validation explicite** entre chaq
 **Ton éditorial :**
 
 - Pédagogique et sobre (pas de marketing agressif, pas de "sexy")
-- **Voix « main tendue » à une personne en détresse** (LEARN-052 — durable, à appliquer à partir de l'article #4)
+- **Voix « main tendue » à une personne en détresse** (LEARN-052 — durable, appliqué sur tous les articles)
 - Empathie d'abord sur les sujets victimes ; **empathie modulée + présomption d'innocence** sur les sujets défense pénale
 - Précision juridique non négociable — **zéro hallucination**
 - Accessible sans être niais : prospects en détresse OU en recherche d'info concrète
 
 ### Voix victime / main tendue — 7 réflexes opérationnels (LEARN-052)
 
-Le ton doit incarner concrètement le rôle du cabinet (aider des personnes en détresse), pas juste diffuser de l'information juridique. Diagnostic post-articles 1/2/3 : trop de « la victime » en 3ᵉ personne, trop de passif administratif, CTAs trop « service ». À corriger systématiquement à partir de l'article #4.
+Le ton doit incarner concrètement le rôle du cabinet (aider des personnes en détresse), pas juste diffuser de l'information juridique. À corriger systématiquement.
 
 
 | #   | Réflexe                                     | ❌ Avant                                                     | ✅ Après                                                                                                                                 |
@@ -126,6 +126,8 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 - Hypothèse de valeur : pourquoi cet article peut performer (gap concurrentiel, intent mal servi, demande non couverte…)
 
 **Sources autorisées :** brief + reco rapide via web search et lecture du sitemap concurrent si utile.
+
+**Sujets mixtes (violences conjugales, accident impliquant 2 parties, etc.)** : si l'article peut servir simultanément une persona victime ET une persona défendeur, l'arbitrage se fait ici. L'article est cadré par sa page d'expertise cible — `/defense-penale/...` → modulation défense pénale ; `/indemnisation-des-victimes/...` → modulation victimes. Un article ne cible jamais 2 personas opposés sans arbitrage explicite Nicolas inscrit dans le livrable Étape 1.
 
 🛑 STOP — validation requise avant Étape 2.
 
@@ -202,7 +204,7 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 
 *Comment livrer un article propre que Nicolas peut directement ingérer dans Wix Studio ?*
 
-**Livrable** (3 fichiers + 1 livraison chat) :
+**Livrable** (2 fichiers + 1 livraison chat) :
 
 - `etape-4-article.md` — article complet en **markdown** (LEARN-002 — Nicolas copie-colle et refait la mise en page Ricos manuellement ; pas de push API par défaut, LEARN-004)
 - Balisage structuré : H1, H2, H3, listes, encadrés, FAQ
@@ -217,6 +219,25 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 - Push API Wix REST possible mais facultatif et fragile (échec > 25K tokens). Si tenté, **draft uniquement** (status `UNPUBLISHED`), jamais publié sans ordre explicite.
 
 **Post-livraison :** mise à jour de `LEARNINGS.md` et `ARTICLE_TEMPLATE.md`. Date de prochain refresh dans le commit message (LEARN-046).
+
+### Procédure refresh M+6 (LEARN-046)
+
+**Critères déclencheurs** (l'un suffit) :
+- 6 mois depuis la date de publication ou du dernier refresh
+- Chiffre clé daté de N-2 ou antérieur (ONISR, ONIAM, INSEE, CNAM-AT…)
+- Nouvelle jurisprudence majeure publiée (Cass. ou CA) impactant le fond de l'article
+- Changement législatif ou réglementaire sur le sujet
+
+**Workflow du refresh** :
+1. Relire l'article publié + le fichier `etape-2-collecte.md` (Bloc A juridique + Bloc D stats)
+2. Identifier les chiffres datés à mettre à jour (Bloc D en premier)
+3. Vérifier que les jurisprudences citées sont toujours valides (non cassées, non obsolètes) via WebSearch ciblée
+4. Patcher le fichier local `etape-4-article.md` (pas de nouveau fichier — même dossier `0N-slug-article/`)
+5. Mettre à jour la ligne `*Dernière mise à jour : [mois année].*` en pied d'article
+6. Re-livrer le JSON-LD FAQPage dans le chat avec `dateModified` mis à jour
+7. Nicolas copie-colle les passages modifiés dans Wix Studio + met à jour la date visible + met à jour le champ JSON-LD
+
+**Convention de commit** : `git commit -m "Refresh M+6 — Article #N : [slug] (chiffres + jurisprudence)"`. Push sur confirmation explicite Nicolas.
 
 ---
 
@@ -247,7 +268,6 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 - Affaires réelles intégrées si fournies
 - **Bio auteur Maître Plouton OBLIGATOIRE en pied d'article** (~150 mots — EFB, cabinet 2009, IDC/ADAP/IDA, adresse, zone d'intervention)
 - **Date de mise à jour visible** (LEARN-043 — signal fraîcheur)
-- Photo HD auteur gérée côté Wix Studio
 - Photo HD auteur gérée côté Wix Studio (signature ↔ Schema Person déjà en place au niveau site)
 
 ### Helpful Content (Google) + Information Gain (LEARN-039)
@@ -276,16 +296,11 @@ Source : [Google Search Central — AI features and your website (AI Optimizatio
 4. **Anti-scaled-content-abuse**. Créer un article séparé pour chaque variation de requête = **abus** (spam policy). Donc 1 pilier dense qui couvre plusieurs angles > 5 articles redondants. Cohérent avec notre stratégie clusters profonds (LEARN-047).
 5. **Foundational technical structure** : crawlable + indexable + eligible to be shown with snippet. Main content **visuellement distinguable** des éléments annexes (sidebar, ads, related). Réduire les duplicates.
 
-**Mythbusting officiel Google (ce qu'on PEUT arrêter de stresser)** :
-
-- ❌ **`llms.txt` PAS REQUIS** — *« You don't need to create new machine readable files, AI text files, markup, or Markdown to appear in generative AI search. »*
-- ❌ **Chunking artificiel PAS REQUIS** — *« There's no requirement to break your content into tiny pieces for AI to better understand it. »*
-- ❌ **Pas de "AI-friendly writing style"** spécial — l'IA comprend synonymes et sens général.
-- ❌ **Pas besoin de capter chaque long-tail variation** — l'IA fait le mapping sémantique.
-- ❌ **Mentions inauthentiques inefficaces** — *« Seeking inauthentic 'mentions' across the web isn't as helpful as it might seem. »* → focus contenu de qualité, pas link building artificiel.
-- ⚠️ **Structured data : pas requis pour AI Search**, mais **reste utile pour les rich results normaux** → on garde **FAQPage** (cohérent avec LEARN-041) et c'est suffisant.
+**Mythbusting** (llms.txt, chunking, structured data pour AI, long-tail capping, mentions inauthentiques) → voir [LEARN-053 dans LEARNINGS-archive.md](LEARNINGS-archive.md#learn-053--doctrine-google-ai-search-2026-savoir-stratégique-de-référence).
 
 **Implication directe sur nos H1 et notre angle** : à chaque nouvel article, se poser la question *« Ce H1 pourrait-il être posé par n'importe quel cabinet ? »* Si oui, reformuler avant validation Étape 3. Le H1 doit porter un **pivot propriétaire** (jurisprudence récente nommée, cas cabinet réel, angle local NAQ, donnée chiffrée propre, ou contraste juridique précis).
+
+*Clause de bon sens* : si après 3 variantes aucun pivot authentique n'émerge (sujet peu documenté, pas de jurisprudence récente, pas de cas cabinet disponible) → signaler à Nicolas avant de valider l'Étape 3. Un H1 factuel honnête vaut mieux qu'un pivot rhétorique vide.
 
 ### GEO (Generative Engine Optimization) + Local-first (LEARN-042)
 
@@ -315,7 +330,7 @@ Source : [Google Search Central — AI features and your website (AI Optimizatio
 
 ## 7. Règles opérationnelles
 
-- **One action at a time.** Toujours. Une commande → retour → on enchaîne. Jamais de `&&` ni de parallélisation.
+- **One action at a time.** Toujours. Une commande → retour → on enchaîne. Jamais de `&&` ni de parallélisation. *Périmètre : étapes du workflow (1→2→3→4), appels outils externes, commandes shell. Exception : les questions NotebookLM peuvent être groupées jusqu'à 5 en une seule demande à Nicolas (consolidation, pas parallélisation).*
 - **Poser les questions avant de partir** si ambigu.
 - **Signaler les incertitudes** plutôt que les masquer.
 - **Capitaliser** dans `LEARNINGS.md` et `ARTICLE_TEMPLATE.md` après chaque article.

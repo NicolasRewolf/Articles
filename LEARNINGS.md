@@ -33,11 +33,56 @@ Sinon : reste ici jusqu'à confirmation ou abandon.
 
 ### LEARN-020 — ONISR : provisoires fin janvier, définitifs fin mai
 
-**Constat** : l'ONISR publie chaque fin janvier les résultats provisoires de l'année N-1, puis les définitifs fin mai.
+**Constat** : l'ONISR publie chaque fin janvier les résultats provisoires de l'année N-1, puis les définitifs fin mai. **Confirmé article #6** (2026-05-17) — règle strictement appliquée (mention « provisoires 2025 » côte à côte avec « définitifs 2024 » pour le breakdown manquant).
 
 **Règle** : entre fin janvier et fin mai, mentionner explicitement « résultats provisoires » dans toute citation chiffrée. Au-delà de mai, utiliser les définitifs.
 
-**Pourquoi pas promu** : règle saisonnière vivante, à garder en main pour rappel ponctuel lors des collectes. Promotion possible en BRIEF.md §4 (Bloc D Étape 2) si elle se vérifie sur 2-3 articles supplémentaires touchant à l'ONISR.
+**Pourquoi pas encore promu** : confirmé sur 2 articles route (#4 vélo + #6 passager). À promouvoir en BRIEF.md §4 (Bloc D Étape 2) à la prochaine digestion (post-#7).
+
+### LEARN-054 — Judilibre PROD via PISTE = source de référence pour la jurisprudence Cass.
+
+**Constat article #6** : la sandbox PISTE est limitée (token sandbox + recherches partielles) ; **Judilibre PROD** donne accès à : verbatims complets des arrêts, vérification des n° de pourvoi, recherche d'arrêts récents (2018-2025) qui solidifient la doctrine ancienne. Sur l'article #6, a permis d'ajouter Civ. 2ᵉ 28 mars 2019 n° 18-14.125 (cassation d'une faute inexcusable cycliste — transposable passager) + Civ. 2ᵉ 24 nov 2022 n° 20-23.462 (FGAO/CIVI exclusion). Verbatim Civ. 2ᵉ 30 mars 2023 n° 21-17.466 intégré FAQ.
+
+**Règle opérationnelle** : Bloc A Étape 2 → systématiquement (a) WebSearch Légifrance pour le texte des articles + (b) **Judilibre PROD** pour les arrêts cités (recherche par n° de pourvoi + récupération verbatim motivation).
+
+**Setup technique** : credentials prod PISTE dans `.env` (gitignored) ; SSL_CERT_FILE=certifi pour Python 3.14 macOS ; `python3 scripts/judilibre.py search "..." --sort score` (pas `date_desc` — invalide en prod, utiliser `score|scorepub|date`).
+
+**Pourquoi pas encore promu** : confirmé sur 1 article (#6). À tester sur #7 — si validation, promotion en BRIEF.md §5 + ARTICLE_TEMPLATE.md.
+
+### LEARN-055 — Matrice de collision ONISR (page 15 bilan annuel) = chiffre or pour articles cluster route
+
+**Constat article #6** : la matrice de collision « tués selon mode de déplacement et antagoniste principal » (page 15 bilan ONISR annuel) révèle que **54 % des occupants de voiture meurent dans des accidents sans tiers impliqué** (sortie de route, perte de contrôle). C'est devenu le chiffre pivot le plus puissant de l'article (intro + H1.2) — incarne directement l'asymétrie art. 3/art. 4 Badinter.
+
+**Règle** : Bloc D Étape 2 → toujours consulter la matrice de collision page 15 du bilan ONISR (en plus des chiffres clés synthétiques). Utile pour tous les articles cluster « Accidents de la route ».
+
+**Pourquoi pas encore promu** : trouvaille tactique #6. À tester sur le prochain article cluster route.
+
+### LEARN-056 — Double sourcing presse régionale sur affaires cabinet = signal E-E-A-T externe
+
+**Constat article #6** : l'affaire Monsieur A. (tétraplégie 2,5 M€) a été couverte par Sud Ouest le 29 sept 2015. La double citation **post cabinet + article presse** renforce considérablement l'autorité (citation tierce indépendante + photo Me Plouton incluse). LEARN-040 E-E-A-T renforcé Lucid Media 2026.
+
+**Règle** : Bloc C Étape 2 → pour chaque affaire cabinet « top tier » identifiée, **rechercher si elle a été reprise en presse régionale** (Sud Ouest, France 3 NAQ, 20 Minutes Bordeaux, presse spécialisée). Si oui, double sourcing dans le draft.
+
+**Pourquoi pas encore promu** : observation #6. À répliquer sur le prochain article avec affaire cabinet « top tier ».
+
+### LEARN-META-1 — Une session ≠ tout le workflow
+
+**Constat** : une seule session conversation a permis de boucler tout le workflow 4 étapes pour l'article #1 (cadrage, collecte, plan, rédaction). Les artefacts sont sauvegardés localement et accessibles cross-sessions via la mémoire persistante (`memory/`).
+
+**Pour les articles suivants** : repartir des memos + `BRIEF.md` + `ARTICLE_TEMPLATE.md` + `LEARNINGS-archive.md`. Pas besoin de tout re-expliquer.
+
+**Pourquoi pas promu** : méta-observation utile mais non opérationnelle (pas une règle à appliquer). Pourrait migrer vers `README.md` si on en crée un dédié au pipeline.
+
+### LEARN-META-2 — Cible BRIEF 2 000-2 500 mots vs pratique pipeline 3 900-5 700 mots — décalage systémique à arbitrer
+
+**Constat post-#6** : les 5 articles publiés font respectivement 4 285 / 5 235 / 5 736 / 3 903 / 4 155 mots (médiane 4 285). La cible BRIEF (« 2 000-2 500 mots, concision > longueur ») n'est jamais atteinte en pratique — la profondeur distinctive l'emporte systématiquement.
+
+**Options à arbitrer Nicolas avant prochain article** :
+- (a) Réviser BRIEF.md vers 3 500-4 500 mots (alignement réalité) → suppose qu'on accepte cette profondeur comme norme.
+- (b) Maintenir 2 000-2 500 mots et **compresser activement** chaque draft (-40 % moyenne actuelle) → travail post-rédaction à industrialiser.
+- (c) Adopter une fourchette élargie 2 500-4 500 mots avec règle « concision sur les sujets non-niche, profondeur autorisée sur niches juridiques denses » → règle adaptative.
+
+**Pourquoi pas promu** : décision stratégique à prendre par Nicolas — pas un learning observationnel. À traiter en discussion ouverte avant l'article #7.
 
 ### LEARN-META-1 — Une session ≠ tout le workflow
 

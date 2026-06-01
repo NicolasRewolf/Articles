@@ -31,7 +31,7 @@
 | LEARN-017 | Format FAQ citabilité LLM | **PROMU** | TEMPLATE.md Étape 3 + Étape 4 |
 | LEARN-018 | SERP+PAA+Related en un seul appel DataForSEO | **PROMU** | BRIEF.md §4 Étape 2 + TEMPLATE.md Étape 2 |
 | LEARN-019 | Loi Badinter art. 4 = pivot conducteur VTM | **ARCHIVÉ SAVOIR JURIDIQUE** | savoir-faire récurrent, conservé ici |
-| LEARN-020 | ONISR provisoires fin janvier / définitifs fin mai | **ACTIF** | conservé dans LEARNINGS.md (règle saisonnière vivante) |
+| LEARN-020 | ONISR provisoires fin janvier / définitifs fin mai | **PROMU** (2026-06-01) | BRIEF.md §4 Bloc D |
 | LEARN-021 | Anti-hallucination : fourchettes prudentes | **PROMU** | BRIEF.md §6 (règle absolue) |
 | LEARN-022 | NotebookLM via Nicolas (workflow définitif) | **PROMU** | BRIEF.md §5 outils |
 | LEARN-023 | Format des demandes NotebookLM à Nicolas | **PROMU** | BRIEF.md §5 outils |
@@ -65,9 +65,10 @@
 | LEARN-051 | Format question NotebookLM : pas de hard wrap | **PROMU** | BRIEF.md §5 outils |
 | LEARN-052 | Voix victime / main tendue (durable) | **PROMU** | BRIEF.md §2 ton éditorial + TEMPLATE.md voix + checklist + mémoire persistante |
 | LEARN-053 | Doctrine Google AI Search 2026 (officielle) | **PROMU** | BRIEF.md §6 nouvelle sous-section + TEMPLATE.md nouveau bloc checklist |
-| LEARN-META-1 | Une session ≠ tout le workflow | **ACTIF** | conservé dans LEARNINGS.md |
+| LEARN-META-1 | Une session ≠ tout le workflow | **RETIRÉ DE L'ACTIF** (2026-06-01) | non-opérationnel — couvert par README.md ; dédupliqué |
+| LEARN-META-2 | Cible volume 2 000-2 500 vs pratique 3 900-5 700 | **RÉSOLU** (2026-06-01) | décision Nicolas option b — BRIEF.md §3 + §4 Étape 4 + TEMPLATE.md |
 
-**Bilan** : 50 promus / 2 actifs (LEARN-020 + LEARN-META-1) — + 7 archivés comme savoirs techniques ou principes stratégiques (référence consultable).
+**Bilan** (maj 2026-06-01) : 51 promus / 3 actifs (LEARN-054 + LEARN-055 + LEARN-056) + 1 résolu (LEARN-META-2) + 1 retiré (LEARN-META-1) — + 7 archivés comme savoirs techniques ou principes stratégiques (référence consultable).
 
 ---
 
@@ -101,6 +102,24 @@
 - **BRIEF.md §6** : nouvelle sous-section *« Doctrine Google AI Search 2026 (officielle) »* après *« Helpful Content + Information Gain »*.
 - **ARTICLE_TEMPLATE.md** : nouveau *« Bloc Doctrine Google AI Search 2026 »* dans la checklist qualité, avec 7 items concrets (Unique POV, non-commodity, query fan-out, main content distinguable, anti-chunking, anti-llms.txt, anti-scaled-content).
 - **À tester sur articles #6+** : passage systématique du H1 dans le filtre *« Ce H1 pourrait-il être posé par n'importe quel cabinet ? »* avant validation Étape 3.
+
+---
+
+## Digestion 2026-06-01 (post article #6) — LEARN-020, META-1, META-2
+
+**Contexte** : digestion déclenchée avant le cadrage de l'article #7, conformément à la procédure (revue obligatoire de `LEARNINGS.md` avant chaque nouvel article à partir de #5). Trois entrées traitées.
+
+### LEARN-020 — promu (BRIEF.md §4 Bloc D)
+Confirmé sur 2 articles route distincts (#4 vélo + #6 passager) → critère de promotion rempli. Règle « millésime ONISR » (provisoires fin janvier / définitifs fin mai) intégrée au Bloc D de l'Étape 2. Sort de la zone « règle saisonnière vivante » de `LEARNINGS.md`.
+
+### LEARN-META-2 — résolu (décision Nicolas 2026-06-01 : option b)
+**Constat** : les 6 premiers articles ont dérivé à 3 900-5 700 mots (médiane 4 285) alors que la cible BRIEF est 2 000-2 500. Trois options sur la table (a réviser la cible à la hausse / b maintenir + compresser / c fourchette adaptative).
+**Décision** : **option b** — la cible 2 000-2 500 est **maintenue** ; une **passe de compression active** est industrialisée en Étape 4 (couper redites, transitions longues, exemples redondants, sans toucher à la densité info LEARN-028 ni à l'Information Gain LEARN-039), et les budgets de longueur par section doivent sommer à la cible dès l'Étape 3.
+**Application** : BRIEF.md §3 (volume) + §4 Étape 4 (passe de compression) ; ARTICLE_TEMPLATE.md (Cap général + checklist Bloc Structure & CTA + note budget Étape 3).
+**À vérifier sur #7** : premier article conçu dès l'Étape 3 sous contrainte de budget — mesurer le delta draft/final et la facilité réelle de la compression sans perte de densité.
+
+### LEARN-META-1 — retiré de l'actif
+Méta-observation non-opérationnelle (« une session suffit au workflow »), de surcroît dupliquée dans `LEARNINGS.md`. Déjà couverte par le README (continuité cross-session via `memory/`). Dédupliquée et retirée de la zone active. Conservée pour mémoire dans cette cartographie.
 
 ---
 

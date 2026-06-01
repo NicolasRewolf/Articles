@@ -96,7 +96,7 @@ Voir également la **checklist dédiée « Voix victime / main tendue »** dans 
 
 Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproductible, **capitalisé**. **Stratégie de clusters profonds** (LEARN-047) : 3 deep clusters (Accidents de la route / Erreurs médicales / Pénal-violences) plutôt que 24 articles disjoints. Cross-linking dense intra-cluster.
 
-**Volume cible** (révisé Nicolas 2026-05-11 post article #2) : **2 000-2 500 mots** par article. Concision > longueur. La médiane top performers Plouton 28j est à 1 700 mots ; on vise un peu au-dessus pour la profondeur distinctive, sans excès.
+**Volume cible** (révisé Nicolas 2026-05-11 post #2 ; **réaffirmé 2026-06-01 post #6 — option b LEARN-META-2**) : **2 000-2 500 mots** par article. Concision > longueur. La médiane top performers Plouton 28j est à 1 700 mots ; on vise un peu au-dessus pour la profondeur distinctive, sans excès. **Discipline associée** : les 6 premiers articles ont dérivé à 3 900-5 700 mots (médiane 4 285) ; la cible est tenue par une **passe de compression active** industrialisée en Étape 4 (cf. §4), pas par un relâchement de la cible.
 
 À la fin de chaque article, mise à jour de deux fichiers :
 
@@ -172,6 +172,7 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
   - **Famille / conjugal** : INSEE (Enquête Cadre de Vie et Sécurité), MIPROF, SSMSI
   - **Génériques** : Service-Public.fr (données institutionnelles), data.gouv.fr (recherche dataset)
 - **Règle :** toute donnée chiffrée citée DOIT renvoyer à la source primaire + millésime de la donnée. Pas de chiffre orphelin. Si chiffre douteux : `⚠️ À vérifier — millésime/source à confirmer`.
+- **Millésime ONISR** (LEARN-020, confirmé #4 + #6) : l'ONISR publie les résultats **provisoires** de l'année N-1 fin janvier, puis les **définitifs** fin mai. Entre fin janvier et fin mai → mentionner explicitement « provisoires [année] » dans toute citation chiffrée ; après mai → utiliser les définitifs.
 - **Outils :** MCP `data.gouv.fr` (recherche + query CSV/parquet directement), WebFetch sur sites institutionnels.
 
 Présentation : notes structurées, citables, **pas encore de rédaction**.
@@ -212,6 +213,8 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 - `etape-4-metadonnees-wix.md` — méta SEO prêtes à coller : titre ≤ 60 c, description ≤ 155 c, slug sans accent (LEARN-001), **2 catégories Wix** (Ressources et notions juridiques + catégorie thématique), tags
 - **JSON-LD FAQPage livré dans le chat** (LEARN-027 + LEARN-041 — bloc `<script>` minifié, FAQPage seul ; Person/LegalService gérés au niveau site Plouton)
 - Suggestions d'images (sources libres + alt text, ou brief génération)
+
+**Passe de compression (LEARN-META-2 — décision Nicolas 2026-06-01, option b) :** le draft naturel dépasse souvent la cible (~3 900-5 700 mots observés sur #1-#6, médiane 4 285). Avant livraison, **passe de compression obligatoire** pour ramener à **2 000-2 500 mots** — couper redites, transitions longues, exemples redondants — **sans sacrifier** la densité info (LEARN-028) ni les éléments d'Information Gain (LEARN-039). Dès l'Étape 3, les longueurs indicatives par section doivent **sommer** à 2 000-2 500 (ne pas reporter toute la coupe sur cette passe).
 
 **Push Wix :**
 

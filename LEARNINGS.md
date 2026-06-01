@@ -4,7 +4,7 @@
 >
 > **Cycle de digestion** : avant chaque nouvel article (à partir du #5), revue rapide de ce fichier. Tout ce qui est confirmé sur 2 articles distincts + opérationnel + non encore promu → on l'écrit dans BRIEF/TEMPLATE et on déplace ici dans `LEARNINGS-archive.md`.
 >
-> **Dernière digestion : 2026-05-13** (post article #4, cycliste renversé) + **ingestion LEARN-053 le 2026-05-16** (Doctrine Google AI Search 2026). 50 learnings promus vers BRIEF/TEMPLATE, 7 archivés comme savoirs techniques/stratégiques. Voir [`LEARNINGS-archive.md`](LEARNINGS-archive.md) pour l'historique complet et la cartographie des destinations.
+> **Dernière digestion : 2026-06-01** (post article #6, passager) — LEARN-020 promu (BRIEF §4 Bloc D), LEARN-META-2 tranché (option b : cible 2 000-2 500 maintenue + passe de compression industrialisée, BRIEF §4 Étape 4 + TEMPLATE), LEARN-META-1 dédupliqué et retiré de l'actif. Digestions antérieures : 2026-05-13 (post #4, cycliste) + ingestion LEARN-053 le 2026-05-16 (Doctrine Google AI Search 2026). 51 learnings promus vers BRIEF/TEMPLATE, 7 archivés comme savoirs techniques/stratégiques. Voir [`LEARNINGS-archive.md`](LEARNINGS-archive.md) pour l'historique complet et la cartographie des destinations.
 
 ---
 
@@ -31,14 +31,6 @@ Sinon : reste ici jusqu'à confirmation ou abandon.
 
 ## LEARNINGS actifs (en attente de confirmation ou de digestion)
 
-### LEARN-020 — ONISR : provisoires fin janvier, définitifs fin mai
-
-**Constat** : l'ONISR publie chaque fin janvier les résultats provisoires de l'année N-1, puis les définitifs fin mai. **Confirmé article #6** (2026-05-17) — règle strictement appliquée (mention « provisoires 2025 » côte à côte avec « définitifs 2024 » pour le breakdown manquant).
-
-**Règle** : entre fin janvier et fin mai, mentionner explicitement « résultats provisoires » dans toute citation chiffrée. Au-delà de mai, utiliser les définitifs.
-
-**Pourquoi pas encore promu** : confirmé sur 2 articles route (#4 vélo + #6 passager). À promouvoir en BRIEF.md §4 (Bloc D Étape 2) à la prochaine digestion (post-#7).
-
 ### LEARN-054 — Judilibre PROD via PISTE = source de référence pour la jurisprudence Cass.
 
 **Constat article #6** : la sandbox PISTE est limitée (token sandbox + recherches partielles) ; **Judilibre PROD** donne accès à : verbatims complets des arrêts, vérification des n° de pourvoi, recherche d'arrêts récents (2018-2025) qui solidifient la doctrine ancienne. Sur l'article #6, a permis d'ajouter Civ. 2ᵉ 28 mars 2019 n° 18-14.125 (cassation d'une faute inexcusable cycliste — transposable passager) + Civ. 2ᵉ 24 nov 2022 n° 20-23.462 (FGAO/CIVI exclusion). Verbatim Civ. 2ᵉ 30 mars 2023 n° 21-17.466 intégré FAQ.
@@ -64,33 +56,6 @@ Sinon : reste ici jusqu'à confirmation ou abandon.
 **Règle** : Bloc C Étape 2 → pour chaque affaire cabinet « top tier » identifiée, **rechercher si elle a été reprise en presse régionale** (Sud Ouest, France 3 NAQ, 20 Minutes Bordeaux, presse spécialisée). Si oui, double sourcing dans le draft.
 
 **Pourquoi pas encore promu** : observation #6. À répliquer sur le prochain article avec affaire cabinet « top tier ».
-
-### LEARN-META-1 — Une session ≠ tout le workflow
-
-**Constat** : une seule session conversation a permis de boucler tout le workflow 4 étapes pour l'article #1 (cadrage, collecte, plan, rédaction). Les artefacts sont sauvegardés localement et accessibles cross-sessions via la mémoire persistante (`memory/`).
-
-**Pour les articles suivants** : repartir des memos + `BRIEF.md` + `ARTICLE_TEMPLATE.md` + `LEARNINGS-archive.md`. Pas besoin de tout re-expliquer.
-
-**Pourquoi pas promu** : méta-observation utile mais non opérationnelle (pas une règle à appliquer). Pourrait migrer vers `README.md` si on en crée un dédié au pipeline.
-
-### LEARN-META-2 — Cible BRIEF 2 000-2 500 mots vs pratique pipeline 3 900-5 700 mots — décalage systémique à arbitrer
-
-**Constat post-#6** : les 5 articles publiés font respectivement 4 285 / 5 235 / 5 736 / 3 903 / 4 155 mots (médiane 4 285). La cible BRIEF (« 2 000-2 500 mots, concision > longueur ») n'est jamais atteinte en pratique — la profondeur distinctive l'emporte systématiquement.
-
-**Options à arbitrer Nicolas avant prochain article** :
-- (a) Réviser BRIEF.md vers 3 500-4 500 mots (alignement réalité) → suppose qu'on accepte cette profondeur comme norme.
-- (b) Maintenir 2 000-2 500 mots et **compresser activement** chaque draft (-40 % moyenne actuelle) → travail post-rédaction à industrialiser.
-- (c) Adopter une fourchette élargie 2 500-4 500 mots avec règle « concision sur les sujets non-niche, profondeur autorisée sur niches juridiques denses » → règle adaptative.
-
-**Pourquoi pas promu** : décision stratégique à prendre par Nicolas — pas un learning observationnel. À traiter en discussion ouverte avant l'article #7.
-
-### LEARN-META-1 — Une session ≠ tout le workflow
-
-**Constat** : une seule session conversation a permis de boucler tout le workflow 4 étapes pour l'article #1 (cadrage, collecte, plan, rédaction). Les artefacts sont sauvegardés localement et accessibles cross-sessions via la mémoire persistante (`memory/`).
-
-**Pour les articles suivants** : repartir des memos + `BRIEF.md` + `ARTICLE_TEMPLATE.md` + `LEARNINGS-archive.md`. Pas besoin de tout re-expliquer.
-
-**Pourquoi pas promu** : méta-observation utile mais non opérationnelle (pas une règle à appliquer). Pourrait migrer vers `README.md` si on en crée un dédié au pipeline.
 
 ---
 

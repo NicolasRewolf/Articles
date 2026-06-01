@@ -9,7 +9,7 @@
 
 | Paramètre | Valeur cible |
 |---|---|
-| **Volume** | **2 000-2 500 mots** (révisé Nicolas 2026-05-11 post article #2 — concision > longueur ; médiane Plouton 28j = 1 700 ; profondeur distinctive justifie un peu plus mais pas excessif) |
+| **Volume** | **2 000-2 500 mots** (révisé Nicolas 2026-05-11 post article #2 — concision > longueur ; médiane Plouton 28j = 1 700 ; profondeur distinctive justifie un peu plus mais pas excessif). **Réaffirmé 2026-06-01 (option b LEARN-META-2)** : cible tenue par une **passe de compression active** en Étape 4, pas par relâchement de la cible. |
 | **Structure** | 1 H1 + 1 intro + 1 TDM + **5-6 H2** + ~8-12 H3 + **FAQ 8-10 Q** + CTA final + **bio auteur** |
 | **Encadrés** | 3-6 définitions (BLOCKQUOTE) + 1-2 encadrés chiffrés (BLOCKQUOTE) + 1-2 encadrés alerte ⚠️ |
 | **Liens internes** | 1 lien tous les ~250 mots — 3 vers pages expertise/CTA + 4-7 vers articles ressources cluster + 2-4 vers affaires cabinet (preuves) |
@@ -141,6 +141,8 @@ Reconnaître les limites du guide = crédibilité renforcée.
 ---
 
 ## Plan H2/H3 justifié
+
+**Budget de longueur (LEARN-META-2 option b — 2026-06-01)** : la somme des longueurs indicatives de toutes les sections doit tomber dans **2 000-2 500 mots**. Si le plan budgète plus → élaguer des H3 ou fusionner des sections dès maintenant, ne pas reporter toute la coupe sur la passe de compression Étape 4.
 
 ### Intro (~200-250 mots) — Pattern Version D (validé) + voix victime LEARN-052
 **Structure cognitive optimisée + main tendue :**
@@ -424,6 +426,7 @@ Les schémas Person, LegalService et Article sont gérés au niveau du site Wix 
 - [ ] **Storytelling cognitif** en ouverture d'au moins 1 section H2 critique (LEARN-035)
 
 ### Bloc Structure & CTA
+- [ ] **Volume final 2 000-2 500 mots** (LEARN-META-2 option b — décision 2026-06-01) — passe de compression effectuée si le draft dépassait ; densité info (LEARN-028) et Information Gain (LEARN-039) préservés
 - [ ] **FAQ 8-10 questions** (LEARN-044 — vs 5-7 précédemment) — mix PAA + questions issues des gaps
 - [ ] FAQ privilégie **questions à nuance juridique** (LEARN-045 — anti-AI Overviews)
 - [ ] Au moins 1 lien vers page d'expertise + 1 CTA final + 1-2 mini-CTAs inline

@@ -141,7 +141,7 @@ Oui. L'indemnité d'aide humaine n'est pas réduite parce que l'assistance est a
 
 ### Peut-on obtenir un complément après une première indemnisation ?
 
-Oui, dans plusieurs cas : lorsqu'un poste a été réservé par le juge puis liquidé ensuite, ou en cas d'aggravation de votre état. Dans l'un de nos dossiers, un complément de plus de 500 000 € a ainsi été obtenu après le jugement initial, au titre de l'aide humaine.
+Oui, dans plusieurs cas : lorsqu'un poste a été réservé par le juge puis liquidé ensuite, ou en cas d'aggravation de votre état. Dans [l'un de nos dossiers](https://www.jplouton-avocat.fr/post/accident-de-la-circulation-indemnisation-%C3%A0-hauteur-de-2-millions-d-euros-pour-une-victime-t%C3%A9trapl%C3%A9g), un complément de plus de 500 000 € a ainsi été obtenu après le jugement initial, au titre de l'aide humaine.
 
 ### Qu'est-ce que la consolidation et pourquoi est-elle décisive ?
 

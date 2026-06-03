@@ -232,6 +232,8 @@ Format **BLOCKQUOTE** ~150 mots :
 | Articles ressources (cluster) | autres articles `/post/` de la catégorie Ressources | 4-7 |
 | Affaires cabinet (preuves) | `/post/` cas réels | 2-4 |
 
+> **Règle absolue (Nicolas 2026-06-02) :** **toute affaire réelle du cabinet citée** dans l'article — y compris en **FAQ** et en **encadré** — reçoit **automatiquement** un lien interne vers son post `/post/...`. Ancre neutre autorisée (anonymisation du texte conservée) ; récupérer le **slug publié réel via Wix MCP**, jamais deviner ni supposer qu'un article du repo est en ligne.
+
 ---
 
 ## Stratégie GEO (citabilité LLM)
@@ -402,6 +404,7 @@ Les schémas Person, LegalService et Article sont gérés au niveau du site Wix 
 - [ ] **Bio auteur Maître Plouton** en pied d'article (LEARN-040) — bloc ~150 mots avec EFB/cabinet 2009/IDC/ADAP/IDA/adresse
 - [ ] **Date de mise à jour visible** en italique en pied (LEARN-043) — cohérente avec Schema `dateModified`
 - [ ] **3 ancrages Bordeaux/Nouvelle-Aquitaine** minimum (LEARN-042) : juridiction locale + adresse cabinet + zone d'intervention
+- [ ] **Chaque affaire cabinet citée porte un lien interne** vers son post `/post/...` (FAQ + encadrés inclus) — règle stricte 2026-06-02 ; ancre neutre OK, slug réel via Wix MCP
 
 ### Bloc Schema markup
 - [ ] **JSON-LD FAQPage** livré dans le chat (LEARN-041 — UNIQUEMENT FAQPage par article ; Person/LegalService gérés au niveau site Wix)

@@ -5,6 +5,8 @@
 > **Cycle de digestion** : avant chaque nouvel article (à partir du #5), revue rapide de ce fichier. Tout ce qui est confirmé sur 2 articles distincts + opérationnel + non encore promu → on l'écrit dans BRIEF/TEMPLATE et on déplace ici dans `LEARNINGS-archive.md`.
 >
 > **Dernière digestion : 2026-06-01** (post article #6, passager) — LEARN-020 promu (BRIEF §4 Bloc D), LEARN-META-2 tranché (option b : cible 2 000-2 500 maintenue + passe de compression industrialisée, BRIEF §4 Étape 4 + TEMPLATE), LEARN-META-1 dédupliqué et retiré de l'actif. Digestions antérieures : 2026-05-13 (post #4, cycliste) + ingestion LEARN-053 le 2026-05-16 (Doctrine Google AI Search 2026). 51 learnings promus vers BRIEF/TEMPLATE, 7 archivés comme savoirs techniques/stratégiques. Voir [`LEARNINGS-archive.md`](LEARNINGS-archive.md) pour l'historique complet et la cartographie des destinations.
+>
+> **Capture post-#7 : 2026-06-02** — LEARN-054 ✅ reconfirmé (à promouvoir), LEARN-055 ⚠️ nuancé, LEARN-056 ❌ infirmé ; ajout LEARN-057 (vérifier les slugs Wix publiés avant cross-link) + LEARN-058 (sujet de niche = actif d'autorité + pilier-volume adjacent). **Digestion #7 à faire avant le prochain article.**
 
 ---
 
@@ -39,7 +41,7 @@ Sinon : reste ici jusqu'à confirmation ou abandon.
 
 **Setup technique** : credentials prod PISTE dans `.env` (gitignored) ; SSL_CERT_FILE=certifi pour Python 3.14 macOS ; `python3 scripts/judilibre.py search "..." --sort score` (pas `date_desc` — invalide en prod, utiliser `score|scorepub|date`).
 
-**Pourquoi pas encore promu** : confirmé sur 1 article (#6). À tester sur #7 — si validation, promotion en BRIEF.md §5 + ARTICLE_TEMPLATE.md.
+**Statut post-#7 (2026-06-02)** : ✅ **reconfirmé** — Judilibre PROD a fourni les arrêts PCH vérifiés du #7 (Cass. 2ᵉ civ. 2 juill. 2015 n° 14-19.797 + 6 févr. 2020 n° 18-19.518). **Confirmé sur 2 articles (#6 + #7) → À PROMOUVOIR** à la prochaine digestion (BRIEF.md §5 + ARTICLE_TEMPLATE.md).
 
 ### LEARN-055 — Matrice de collision ONISR (page 15 bilan annuel) = chiffre or pour articles cluster route
 
@@ -47,7 +49,7 @@ Sinon : reste ici jusqu'à confirmation ou abandon.
 
 **Règle** : Bloc D Étape 2 → toujours consulter la matrice de collision page 15 du bilan ONISR (en plus des chiffres clés synthétiques). Utile pour tous les articles cluster « Accidents de la route ».
 
-**Pourquoi pas encore promu** : trouvaille tactique #6. À tester sur le prochain article cluster route.
+**Statut post-#7 (2026-06-02)** : ⚠️ **à nuancer** — sur #7 (tétraplégie = grand blessé *survivant*), la matrice (qui décrit les *tués* par mode) s'est révélée **peu applicable** ; le chiffre cœur était l'épidémiologie médullaire, pas la mortalité. Utile pour les articles cluster route « mortalité », pas « grand handicap / grand blessé ». Reste actif ; affiner la formulation (« utile quand l'angle porte sur la mortalité ») avant promotion.
 
 ### LEARN-056 — Double sourcing presse régionale sur affaires cabinet = signal E-E-A-T externe
 
@@ -55,7 +57,27 @@ Sinon : reste ici jusqu'à confirmation ou abandon.
 
 **Règle** : Bloc C Étape 2 → pour chaque affaire cabinet « top tier » identifiée, **rechercher si elle a été reprise en presse régionale** (Sud Ouest, France 3 NAQ, 20 Minutes Bordeaux, presse spécialisée). Si oui, double sourcing dans le draft.
 
-**Pourquoi pas encore promu** : observation #6. À répliquer sur le prochain article avec affaire cabinet « top tier ».
+**Statut post-#7 (2026-06-02)** : ❌ **non confirmé — et partiellement infirmé**. L'affaire « top tier » du #7 est précisément *Monsieur A. / Artan* : la recherche dédiée n'a trouvé **aucune reprise presse vérifiable**. Le « Sud Ouest 29 sept. 2015 » de l'observation #6 correspond en réalité à la **date de publication du post blog cabinet**, pas à un article de presse → probable confusion date post ↔ date presse. **Ne pas promouvoir.** Reformulation : toujours **vérifier l'existence réelle** d'une reprise presse (recherche dédiée) avant de la revendiquer ; ne pas confondre date de publication d'un post et reprise tierce.
+
+### LEARN-057 — Vérifier les slugs/URLs PUBLIÉS via Wix MCP avant tout cross-link
+
+**Constat article #7** : les guides du repo #1 moto / #4 vélo / #6 passager **n'étaient pas publiés** sur le site (vérifié Wix MCP — requête de la catégorie « Ressources et notions juridiques » = 53 posts ; seuls #2 chirurgie + #3 arnaques en ligne en faisaient partie). Les linker aurait créé des **liens morts (404)**. À l'inverse, le vrai cluster live était plus riche : pilier `loi-badinter-85`, voisins `traumatisme-cranien-accident-voiture`, `pieton-renverse`, `echelle-de-glasgow`. Bonus : un slug réel ≠ supposé (ressource SARVI = `sarvi-ou-civi-...`, pas `sarci-`).
+
+**Règle** : en Bloc C, **interroger le Blog Wix via MCP** (`POST /blog/v3/posts/query` fieldset `URL`, ou List Posts filtré par `categoryIds`) pour récupérer les **slugs publiés réels** AVANT d'écrire les cross-links. Ne jamais supposer qu'un article présent dans le repo local est en ligne.
+
+**Pourquoi pas encore promu** : 1 article (#7). À confirmer sur #8 → si validé : BRIEF.md (tableau MCPs §2-C) + ARTICLE_TEMPLATE.md (Bloc C).
+
+### LEARN-058 — Sujet de niche à volume quasi nul = actif d'autorité ; repérer le pilier-volume adjacent
+
+**Constat article #7** : « indemnisation tétraplégie » ≈ **10/mois** (quasi nul), mais « nomenclature dintilhac » = **3 600/mois** (concurrence quasi nulle) juste à côté. Décision Nicolas : garder #7 comme **pilier de niche** (autorité + conversion + citation IA assumées, pas trafic) et **noter le head term à volume comme candidat pilier dédié futur** (1 sujet = 1 page).
+
+**Règle** : quand le head term du sujet est minuscule mais l'intent/valeur élevés (dossiers graves), cadrer l'article comme **actif d'autorité** (assumer le faible trafic, le dire explicitement à Nicolas) ET, via le gap analysis Bloc B, **identifier le head term à volume adjacent** pour un pilier dédié futur.
+
+**Pourquoi pas encore promu** : 1 article (#7).
+
+### À surveiller — réorganisation du repo (2026-06-02)
+
+Le repo principal a été réorganisé (working tree non commité lors du #7) : articles déplacés dans `Articles créés/`, **passager renommé 06 → 05**. L'article #7 (tétraplégie) a été **mergé à la racine** sur décision Nicolas (« merger tel quel »). **Avant le prochain article : confirmer la structure cible + la numérotation** (la série pourrait devenir 01-05 → prochain = 06).
 
 ---
 

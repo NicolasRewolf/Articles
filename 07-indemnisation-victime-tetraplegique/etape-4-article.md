@@ -87,7 +87,7 @@ Viennent enfin les postes économiques et matériels, eux aussi lourds dans la d
 
 ## Combien, concrètement ? L'éclairage d'un dossier réel {#combien-dossier-reel}
 
-Un dossier vaut mieux qu'un barème. Voici l'un des nôtres, anonymisé.
+Un dossier vaut mieux qu'un barème. Voici [l'un des nôtres](https://www.jplouton-avocat.fr/post/accident-de-la-circulation-indemnisation-%C3%A0-hauteur-de-2-millions-d-euros-pour-une-victime-t%C3%A9trapl%C3%A9g), anonymisé.
 
 **Monsieur A.**, 41 ans, était passager arrière du véhicule d'un ami lorsqu'un fourgon, conduit par un homme sous l'emprise de stupéfiants, a grillé un stop à Tizac-de-Curton, en Gironde. Après des mois de coma, une hospitalisation au CHU Pellegrin de Bordeaux et une rééducation à la Tour de Gassies, son état s'est consolidé : tétraplégie, 75 % de déficit fonctionnel, dépendance à une aide permanente.
 
@@ -99,7 +99,7 @@ Ces montants donnent un ordre de grandeur, pas un tarif. Chaque dossier dépend 
 
 ## « La première offre est rarement la dernière » {#premiere-offre}
 
-L'histoire de Monsieur A. ne s'arrête pas au jugement de 2015. Le poste de l'aide humaine avait été en partie **réservé** par le tribunal. Une fois liquidé, **il a donné lieu à un complément de plus de 500 000 €.** Le premier montant n'était donc pas le dernier mot.
+L'histoire de Monsieur A. ne s'arrête pas au jugement de 2015. Le poste de l'aide humaine avait été en partie **réservé** par le tribunal. Une fois liquidé, **il a donné lieu à [un complément de plus de 500 000 €](https://www.jplouton-avocat.fr/post/accident-de-la-circulation-indemnisation-%C3%A0-hauteur-de-2-millions-d-euros-pour-une-victime-t%C3%A9trapl%C3%A9g).** Le premier montant n'était donc pas le dernier mot.
 
 Cette mécanique est fréquente. Les premières évaluations d'assureur sous-estiment souvent l'aide humaine (heures minorées, capitalisation discutée), oublient des postes, ou déduisent à tort la PCH. Or **vous avez le droit de refuser une offre que vous jugez sous-évaluée**, et de demander une expertise contradictoire.
 

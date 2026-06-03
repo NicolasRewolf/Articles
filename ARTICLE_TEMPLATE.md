@@ -15,7 +15,7 @@
 | **Liens internes** | 1 lien tous les ~250 mots — 3 vers pages expertise/CTA + 4-7 vers articles ressources cluster + 2-4 vers affaires cabinet (preuves) |
 | **CTA** | 3 au total (Nicolas gère le placement final lors de l'ingestion Wix) : mini-CTA inline #1 post-intro, mini-CTA inline #2 dans le corps, CTA final |
 | **Ton** | Sobre, empathique, précision juridique, anti-marketing — **voix « main tendue » LEARN-052** (adressage direct au « vous », reconnaissance avant info, voix cabinet « nous », CTAs invitation humaine, modulation selon victime/défense pénale) |
-| **Sourcing** | Chaque chiffre = millésime + source primaire ; chaque article de loi = lien Légifrance ; **chaque jurisprudence = n° de pourvoi + date + chambre confirmés** (LEARN-026) |
+| **Sourcing** | Chaque chiffre = millésime + source primaire ; chaque article de loi = lien Légifrance ; **chaque jurisprudence = n° de pourvoi + date + chambre confirmés** (LEARN-026), vérifiés via **Judilibre PROD** (LEARN-054) |
 | **Information Gain (LEARN-039)** | **Au moins 2-3 éléments distinctifs absents du top 10 SERP** — sans quoi l'article est déclassé. Identifier en Bloc B (gap analysis). |
 | **Bio auteur (LEARN-040)** | Bloc « À propos de l'auteur » obligatoire en pied d'article (E-E-A-T YMYL). Template en bas du fichier. |
 | **Local-first (LEARN-042)** | Au moins **3 ancrages Bordeaux/Nouvelle-Aquitaine** (juridiction locale + adresse cabinet + zone d'intervention). |

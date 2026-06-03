@@ -65,10 +65,11 @@
 | LEARN-051 | Format question NotebookLM : pas de hard wrap | **PROMU** | BRIEF.md §5 outils |
 | LEARN-052 | Voix victime / main tendue (durable) | **PROMU** | BRIEF.md §2 ton éditorial + TEMPLATE.md voix + checklist + mémoire persistante |
 | LEARN-053 | Doctrine Google AI Search 2026 (officielle) | **PROMU** | BRIEF.md §6 nouvelle sous-section + TEMPLATE.md nouveau bloc checklist |
+| LEARN-054 | Judilibre PROD = référence jurisprudence Cass. | **PROMU** (2026-06-02) | BRIEF.md §5 outils + TEMPLATE.md Cap général sourcing — confirmé #6 + #7 |
 | LEARN-META-1 | Une session ≠ tout le workflow | **RETIRÉ DE L'ACTIF** (2026-06-01) | non-opérationnel — couvert par README.md ; dédupliqué |
 | LEARN-META-2 | Cible volume 2 000-2 500 vs pratique 3 900-5 700 | **RÉSOLU** (2026-06-01) | décision Nicolas option b — BRIEF.md §3 + §4 Étape 4 + TEMPLATE.md |
 
-**Bilan** (maj 2026-06-01) : 51 promus / 3 actifs (LEARN-054 + LEARN-055 + LEARN-056) + 1 résolu (LEARN-META-2) + 1 retiré (LEARN-META-1) — + 7 archivés comme savoirs techniques ou principes stratégiques (référence consultable).
+**Bilan** (maj 2026-06-02) : 52 promus / 4 actifs (LEARN-055, LEARN-056, LEARN-057, LEARN-058) + 1 résolu (LEARN-META-2) + 1 retiré (LEARN-META-1) — + 7 archivés comme savoirs techniques ou principes stratégiques (référence consultable).
 
 ---
 

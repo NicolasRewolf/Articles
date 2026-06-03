@@ -6,7 +6,7 @@
 >
 > **Dernière digestion : 2026-06-01** (post article #6, passager) — LEARN-020 promu (BRIEF §4 Bloc D), LEARN-META-2 tranché (option b : cible 2 000-2 500 maintenue + passe de compression industrialisée, BRIEF §4 Étape 4 + TEMPLATE), LEARN-META-1 dédupliqué et retiré de l'actif. Digestions antérieures : 2026-05-13 (post #4, cycliste) + ingestion LEARN-053 le 2026-05-16 (Doctrine Google AI Search 2026). 51 learnings promus vers BRIEF/TEMPLATE, 7 archivés comme savoirs techniques/stratégiques. Voir [`LEARNINGS-archive.md`](LEARNINGS-archive.md) pour l'historique complet et la cartographie des destinations.
 >
-> **Capture post-#7 : 2026-06-02** — LEARN-054 ✅ reconfirmé (à promouvoir), LEARN-055 ⚠️ nuancé, LEARN-056 ❌ infirmé ; ajout LEARN-057 (vérifier les slugs Wix publiés avant cross-link) + LEARN-058 (sujet de niche = actif d'autorité + pilier-volume adjacent). **Digestion #7 à faire avant le prochain article.**
+> **Capture post-#7 : 2026-06-02** — LEARN-054 ✅ **promu** (BRIEF §5 + TEMPLATE sourcing + archive), LEARN-055 ⚠️ nuancé, LEARN-056 ❌ infirmé ; ajout LEARN-057 (vérifier les slugs Wix publiés avant cross-link) + LEARN-058 (sujet de niche = actif d'autorité + pilier-volume adjacent).
 
 ---
 
@@ -41,7 +41,7 @@ Sinon : reste ici jusqu'à confirmation ou abandon.
 
 **Setup technique** : credentials prod PISTE dans `.env` (gitignored) ; SSL_CERT_FILE=certifi pour Python 3.14 macOS ; `python3 scripts/judilibre.py search "..." --sort score` (pas `date_desc` — invalide en prod, utiliser `score|scorepub|date`).
 
-**Statut post-#7 (2026-06-02)** : ✅ **reconfirmé** — Judilibre PROD a fourni les arrêts PCH vérifiés du #7 (Cass. 2ᵉ civ. 2 juill. 2015 n° 14-19.797 + 6 févr. 2020 n° 18-19.518). **Confirmé sur 2 articles (#6 + #7) → À PROMOUVOIR** à la prochaine digestion (BRIEF.md §5 + ARTICLE_TEMPLATE.md).
+**Statut : ✅ PROMU (2026-06-02)** — confirmé sur #6 + #7 (arrêts PCH #7 : Cass. 2ᵉ civ. 2 juill. 2015 n° 14-19.797 + 6 févr. 2020 n° 18-19.518). Promu vers **BRIEF.md §5** (Judilibre PROD) + **ARTICLE_TEMPLATE.md** (sourcing) + cartographie d'archive. *(Bloc à élaguer de l'actif à la prochaine digestion.)*
 
 ### LEARN-055 — Matrice de collision ONISR (page 15 bilan annuel) = chiffre or pour articles cluster route
 

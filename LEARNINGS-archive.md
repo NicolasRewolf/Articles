@@ -209,3 +209,11 @@ Pour qu'un concept juridique soit **mémorisé** par le lecteur (et pas juste lu
 3. **Evaluation** : le lecteur compare le concept à sa propre situation.
 
 **Implication structure** : dans H2 « Postes de préjudice », au lieu de lister/définir, poser une situation (« vous avez des cicatrices sur le visage ») puis amener le lecteur à découvrir le poste qui s'applique (PEP). Active les 3 leviers, génère un encodage profond.
+
+### Note technique (2026-06-15, article #8) — Extraire un PDF institutionnel : WebFetch → disque → pypdf
+
+**Contexte** : WebFetch sur un PDF (France Assureurs, rapport LMA) renvoie un contenu **binaire illisible** par le modèle de fetch, MAIS sauvegarde le fichier sur disque (chemin retourné dans la réponse du tool).
+
+**Solution** : extraire en local avec `python3` + **pypdf** (déjà installé sur la machine) — `PdfReader(path).pages` → `extract_text()`, puis filtrer les lignes pertinentes (regex sur les libellés/chiffres attendus). C'est ce qui a débloqué le **tableau détaillé** France Assureurs (« Nombre et charge des sinistres en 2024 ») où vivent les décimales 43,7 % / 3,6 % — invisibles sur la page HTML de synthèse.
+
+**Règle** : pour toute statistique logée dans un PDF institutionnel, ne pas se contenter du résumé WebFetch (souvent incapable de lire le binaire) — récupérer le PDF sauvegardé et l'extraire localement (pypdf). Lié à **LEARN-061** (PDF détaillé > page HTML) et **LEARN-006** (outillage PISTE/scripts).

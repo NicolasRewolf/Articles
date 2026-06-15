@@ -7,6 +7,10 @@
 > **Dernière digestion : 2026-06-01** (post article #6, passager) — LEARN-020 promu (BRIEF §4 Bloc D), LEARN-META-2 tranché (option b : cible 2 000-2 500 maintenue + passe de compression industrialisée, BRIEF §4 Étape 4 + TEMPLATE), LEARN-META-1 dédupliqué et retiré de l'actif. Digestions antérieures : 2026-05-13 (post #4, cycliste) + ingestion LEARN-053 le 2026-05-16 (Doctrine Google AI Search 2026). 51 learnings promus vers BRIEF/TEMPLATE, 7 archivés comme savoirs techniques/stratégiques. Voir [`LEARNINGS-archive.md`](LEARNINGS-archive.md) pour l'historique complet et la cartographie des destinations.
 >
 > **Capture post-#7 : 2026-06-02** — LEARN-054 ✅ **promu** (BRIEF §5 + TEMPLATE sourcing + archive), LEARN-055 ⚠️ nuancé, LEARN-056 ❌ infirmé ; ajout LEARN-057 (vérifier les slugs Wix publiés avant cross-link) + LEARN-058 (sujet de niche = actif d'autorité + pilier-volume adjacent).
+>
+> **Capture post-#8 : 2026-06-04** (sinistre habitation, recours contre l'assureur) — LEARN-057 ✅ **confirmé #7+#8** (slugs des affaires via **export CSV du blog**) → à promouvoir ; ajout LEARN-059 (« angle mort avocat » dans le SERP = Information Gain) + LEARN-060 (faisceau de volumes élargi aux termes de procédure = head terms cachés). LEARN-055 et 058 revus : n/a sur #8 (assurance hors cluster route ; sujet à volume réel). Réorg repo **résolue** (commit a10dffa) → prochain article = **#09**.
+>
+> **Capture post-#8 (finition Desktop) : 2026-06-15** — session de vérification live (article amorcé sur iPad sans MCP, finalisé ici avec tous les outils). Ajout **LEARN-061** (PDF détaillé > page HTML synthèse pour les stats), **LEARN-062** (Légifrance : version en vigueur, pas que le n°), **LEARN-063** (gate de vérification hors-MCP + lire le corps du post). Note technique pypdf → archive. **LEARN-054** (Judilibre PROD) et **LEARN-057** (slugs Wix) ré-exercés/confirmés → à promouvoir digestion #09. *NB : fichier repassé > 100 lignes — résorption prévue à la digestion #09 (promotion 054/057 + archivage).*
 
 ---
 
@@ -65,7 +69,7 @@ Sinon : reste ici jusqu'à confirmation ou abandon.
 
 **Règle** : en Bloc C, **interroger le Blog Wix via MCP** (`POST /blog/v3/posts/query` fieldset `URL`, ou List Posts filtré par `categoryIds`) pour récupérer les **slugs publiés réels** AVANT d'écrire les cross-links. Ne jamais supposer qu'un article présent dans le repo local est en ligne.
 
-**Pourquoi pas encore promu** : 1 article (#7). À confirmer sur #8 → si validé : BRIEF.md (tableau MCPs §2-C) + ARTICLE_TEMPLATE.md (Bloc C).
+**✅ Confirmé #7 + #8** — sur #8, slugs réels des affaires récupérés via **export CSV du blog** fourni par Nicolas (colonne `Post Page URL` = publié ; accents à URL-encoder). Règle élargie : récupérer les slugs publiés via **Wix MCP _ou_ export CSV du blog** avant cross-link. **À promouvoir prochaine digestion** → BRIEF.md (tableau MCPs §2-C) + ARTICLE_TEMPLATE.md (Bloc C).
 
 ### LEARN-058 — Sujet de niche à volume quasi nul = actif d'autorité ; repérer le pilier-volume adjacent
 
@@ -75,9 +79,37 @@ Sinon : reste ici jusqu'à confirmation ou abandon.
 
 **Pourquoi pas encore promu** : 1 article (#7).
 
-### À surveiller — réorganisation du repo (2026-06-02)
+### LEARN-059 — « Angle mort avocat » dans le SERP = signal Information Gain fort
 
-Le repo principal a été réorganisé (working tree non commité lors du #7) : articles déplacés dans `Articles créés/`, **passager renommé 06 → 05**. L'article #7 (tétraplégie) a été **mergé à la racine** sur décision Nicolas (« merger tel quel »). **Avant le prochain article : confirmer la structure cible + la numérotation** (la série pourrait devenir 01-05 → prochain = 06).
+**Constat article #8** : sur les 3 requêtes (`dégât des eaux assurance`, `contre expertise assurance`, `maison fissurée que faire`), le top 10 était **100 % acteurs commerciaux** (assureurs, comparateurs, contre-experts, médias) — **zéro avocat** prenant le parti de l'assuré. Pour un sujet « litige / recours », ce profil = Information Gain quasi garanti (perspective avocat : leviers procéduraux, jurisprudence, défense du demandeur).
+
+**Règle** : en Bloc B, repérer si le top 10 est **dépourvu d'avocats côté demandeur** → fort signal de gap exploitable. *Pas encore promu : 1 article (#8).*
+
+### LEARN-060 — Élargir le faisceau de volumes aux termes de PROCÉDURE révèle des head terms cachés
+
+**Constat article #8** : en mesurant aussi les termes **transversaux de procédure / recours** (médiateur, mise en demeure, référé, prescription, barème) et pas seulement le sujet, on a trouvé `médiateur assurance` = **6 600/mo, concurrence nulle** — head term de section bien plus puissant que le sujet lui-même (`dégât des eaux` 1 300). *Technique : `kw_data_google_ads_search_volume` plafonne à **10 résultats par appel** → batcher par 10.* Pas encore promu : 1 article (#8).
+
+### LEARN-061 — Stats institutionnelles : citer le PDF détaillé, pas la page HTML « chiffres clés » (qui arrondit)
+
+**Constat #8** : la landing page France Assureurs affichait **44 % / 4 %** ; le **PDF** de la même publication (*« L'assurance habitation en 2024 »*, 1er août 2025) donnait les décimales exactes **43,7 % / 3,6 % / 2 391 M€ / 2 042 M€ / 4,9 Md€ dont 2,6 habitation**. J'allais « corriger » des chiffres qui étaient en fait justes.
+
+**Règle** : en Bloc D, pour toute donnée chiffrée précise, sourcer le **PDF/rapport détaillé** (décimales + tableaux + millésime) et y pointer le lien, pas la page de synthèse arrondie. *Pas encore promu : 1 article (#8).*
+
+### LEARN-062 — Légifrance : contrôler la version EN VIGUEUR (date + réforme récente), pas seulement le n° d'article
+
+**Constat #8** : **L125-2** (délais cat-nat) modifié par **LOI n° 2026-403 du 26 mai 2026**, 3 semaines avant rédaction. Le n° et le contenu semblaient bons, mais une réforme récente crée une nouvelle version (nouveau LEGIARTI) — un lien figé peut pointer une version périmée.
+
+**Règle** : à chaque article cité, vérifier la **date de version en vigueur** + chercher une réforme récente ; pointer le lien sur la version applicable. Renforce LEARN-026 (anti-hallucination) et alimente le refresh M+6 (LEARN-046). *Pas encore promu : 1 article (#8).*
+
+### LEARN-063 — Article amorcé hors-MCP → pass de vérification intégral non négociable avant publish
+
+**Constat #8** : draft rédigé sur iPad sans MCP/API, puis vérifié à 100 % ici — **Judilibre** (n° pourvoi), **Wix** (slug publié + **corps du post**), **Légifrance** (versions), **stats** (source primaire), **DataForSEO** (reconfirm). Résultat : **0 correction factuelle nécessaire** (les claims précises ont toutes tenu).
+
+**Règle** : le drafting peut se faire partout, mais le **gate de vérification avant publication reste obligatoire** (confirme LEARN-026/049). Extension de **LEARN-057** : ne pas seulement vérifier que le slug résout — **lire le `CONTENT_TEXT` du post** (API Wix) pour fonder les claims des encadrés-preuve (motif, date, RG de l'affaire). *Pas encore promu : 1 article (#8).*
+
+### À surveiller — structure repo (résolu 2026-06-03)
+
+Réorg **committée** (`a10dffa`) : `Articles créés/` = archive des articles publiés (01-05) ; **#07 et #08 à la racine** ; **prochain article = #09**. Le maillage interne s'appuie sur le **site publié** (export CSV / Wix MCP), jamais sur l'arbo locale.
 
 ---
 

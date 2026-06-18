@@ -11,6 +11,8 @@
 > **Capture post-#8 : 2026-06-04** (sinistre habitation, recours contre l'assureur) — LEARN-057 ✅ **confirmé #7+#8** (slugs des affaires via **export CSV du blog**) → à promouvoir ; ajout LEARN-059 (« angle mort avocat » dans le SERP = Information Gain) + LEARN-060 (faisceau de volumes élargi aux termes de procédure = head terms cachés). LEARN-055 et 058 revus : n/a sur #8 (assurance hors cluster route ; sujet à volume réel). Réorg repo **résolue** (commit a10dffa) → prochain article = **#09**.
 >
 > **Capture post-#8 (finition Desktop) : 2026-06-15** — session de vérification live (article amorcé sur iPad sans MCP, finalisé ici avec tous les outils). Ajout **LEARN-061** (PDF détaillé > page HTML synthèse pour les stats), **LEARN-062** (Légifrance : version en vigueur, pas que le n°), **LEARN-063** (gate de vérification hors-MCP + lire le corps du post). Note technique pypdf → archive. **LEARN-054** (Judilibre PROD) et **LEARN-057** (slugs Wix) ré-exercés/confirmés → à promouvoir digestion #09. *NB : fichier repassé > 100 lignes — résorption prévue à la digestion #09 (promotion 054/057 + archivage).*
+>
+> **Capture post-#10 : 2026-06-18** (changer d'avocat en cours de procédure — run autonome de bout en bout, sans STOP, mandat explicite Nicolas) — ajout **LEARN-064** (push Wix draft via API REST = opérationnel/fiable, ≠ « fragile »), **LEARN-065** (2 correctifs `md_to_ricos.py` : listes numérotées + convention rel), **LEARN-066** (sujet issu du CSV des prises de contact = mine à pages-carrefour). Article #10 poussé en draft `UNPUBLISHED` (`c2ba1848-a567-4d86-92b1-bc43454a48bb`) + vérifié (54 nœuds / 10 FAQ persistés).
 
 ---
 
@@ -106,6 +108,25 @@ Sinon : reste ici jusqu'à confirmation ou abandon.
 **Constat #8** : draft rédigé sur iPad sans MCP/API, puis vérifié à 100 % ici — **Judilibre** (n° pourvoi), **Wix** (slug publié + **corps du post**), **Légifrance** (versions), **stats** (source primaire), **DataForSEO** (reconfirm). Résultat : **0 correction factuelle nécessaire** (les claims précises ont toutes tenu).
 
 **Règle** : le drafting peut se faire partout, mais le **gate de vérification avant publication reste obligatoire** (confirme LEARN-026/049). Extension de **LEARN-057** : ne pas seulement vérifier que le slug résout — **lire le `CONTENT_TEXT` du post** (API Wix) pour fonder les claims des encadrés-preuve (motif, date, RG de l'affaire). *Pas encore promu : 1 article (#8).*
+
+### LEARN-064 — Push Wix draft via API REST = OPÉRATIONNEL et fiable (réviser la note « fragile »)
+
+**Constat #10** : le push d'un article complet en **draft** via `POST /blog/v3/draft-posts` a parfaitement fonctionné. Méthode validée de bout en bout :
+1. `python3 scripts/md_to_ricos.py article.md` → Ricos JSON, puis **minifier** (`separators=(',',':')`).
+2. Embarquer le JSON comme **littéral JS** dans `ExecuteWixAPI`, avec **garde-fou avant POST** (`nodes.length` + `faqCount` attendus ; abort sinon → jamais de draft corrompu).
+3. Champs `draftPost` : `title`, `memberId` (**requis** ; `07454f1f-c54a-4308-b897-19be554db88a` = compte Me Plouton), `categoryIds` (2), `excerpt`, **`seoSlug`** (settable, maxLength 100), `richContent`.
+4. **Scope SITE obligatoire** : passer `siteId` sur ExecuteWixAPI, sinon **403** (l'appel partait en scope account).
+5. Vérif post-push : `GET /blog/v3/draft-posts/{id}?fieldsets=RICH_CONTENT`.
+
+**Chiffres** : #10 = 39 Ko de Ricos ≈ **9,7K tokens** (très en-dessous du plafond tool-call ~25K ; la **vraie** limite API est 400 Ko/post). Draft `c2ba1848…` créé `UNPUBLISHED`, 54 nœuds / 10 FAQ / 11 titres / 2 catégories vérifiés. → **La note README « push API facultatif et fragile (>25K tokens) » est à réviser** : fiable pour un article 2 000-2 500 mots minifié. *Pas encore promu : 1 article (#10).*
+
+### LEARN-065 — `md_to_ricos.py` : 2 correctifs à intégrer
+
+**Constat #10** : (a) **Listes numérotées** `1. 2. 3.` NON converties en `ORDERED_LIST` → fall-through en paragraphe run-on. *Workaround appliqué* : puces `- ` (« Premier/Deuxième/Troisième temps »). *Fix candidat* : le handler paragraphe doit casser sur `^\d+\.\s`. (b) **Convention rel non gérée** : le convertisseur met TOUS les liens en `target=BLANK` sans `rel`, ce qui viole LEARN-024. *Post-traitement appliqué* (et à intégrer au script) : interne (`jplouton-avocat.fr`) → `target=SELF`, pas de `rel` ; externe → `target=BLANK` + `rel{nofollow,noopener,noreferrer}`. *Pas encore promu : 1 article (#10).*
+
+### LEARN-066 — Sujet issu du CSV des prises de contact = mine à pages-carrefour
+
+**Constat #10** : le sujet « changer d'avocat » est né de l'analyse du **CSV des formulaires de contact** (686 demandes) : 12 demandes à intention nette, **transversales à toutes les expertises**. Croisé avec DataForSEO (cluster ≈ 1 200/mo, concurrence basse) → page-carrefour hire-ready qui maille vers tous les métiers. **Pattern** : demande first-party (CRM) + volume/concurrence (SEO) se valident mutuellement ; idéal pour les **sujets méta/procéduraux transversaux** (changer d'avocat, délais, honoraires, aide juridictionnelle…). Prolonge LEARN-059/060. *Pas encore promu : 1 article (#10).*
 
 ### À surveiller — structure repo (résolu 2026-06-03)
 

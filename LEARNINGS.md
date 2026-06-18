@@ -120,9 +120,11 @@ Sinon : reste ici jusqu'à confirmation ou abandon.
 
 **Chiffres** : #10 = 39 Ko de Ricos ≈ **9,7K tokens** (très en-dessous du plafond tool-call ~25K ; la **vraie** limite API est 400 Ko/post). Draft `c2ba1848…` créé `UNPUBLISHED`, 54 nœuds / 10 FAQ / 11 titres / 2 catégories vérifiés. → **La note README « push API facultatif et fragile (>25K tokens) » est à réviser** : fiable pour un article 2 000-2 500 mots minifié. *Pas encore promu : 1 article (#10).*
 
-### LEARN-065 — `md_to_ricos.py` : 2 correctifs à intégrer
+### LEARN-065 — `md_to_ricos.py` : 2 correctifs ✅ APPLIQUÉS (2026-06-18)
 
-**Constat #10** : (a) **Listes numérotées** `1. 2. 3.` NON converties en `ORDERED_LIST` → fall-through en paragraphe run-on. *Workaround appliqué* : puces `- ` (« Premier/Deuxième/Troisième temps »). *Fix candidat* : le handler paragraphe doit casser sur `^\d+\.\s`. (b) **Convention rel non gérée** : le convertisseur met TOUS les liens en `target=BLANK` sans `rel`, ce qui viole LEARN-024. *Post-traitement appliqué* (et à intégrer au script) : interne (`jplouton-avocat.fr`) → `target=SELF`, pas de `rel` ; externe → `target=BLANK` + `rel{nofollow,noopener,noreferrer}`. *Pas encore promu : 1 article (#10).*
+**Constat #10** : (a) **Listes numérotées** `1. 2. 3.` NON converties en `ORDERED_LIST` — dans la **version committée**, le builder `OL()` ET le handler de boucle manquaient (la version 508 lignes du working dir principal les avait, mais pas le commit) → fall-through en paragraphe run-on « 1. … 2. … 3. ». (b) **Convention rel non gérée** : `_text()` mettait TOUS les liens en `target=BLANK` sans `rel`, violant LEARN-024.
+
+**Correctif appliqué** (script + `scripts/test_md_to_ricos.py`) : ajout du builder `OL()` (`ORDERED_LIST`) + handler `^\d+\.\s` dans `parse_markdown` (placé avant les puces) + rupture de paragraphe sur `^\d+\.\s` ; helper `_link_data()` appelé par `_text()` → interne (`INTERNAL_DOMAIN`, défaut `jplouton-avocat.fr`, surchargeable par env `RICOS_INTERNAL_DOMAIN`, ou URL relative `/`) = `target=SELF` sans `rel` ; externe = `target=BLANK` + `rel{nofollow,noopener,noreferrer}`. **Vérifié** : 3 tests unitaires verts + non-régression article #10 (2 `BULLETED_LIST`, **8 internes SELF / 6 externes BLANK+rel**, 0 run-on). → le **post-traitement manuel des liens n'est plus nécessaire**. *Pas encore promu : 1 article (#10). NB : réconcilier avec l'éventuelle WIP du working dir principal au merge.*
 
 ### LEARN-066 — Sujet issu du CSV des prises de contact = mine à pages-carrefour
 

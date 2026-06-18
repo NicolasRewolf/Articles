@@ -4,11 +4,17 @@ Markdown → Wix Ricos JSON converter (minimal, ad-hoc pour Cabinet Plouton).
 Stdlib uniquement. Supporte :
 - H2/H3 (avec ancres {#id})
 - Paragraphes
-- Listes à puces
+- Listes à puces ET listes ordonnées (1. 2. 3. → ORDERED_LIST)
 - Blockquotes (multi-lignes)
 - Dividers (---)
 - Inline: **bold**, *italic*, [text](url)
 - FAQ : H3 sous `## H2 6 — Questions fréquentes` → COLLAPSIBLE_LIST automatique
+
+Convention liens (LEARN-024) appliquée automatiquement par `_link_data` :
+- interne (domaine INTERNAL_DOMAIN, défaut « jplouton-avocat.fr », ou URL relative « / »)
+  → target SELF, sans rel
+- externe → target BLANK + rel { nofollow, noopener, noreferrer }
+INTERNAL_DOMAIN est surchargeable via la variable d'environnement RICOS_INTERNAL_DOMAIN.
 
 Exclusions par défaut :
 - H1
@@ -23,10 +29,27 @@ Usage :
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 import uuid
 from pathlib import Path
+
+# Domaine considéré « interne » pour la convention rel (LEARN-024).
+# Surchargeable via la variable d'environnement RICOS_INTERNAL_DOMAIN.
+INTERNAL_DOMAIN = os.environ.get("RICOS_INTERNAL_DOMAIN", "jplouton-avocat.fr")
+
+
+def _link_data(url: str) -> dict:
+    """Convention rel (LEARN-024) : lien interne (INTERNAL_DOMAIN ou URL relative
+    « / ») → target SELF sans rel ; lien externe → target BLANK + rel
+    nofollow/noopener/noreferrer."""
+    is_internal = url.startswith("/") or INTERNAL_DOMAIN in url
+    if is_internal:
+        return {"link": {"url": url, "target": "SELF"}}
+    return {"link": {"url": url, "target": "BLANK",
+                     "rel": {"nofollow": True, "noopener": True, "noreferrer": True}}}
+
 
 # ---------- Helpers id ----------
 _counter = 0
@@ -121,7 +144,7 @@ def _text(content: str, *, bold: bool = False, italic: bool = False, link: str |
     if link:
         decorations.append({
             "type": "LINK",
-            "linkData": {"link": {"url": link, "target": "BLANK"}},
+            "linkData": _link_data(link),
         })
     return {
         "type": "TEXT",
@@ -171,6 +194,26 @@ def UL(items: list[str]) -> dict:
     return {
         "type": "BULLETED_LIST",
         "id": _id("ul"),
+        "nodes": list_items,
+    }
+
+
+def OL(items: list[str]) -> dict:
+    list_items = []
+    for it in items:
+        list_items.append({
+            "type": "LIST_ITEM",
+            "id": _id("li"),
+            "nodes": [{
+                "type": "PARAGRAPH",
+                "id": _id("p"),
+                "nodes": parse_inline(it),
+                "paragraphData": {},
+            }],
+        })
+    return {
+        "type": "ORDERED_LIST",
+        "id": _id("ol"),
         "nodes": list_items,
     }
 
@@ -416,6 +459,19 @@ def parse_markdown(md: str) -> list[dict]:
                 nodes.append(BQ(paras))
             continue
 
+        # Liste ordonnée (1. 2. 3.)
+        if re.match(r"^\d+\.\s", line):
+            ol_items: list[str] = []
+            while i < len(lines) and re.match(r"^\d+\.\s", lines[i]):
+                item_text = re.sub(r"^\d+\.\s", "", lines[i]).strip()
+                i += 1
+                while i < len(lines) and lines[i].startswith("  "):
+                    item_text += " " + lines[i].strip()
+                    i += 1
+                ol_items.append(item_text)
+            nodes.append(OL(ol_items))
+            continue
+
         # Liste à puces
         if line.startswith("- "):
             items: list[str] = []
@@ -437,7 +493,8 @@ def parse_markdown(md: str) -> list[dict]:
             nxt = lines[i].rstrip()
             if not nxt:
                 break
-            if nxt.startswith("#") or nxt.startswith("-") or nxt.startswith(">") or nxt.strip() == "---":
+            if (nxt.startswith("#") or nxt.startswith("-") or nxt.startswith(">")
+                    or nxt.strip() == "---" or re.match(r"^\d+\.\s", nxt)):
                 break
             para_lines.append(nxt)
             i += 1

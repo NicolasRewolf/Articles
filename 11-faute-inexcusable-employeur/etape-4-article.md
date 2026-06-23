@@ -6,7 +6,17 @@ Car il existe deux niveaux d'indemnisation après un accident du travail. Le pre
 
 Ce guide vous explique ce qu'est la faute inexcusable, ce qu'elle vous rapporte concrètement, comment la prouver et dans quels délais agir. Il ne remplace pas l'analyse de votre dossier, mais il vous donne les repères pour comprendre l'enjeu — et décider de la suite en connaissance de cause.
 
-## Qu'est-ce que la faute inexcusable de l'employeur ?
+## Sommaire
+
+- [Qu'est-ce que la faute inexcusable de l'employeur ?](#definition)
+- [Indemnisation de base ou faute inexcusable](#base-vs-faute-inexcusable)
+- [Ce que la faute inexcusable vous rapporte en plus](#ce-quelle-rapporte)
+- [Comment la faire reconnaître ?](#procedure)
+- [Accident mortel : les droits de la famille et le volet pénal](#accident-mortel)
+- [Maladie professionnelle et faute inexcusable](#maladie-professionnelle)
+- [Pourquoi vous faire accompagner](#accompagnement)
+
+## Qu'est-ce que la faute inexcusable de l'employeur ? {#definition}
 
 L'employeur est tenu envers chacun de ses salariés d'une **obligation de sécurité**. Lorsqu'un accident du travail ou une maladie professionnelle survient parce qu'il a manqué à cette obligation, on parle de faute inexcusable. La notion ne suppose pas une intention de nuire, ni même une faute grossière : elle repose sur un critère précis, dégagé par la jurisprudence à l'occasion des grands contentieux de l'amiante en 2002, puis inscrit dans la pratique des tribunaux.
 
@@ -14,7 +24,7 @@ La faute inexcusable est caractérisée lorsque l'employeur **avait ou aurait d�
 
 > En clair : il n'est pas nécessaire de démontrer que votre employeur a voulu vous nuire. Il suffit d'établir qu'il connaissait — ou ne pouvait ignorer — le risque, et qu'il n'a rien fait, ou pas assez, pour vous protéger. Une protection manquante, une formation jamais dispensée, une alerte restée sans réponse : ce sont les situations qui ouvrent la voie à la reconnaissance d'une faute inexcusable.
 
-## Indemnisation de base ou faute inexcusable : pourquoi la différence change tout
+## Indemnisation de base ou faute inexcusable : pourquoi la différence change tout {#base-vs-faute-inexcusable}
 
 En principe, la victime d'un accident du travail ne peut pas agir contre son employeur selon les règles de droit commun : elle reçoit une réparation **forfaitaire**, encadrée par le Code de la sécurité sociale (article L451-1). C'est le compromis historique du régime : une indemnisation rapide et sans procès, mais partielle.
 
@@ -26,7 +36,7 @@ Concrètement, l'indemnisation de base vous garantit :
 
 Nous détaillons l'ensemble de ce socle dans notre guide consacré à [l'indemnisation des accidents du travail](/post/accident-du-travail-comment-obtenir-votre-indemnisation). Mais ce forfait laisse de côté l'essentiel de ce qu'une victime endure réellement : la douleur, le préjudice esthétique, l'impossibilité de pratiquer ses loisirs, le bouleversement d'une carrière. Lorsque la faute inexcusable est reconnue, ces postes longtemps oubliés deviennent indemnisables, et votre rente est majorée. C'est là que se joue la différence — souvent considérable — entre une réparation symbolique et une réparation à la hauteur du préjudice.
 
-## Ce que la faute inexcusable vous rapporte vraiment en plus
+## Ce que la faute inexcusable vous rapporte vraiment en plus {#ce-quelle-rapporte}
 
 ### La majoration de votre rente ou de votre capital
 
@@ -40,7 +50,7 @@ C'est le volet le plus important, et le plus ignoré. La faute inexcusable ouvre
 
 La protection est même plus large que cette liste. Saisi d'une question prioritaire de constitutionnalité, le [Conseil constitutionnel a jugé, le 18 juin 2010](https://www.conseil-constitutionnel.fr/decision/2010/20108QPC.htm), qu'en cas de faute inexcusable, la victime peut demander réparation de **l'ensemble des dommages non couverts** par le régime de base. Et par deux arrêts d'assemblée plénière du **20 janvier 2023** (pourvois n° 21-23.947 et n° 20-23.673), la [Cour de cassation](https://www.courdecassation.fr/toutes-les-actualites/2023/01/20/amiante-indemnisation-des-salaries-victimes-ou-de-leurs-ayants) a précisé que la rente ne répare pas le déficit fonctionnel permanent : ce poste peut donc, lui aussi, être indemnisé à part. Autant d'évolutions récentes qui élargissent vos droits, et qu'un accompagnement attentif permet de faire valoir.
 
-## Comment faire reconnaître la faute inexcusable ?
+## Comment faire reconnaître la faute inexcusable ? {#procedure}
 
 ### La tentative de conciliation devant la CPAM
 
@@ -60,7 +70,7 @@ Dans certaines situations, toutefois, la loi vous facilite la tâche en présuma
 
 > Attention au temps qui passe : l'action en reconnaissance de la faute inexcusable se prescrit par **deux ans** (article L431-2 du Code de la sécurité sociale). Ce délai court à compter du jour de l'accident, ou de la cessation du versement de vos indemnités journalières. Bonne nouvelle cependant : il est interrompu par l'engagement de poursuites pénales pour les mêmes faits ou par l'action en reconnaissance du caractère professionnel de l'accident. Le délai est court et ses règles sont techniques : c'est souvent la première chose qu'il faut sécuriser.
 
-## Accident mortel : les droits de la famille et la responsabilité pénale
+## Accident mortel : les droits de la famille et la responsabilité pénale {#accident-mortel}
 
 Lorsque l'accident a coûté la vie au salarié, la faute inexcusable protège aussi les proches. Le conjoint et les enfants bénéficiaires d'une rente peuvent en obtenir la majoration ; les ayants droit, ainsi que les ascendants et descendants, peuvent demander réparation de leur **préjudice moral** (article L452-3). Ces sommes sont versées directement par la caisse, qui se retourne ensuite contre l'employeur par une action récursoire.
 
@@ -70,11 +80,11 @@ Un point essentiel mérite d'être souligné, car il déjoue une idée reçue : 
 
 Sur le plan pénal, l'accident grave ou mortel peut être qualifié d'homicide involontaire (article 221-6 du Code pénal), de blessures involontaires (article 222-19) ou de mise en danger délibérée d'autrui (article 223-1). Mener de front le volet pénal et le volet indemnitaire est souvent le moyen le plus efficace de faire reconnaître les responsabilités : c'est le cœur de notre pratique en [droit pénal](/defense-penale/droit-penal-des-affaires).
 
-## Maladie professionnelle et faute inexcusable
+## Maladie professionnelle et faute inexcusable {#maladie-professionnelle}
 
 La faute inexcusable ne concerne pas que les accidents soudains. C'est précisément à propos des **maladies professionnelles** — les cancers de l'amiante — que la jurisprudence moderne est née. La même logique s'applique aujourd'hui aux **troubles musculo-squelettiques**, aux pathologies liées aux postures et aux charges, et de plus en plus aux **affections psychiques** (burn-out, dépression liée aux conditions de travail) lorsqu'un risque connu n'a pas été prévenu. Les chiffres de l'Assurance Maladie confirment la tendance : en 2024, les maladies professionnelles ont progressé de près de 7 %, dont une hausse marquée des pathologies de l'amiante et des affections psychiques. Si vous avez alerté, si le danger était documenté et qu'aucune mesure n'a suivi, la faute inexcusable peut être recherchée comme pour un accident.
 
-## Pourquoi vous faire accompagner par un avocat
+## Pourquoi vous faire accompagner par un avocat {#accompagnement}
 
 La reconnaissance d'une faute inexcusable se gagne sur deux terrains à la fois : la **démonstration du manquement** (conscience du danger, mesures absentes) et l'**évaluation de vos préjudices**, poste par poste, lors de l'expertise médicale. C'est là que se joue le montant réel de votre indemnisation. Bien préparer ce rendez-vous médical est déterminant — nous vous y aidons, comme nous l'expliquons dans notre guide pour [préparer votre dossier médical](/post/comment-bien-préparer-mon-dossier-médical).
 

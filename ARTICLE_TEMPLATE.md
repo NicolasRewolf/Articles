@@ -161,8 +161,9 @@ Format BLOCKQUOTE :
 
 ### TDM (juste après l'intro)
 - **5-6 entrées H2 cliquables** (tous les H2 de l'article) avec liens d'ancrage `#section-slug`
-- Chaque H2 reçoit son `id` correspondant
-- Format liste à puces numérotée
+- Chaque H2 cible reçoit son ancre via `## Titre {#section-slug}` (le lien `#…` est traité comme interne SELF)
+- **Depuis 2026-06-23, `md_to_ricos.py` CONVERTIT le sommaire** (auparavant supprimé à la bascule Ricos) → la TDM est poussée dans le draft Wix ; Nicolas fait la mise en page
+- Format liste à puces
 
 ### H2 1 — Contextualisation thématique (pourquoi le sujet est spécifique)
 - Encadré chiffré (BLOCKQUOTE avec titre gras + bullets)

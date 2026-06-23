@@ -87,8 +87,32 @@ def test_rel_convention():
     print("OK rel — interne=SELF/sans-rel, externe=BLANK+nofollow/noopener/noreferrer")
 
 
+def test_sommaire_et_ancres():
+    md = (
+        "## Sommaire\n\n"
+        "- [Définition](#definition)\n"
+        "- [Procédure](#procedure)\n\n"
+        "## Définition {#definition}\n\n"
+        "Texte un.\n\n"
+        "## Procédure {#procedure}\n\n"
+        "Texte deux.\n"
+    )
+    nodes = m.parse_markdown(md)
+    headings = _of_type(nodes, "HEADING")
+    titles = ["".join(t["textData"]["text"] for t in h["nodes"]) for h in headings]
+    assert "Sommaire" in titles, f"titre Sommaire absent (non converti): {titles}"
+    ids = {h["id"] for h in headings}
+    assert "definition" in ids and "procedure" in ids, f"ancres cibles manquantes sur les H2: {ids}"
+    assert _of_type(nodes, "BULLETED_LIST"), "sommaire non converti en liste"
+    anchor_links = [l for l in _links(nodes) if l["url"].startswith("#")]
+    assert len(anchor_links) == 2, f"attendu 2 liens d'ancrage, obtenu {len(anchor_links)}"
+    assert all(l["target"] == "SELF" and "rel" not in l for l in anchor_links), anchor_links
+    print("OK sommaire — H2 conservé, ancres posées sur les H2, liens #ancre internes SELF")
+
+
 if __name__ == "__main__":
     test_ordered_list()
     test_bulleted_still_works()
     test_rel_convention()
+    test_sommaire_et_ancres()
     print("\nTOUS LES TESTS PASSENT")

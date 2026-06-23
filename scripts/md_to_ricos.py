@@ -20,7 +20,10 @@ Exclusions par défaut :
 - H1
 - Sections marquées "## Notes méthodologiques" (et tout ce qui suit)
 - Blockquote contenant "Livrable Étape" au début
-- Section "## Sommaire" (traitée séparément si besoin)
+
+Le "## Sommaire" est CONVERTI (H2 + liste de liens d'ancrage `[texte](#ancre)`),
+les ancres `#ancre` étant traitées comme liens internes (SELF, sans rel). Poser
+les ancres cibles sur les H2 via `## Titre {#ancre}`.
 
 Usage :
     python3 scripts/md_to_ricos.py <input.md> > out.json
@@ -44,7 +47,7 @@ def _link_data(url: str) -> dict:
     """Convention rel (LEARN-024) : lien interne (INTERNAL_DOMAIN ou URL relative
     « / ») → target SELF sans rel ; lien externe → target BLANK + rel
     nofollow/noopener/noreferrer."""
-    is_internal = url.startswith("/") or INTERNAL_DOMAIN in url
+    is_internal = url.startswith("/") or url.startswith("#") or INTERNAL_DOMAIN in url
     if is_internal:
         return {"link": {"url": url, "target": "SELF"}}
     return {"link": {"url": url, "target": "BLANK",
@@ -289,7 +292,7 @@ ANCHOR_RE = re.compile(r"\s*\{#([a-z0-9-]+)\}\s*$")
 PREFIX_RE = re.compile(r"^H[23]\s*\d+(?:\.\d+)?\s*—\s*")
 
 # Headings à totalement masquer (skip le titre, mais on garde le contenu qui suit)
-HIDDEN_HEADINGS = {"intro", "cta final", "sommaire"}
+HIDDEN_HEADINGS = {"intro", "cta final"}
 
 
 def parse_markdown(md: str) -> list[dict]:
@@ -339,13 +342,7 @@ def parse_markdown(md: str) -> list[dict]:
                 skip_notes = True
                 break
 
-            # Skip sommaire (déjà géré séparément)
-            if "Sommaire" in txt or "sommaire" in txt.lower():
-                # consommer jusqu'au prochain heading ou ---
-                i += 1
-                while i < len(lines) and not (lines[i].startswith("## ") or lines[i].startswith("---")):
-                    i += 1
-                continue
+            # (Sommaire désormais converti normalement : H2 + liste de liens d'ancrage)
 
             # Headings cachés (Intro, CTA final…) : on skip le H2 mais on garde le contenu qui suit
             if txt.lower() in HIDDEN_HEADINGS:

@@ -155,8 +155,9 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 
 **Bloc C — Contexte interne Plouton**
 
-- Articles déjà publiés sur sujets connexes (sitemap jplouton-avocat.fr/sitemap.xml)
-- Affaires réelles du cabinet à intégrer (fournies au cas par cas)
+- **Inventaire systématique de la catégorie « Ressources et notions juridiques »** (consigne Nicolas 2026-06-23) : query Wix `ExecuteWixAPI` posts par `categoryId 9477320f-…` AVANT le cadrage → anti-cannibalisation + shortlist de maillage notion↔notion. Ne jamais se fier au seul repo local.
+- Articles déjà publiés sur sujets connexes (sitemap jplouton-avocat.fr/sitemap.xml) ; **vérifier les slugs publiés réels** (Wix MCP / export CSV) et **tester les liens en HTTP** avant cross-link (LEARN-057, anti-404)
+- Affaires réelles du cabinet à intégrer (fournies au cas par cas) ; lire le `CONTENT_TEXT` du post pour fonder motif/date/montant (LEARN-063)
 - Pages d'expertise pertinentes pour linking sortant
 - Suggestions de liens internes via projet `links` si pertinent (MCP Supabase optionnel)
 
@@ -219,7 +220,7 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 **Push Wix :**
 
 - Par défaut : **Nicolas copie-colle le markdown** dans l'éditeur Wix Studio et refait la mise en page (LEARN-002 + LEARN-004 validés).
-- Push API Wix REST possible mais facultatif et fragile (échec > 25K tokens). Si tenté, **draft uniquement** (status `UNPUBLISHED`), jamais publié sans ordre explicite.
+- Push API Wix REST **opérationnel et fiable** (LEARN-064, validé #10 + #11) : `md_to_ricos.py` → minifier → embarquer en littéral JS dans `ExecuteWixAPI` (scope **SITE**, `memberId` requis `07454f1f-…`, `seoSlug` settable, 2 `categoryIds`), **garde-fou `nodes.length`/`faqCount` avant POST** puis vérif `GET …/draft-posts/{id}`. Toujours **draft `UNPUBLISHED`**, jamais publié sans ordre explicite. (Vraie limite API = 400 Ko/post ; un article minifié pèse ~36-40 Ko.)
 
 **Post-livraison :** mise à jour de `LEARNINGS.md` et `ARTICLE_TEMPLATE.md`. Date de prochain refresh dans le commit message (LEARN-046).
 
@@ -254,7 +255,7 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 | MCP data.gouv.fr                                                                                 | Stats officielles (BAAC, INSEE, ONIAM…) — Bloc D                                                                               | Étape 2                    |
 | **WebSearch ciblée** `allowed_domains=["legifrance.gouv.fr"]` + courdecassation.fr + juricaf.org | Sourcing primaire juridique (1er recours fact-check)                                                                           | Toutes                     |
 | **NotebookLM via Nicolas** (LEARN-022) — pas via MCP par défaut (LEARN-050)                      | Cluster d'info ciblé quand Claude doute : Claude formule la question → Nicolas la pose à NotebookLM → Claude ingère la réponse | Étape 2, 3, 4 selon besoin |
-| Wix MCP                                                                                          | Cartographie articles ressources + push draft (facultatif)                                                                     | Étape 2-C, 4               |
+| Wix MCP (`ExecuteWixAPI`)                                                                        | **Inventaire catégorie Ressources** (query `categoryId 9477320f-…`) avant cadrage + lecture `CONTENT_TEXT` des posts-preuve + **push draft fiable** (LEARN-064)                        | Étape 2-C, 4               |
 | API Wix REST                                                                                     | Push article (site ID `0870235c-b92d-4a69-a2f4-25a976ae5f0c`) — facultatif, draft only                                         | Étape 4                    |
 | Sitemap — jplouton-avocat.fr/sitemap.xml                                                         | Cartographie interne                                                                                                           | Étape 2 / 3                |
 | WebSearch / WebFetch                                                                             | Veille externe + sourcing complémentaire                                                                                       | Toutes                     |

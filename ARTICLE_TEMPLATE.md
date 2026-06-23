@@ -100,6 +100,8 @@ Reconnaître les limites du guide = crédibilité renforcée.
 ### Gap analysis (ce que personne ne traite)
 
 ## Bloc C — Contexte interne Plouton (Wix MCP)
+### Inventaire catégorie Ressources (obligatoire — consigne 2026-06-23)
+- Query `ExecuteWixAPI` posts `categoryId 9477320f-…` → liste publiée → décision cannibalisation + maillage notion↔notion. Tester les liens retenus en **HTTP** (anti-404, LEARN-057).
 ### Catégorie de publication
 - Catégorie 1 (publication) : Ressources et notions juridiques (id `9477320f-…`)
 - Catégorie 2 (thématique) : [variable selon sujet]

@@ -152,6 +152,8 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 - Questions PAA, autocomplete, related searches
 - Difficulté approximative + nature des pages qui rankent
 - **Gap analysis** : quel angle reste à occuper ?
+- **Signal « angle mort avocat »** (LEARN-059, confirmé #8 + #11) : si le top 10 est dépourvu d'avocats côté demandeur/assuré (100 % assureurs, courtiers, comparateurs, experts), c'est un Information Gain quasi garanti sur un sujet litige/recours → occuper la perspective avocat (leviers procéduraux, jurisprudence, charge de la preuve).
+- **Élargir le faisceau de volumes aux termes de PROCÉDURE/recours** (LEARN-060, confirmé #8 + #11) : mesurer aussi les head terms transversaux (médiateur, mise en demeure, référé-provision, contre-expertise, prescription, barème) — ils révèlent des head terms cachés bien plus volumineux que le sujet lui-même. *Technique : `kw_data_google_ads_search_volume` plafonne à 10 résultats/appel → batcher par 10.*
 
 **Bloc C — Contexte interne Plouton**
 
@@ -159,6 +161,8 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 - Affaires réelles du cabinet à intégrer (fournies au cas par cas)
 - Pages d'expertise pertinentes pour linking sortant
 - Suggestions de liens internes via projet `links` si pertinent (MCP Supabase optionnel)
+- **Vérifier que chaque slug/URL est réellement PUBLIÉ avant tout cross-link** (LEARN-057, confirmé #7 + #8 + #11) : interroger le Blog Wix via MCP (`GET /blog/v3/posts/slugs/{slug}` ou query par `categoryIds`) **ou** l'export CSV du blog. Ne jamais supposer qu'un article présent dans le repo local est en ligne (sur #11, le slug du #8 renvoyait 404 → cross-link retiré). Accents à URL-encoder.
+- **Lire le `CONTENT_TEXT` réel des posts-affaires cités** (LEARN-063, confirmé #8 + #11) avant de fonder un encadré-preuve : récupérer le contenu via l'API Wix pour vérifier montant, date, juridiction, **fondement exact** de la décision. Sur #11, cette lecture a révélé qu'une affaire « perte d'exploitation » était en réalité un **préjudice obtenu au pénal contre les auteurs d'un vol** (pas un litige assurance) → ne jamais reclasser une affaire hors de son fondement réel pour servir l'angle (LEARN-067).
 
 **Bloc D — Données statistiques & rapports officiels** *(ajouté 2026-05-11)*
 
@@ -172,6 +176,8 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
   - **Famille / conjugal** : INSEE (Enquête Cadre de Vie et Sécurité), MIPROF, SSMSI
   - **Génériques** : Service-Public.fr (données institutionnelles), data.gouv.fr (recherche dataset)
 - **Règle :** toute donnée chiffrée citée DOIT renvoyer à la source primaire + millésime de la donnée. Pas de chiffre orphelin. Si chiffre douteux : `⚠️ À vérifier — millésime/source à confirmer`.
+- **PDF/rapport détaillé > page HTML de synthèse** (LEARN-061, confirmé #8 + #11) : la landing « chiffres clés » arrondit ; le PDF de la même publication donne les décimales et tableaux exacts (ex. France Assureurs). Sourcer et pointer le PDF, pas la page de synthèse.
+- **Chiffre-choc d'un organisme public mais non sourcé en amont** (LEARN-068, #11) : certains chiffres très cités (ex. « 70 % des entreprises sinistrées disparaissent », INRS) figurent sur un site officiel **sans référence**. Utilisables uniquement en **attribution explicite** (« Selon l'INRS… »), jamais présentés comme une statistique établie. Socle chiffré = sources primaires datées (France Assureurs, INSEE…).
 - **Millésime ONISR** (LEARN-020, confirmé #4 + #6) : l'ONISR publie les résultats **provisoires** de l'année N-1 fin janvier, puis les **définitifs** fin mai. Entre fin janvier et fin mai → mentionner explicitement « provisoires [année] » dans toute citation chiffrée ; après mai → utiliser les définitifs.
 - **Outils :** MCP `data.gouv.fr` (recherche + query CSV/parquet directement), WebFetch sur sites institutionnels.
 
@@ -218,8 +224,9 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 
 **Push Wix :**
 
-- Par défaut : **Nicolas copie-colle le markdown** dans l'éditeur Wix Studio et refait la mise en page (LEARN-002 + LEARN-004 validés).
-- Push API Wix REST possible mais facultatif et fragile (échec > 25K tokens). Si tenté, **draft uniquement** (status `UNPUBLISHED`), jamais publié sans ordre explicite.
+- **Push API Wix REST = méthode par défaut, OPÉRATIONNELLE et fiable** (LEARN-064, confirmé #10 + #11 ; révise l'ancienne note « facultatif et fragile »). Procédure : `python3 scripts/md_to_ricos.py article.md` → minifier (`separators=(',',':')`) → embarquer le Ricos dans `ExecuteWixAPI` (scope **SITE** = passer `siteId`, sinon 403) → `POST /blog/v3/draft-posts` avec `draftPost` : `title`, `memberId` (**requis**, `07454f1f-c54a-4308-b897-19be554db88a` = Me Plouton), `categoryIds` (2), `excerpt`, `seoSlug` (≤ 100), `richContent`. **Garde-fou avant POST** : vérifier `nodes.length` + `faqItems` attendus, abort sinon. Vérif post-push : `GET /blog/v3/draft-posts/{id}?fieldsets=RICH_CONTENT` (recompter nœuds/FAQ + montants-clés). Taille : un article 2 000-2 500 mots ≈ 40-45 Ko ≈ ~10K tokens, très en-dessous de la limite API (400 Ko/post). **Draft uniquement** (`UNPUBLISHED`), jamais publié sans ordre explicite.
+- `scripts/md_to_ricos.py` applique désormais **automatiquement** la convention `rel` (interne `target=SELF` sans rel / externe `BLANK` + `nofollow,noopener,noreferrer`) et les **listes ordonnées** `1. 2. 3.` → `ORDERED_LIST` (LEARN-065) — plus de post-traitement manuel des liens.
+- Fallback historique (si push API indisponible) : copier-coller le markdown dans l'éditeur Wix Studio (LEARN-002).
 
 **Post-livraison :** mise à jour de `LEARNINGS.md` et `ARTICLE_TEMPLATE.md`. Date de prochain refresh dans le commit message (LEARN-046).
 
@@ -320,6 +327,7 @@ Source : [Google Search Central — AI features and your website (AI Optimizatio
 - Toute affirmation juridique → source citée OU formulation prudente explicite ("en général", "le plus souvent")
 - **Doute = signalé dans le livrable** au lieu d'inventer
 - Si source manquante : `⚠️ À vérifier — source non trouvée` noir sur blanc
+- **Contrôler la version EN VIGUEUR sur Légifrance, pas seulement le n° d'article** (LEARN-062, confirmé #8 + #11) : vérifier la date de version applicable + chercher une réforme récente (un n° correct peut pointer une version périmée). Alimente aussi le refresh M+6 (LEARN-046).
 
 ### Standards techniques Wix (learnings)
 

@@ -217,3 +217,44 @@ Pour qu'un concept juridique soit **mémorisé** par le lecteur (et pas juste lu
 **Solution** : extraire en local avec `python3` + **pypdf** (déjà installé sur la machine) — `PdfReader(path).pages` → `extract_text()`, puis filtrer les lignes pertinentes (regex sur les libellés/chiffres attendus). C'est ce qui a débloqué le **tableau détaillé** France Assureurs (« Nombre et charge des sinistres en 2024 ») où vivent les décimales 43,7 % / 3,6 % — invisibles sur la page HTML de synthèse.
 
 **Règle** : pour toute statistique logée dans un PDF institutionnel, ne pas se contenter du résumé WebFetch (souvent incapable de lire le binaire) — récupérer le PDF sauvegardé et l'extraire localement (pypdf). Lié à **LEARN-061** (PDF détaillé > page HTML) et **LEARN-006** (outillage PISTE/scripts).
+
+---
+
+## Digestion 2026-06-23 (post article #11) — assurance perte d'exploitation
+
+**Contexte** : digestion post-#11 (B2B perte d'exploitation, draft Wix `9b0439ff`). `LEARNINGS.md` était repassé à 151 lignes. Dix learnings confirmés sur ≥ 2 articles distincts → promus vers `BRIEF.md` ; 2 nouveaux learnings #11 promus comme extensions ; 1 abandonné. Restent actifs : LEARN-055, LEARN-058.
+
+### Cartographie additionnelle
+
+| LEARN | Sujet | Statut | Destination |
+|---|---|---|---|
+| LEARN-057 | Vérifier slugs Wix PUBLIÉS avant cross-link | **PROMU** (confirmé #7+#8+#11) | BRIEF.md §4 Bloc C |
+| LEARN-059 | « Angle mort avocat » = Information Gain | **PROMU** (#8+#11) | BRIEF.md §4 Bloc B |
+| LEARN-060 | Faisceau volumes = termes de procédure (batch 10) | **PROMU** (#8+#11) | BRIEF.md §4 Bloc B |
+| LEARN-061 | PDF détaillé > page HTML de synthèse | **PROMU** (#8+#11) | BRIEF.md §4 Bloc D |
+| LEARN-062 | Légifrance : version en vigueur, pas que le n° | **PROMU** (#8+#11) | BRIEF.md §6 anti-hallucination |
+| LEARN-063 | Gate de vérif + lire le `CONTENT_TEXT` des posts | **PROMU** (#8+#11) | BRIEF.md §4 Bloc C |
+| LEARN-064 | Push Wix draft API = OPÉRATIONNEL et fiable | **PROMU** (#10+#11) | BRIEF.md §4 Étape 4 Push Wix |
+| LEARN-065 | `md_to_ricos` : listes ordonnées + `rel` auto | **PROMU** (#10+#11) | BRIEF.md §4 Push Wix + technique ci-dessous |
+| LEARN-066 | Sujet issu du CRM = mine à pages-carrefour | **PROMU** (#10+#11) | savoir stratégique — ci-dessous |
+| LEARN-067 | Une affaire-preuve doit matcher son fondement exact | **PROMU** (#11, extension LEARN-063) | BRIEF.md §4 Bloc C |
+| LEARN-068 | Chiffre public non sourcé = attribution explicite | **PROMU** (#11, extension anti-hallucination) | BRIEF.md §4 Bloc D + §6 |
+| LEARN-056 | Double sourcing presse des affaires cabinet | **ABANDONNÉ** (infirmé #7) | non promu — ci-dessous |
+
+**Bilan** (maj 2026-06-23) : 64 promus / 2 actifs (LEARN-055, LEARN-058) + 8 archivés techniques/stratégiques + abandons. `LEARNINGS.md` résorbé < 100 lignes.
+
+### Détail des promotions notables
+
+**LEARN-064 — Push Wix draft API = fiable.** Confirmé #10 (54 nœuds) + #11 (60 nœuds, 8 FAQ, 44 Ko). La note README/BRIEF « facultatif et fragile (> 25K tokens) » est **révisée** : un article 2 000-2 500 mots minifié pèse ~10K tokens, très en-dessous de la limite réelle (400 Ko/post). Méthode + garde-fou pré-POST + vérif post-push intégrés au BRIEF §4.
+
+**LEARN-065 — `md_to_ricos.py` (savoir technique préservé).** Les 2 correctifs (builder `OL()` + handler `^\d+\.\s` pour `ORDERED_LIST` ; helper `_link_data()` appliquant la convention `rel` : interne `SELF` sans rel / externe `BLANK` + `nofollow,noopener,noreferrer`) sont **stables et re-exercés sur #11** (2 `ORDERED_LIST`, 9 liens internes / 7 externes corrects, 0 run-on). Le post-traitement manuel des liens n'est plus nécessaire. Remplace la « limite v2 » notée en LEARN-005.
+
+**LEARN-066 — Sujet issu du CRM (savoir stratégique).** Confirmé #10 (changer d'avocat, 686 demandes) + #11 (perte d'exploitation, 3 messages mais ~200-270 k€/dossier). Pattern : la demande first-party (CRM) + le volume/concurrence (DataForSEO) se valident mutuellement. Variante #11 = **sujet premium faible-volume / gros-enjeu B2B** = actif de valeur+autorité (assumé, ≠ trafic), à cadrer comme tel.
+
+**LEARN-067 — Une affaire-preuve doit matcher son fondement exact (extension LEARN-063).** Sur #11, l'affaire « ferme CBD 130 000 € » était présentée comme preuve de perte d'exploitation-assurance ; la lecture du `CONTENT_TEXT` a révélé un **préjudice obtenu au pénal contre les voleurs** (partie civile, Tribunal correctionnel), pas un litige assurance. Règle : ne jamais reclasser une affaire hors de son fondement réel pour servir l'angle ; la replacer dans la bonne section (ici, volet pénal des affaires) avec une formulation exacte. Protège l'E-E-A-T (pas de claim faux).
+
+**LEARN-068 — Chiffre public non sourcé = attribution explicite.** Le « 70 % des entreprises sinistrées disparaissent » figure sur le site INRS **sans source**. Utilisé en accroche **attribuée** (« Selon l'INRS… »), jamais comme stat établie ; socle chiffré = sources primaires datées.
+
+### Abandonné
+
+**LEARN-056 — Double sourcing presse régionale des affaires cabinet.** Infirmé dès #7 (le « Sud Ouest 29 sept. 2015 » était en réalité la date du post blog cabinet, pas une reprise presse). Non confirmé sur #8-#11. **Abandonné** : ne pas revendiquer une reprise presse sans en vérifier l'existence réelle (recherche dédiée) ; ne pas confondre date de publication d'un post et reprise tierce.

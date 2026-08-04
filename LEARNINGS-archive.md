@@ -217,3 +217,27 @@ Pour qu'un concept juridique soit **mémorisé** par le lecteur (et pas juste lu
 **Solution** : extraire en local avec `python3` + **pypdf** (déjà installé sur la machine) — `PdfReader(path).pages` → `extract_text()`, puis filtrer les lignes pertinentes (regex sur les libellés/chiffres attendus). C'est ce qui a débloqué le **tableau détaillé** France Assureurs (« Nombre et charge des sinistres en 2024 ») où vivent les décimales 43,7 % / 3,6 % — invisibles sur la page HTML de synthèse.
 
 **Règle** : pour toute statistique logée dans un PDF institutionnel, ne pas se contenter du résumé WebFetch (souvent incapable de lire le binaire) — récupérer le PDF sauvegardé et l'extraire localement (pypdf). Lié à **LEARN-061** (PDF détaillé > page HTML) et **LEARN-006** (outillage PISTE/scripts).
+
+---
+
+## Digestion #11 — 2026-06-23 (post « faute inexcusable de l'employeur »)
+
+Promotions/élagages appliqués (LEARNINGS.md ramené < 100 lignes).
+
+### LEARN-057 — ✅ PROMU → BRIEF §2 (Bloc C + tableau MCP) + ARTICLE_TEMPLATE (Bloc C)
+Confirmé #7/#8/#10/#11. Récupérer les slugs **publiés réels** (Wix MCP `ExecuteWixAPI` ou export CSV) et **tester les liens en HTTP** avant tout cross-link (anti-404). Ne jamais supposer qu'un article du repo local est en ligne.
+
+### LEARN-063 — ✅ PROMU → BRIEF §2 (Bloc C)
+Confirmé #8/#11. Lire le `CONTENT_TEXT` du post-preuve (API Wix) pour fonder motif/date/montant/RG des encadrés. Gate de vérification avant publication non négociable.
+
+### LEARN-064 — ✅ PROMU → BRIEF §4 (Push Wix) + tableau MCP ; note « fragile » révisée
+Confirmé #10 + #11. Push draft via API REST = opérationnel et fiable : `md_to_ricos.py` → minifier → littéral JS dans `ExecuteWixAPI` (scope SITE, `memberId` requis, `seoSlug`, 2 `categoryIds`), garde-fou `nodes`/`faqCount` avant POST, vérif GET. Draft `UNPUBLISHED`. Vraie limite = 400 Ko/post (article ~36-40 Ko). #11 = 51 nœuds / 8 FAQ persistés, draft `1093f112-…`.
+
+### LEARN-065 — ✅ ARCHIVÉ (correctif technique appliqué, ré-exercé #11)
+`md_to_ricos.py` gère listes ordonnées + convention rel automatique (`_link_data` : interne SELF sans rel / externe BLANK + nofollow/noopener/noreferrer ; `INTERNAL_DOMAIN`). #11 : 9 internes SELF / 6 externes BLANK+rel, 0 run-on. Post-traitement manuel des liens inutile.
+
+### LEARN-067 — ✅ PROMU → BRIEF §2 (Bloc C) + mémoire `feedback_inventaire_categorie_ressources`
+Consigne Nicolas (2026-06-23) : inventorier systématiquement la catégorie « Ressources et notions juridiques » publiée (query `categoryId 9477320f-…`) AVANT chaque article → cannibalisation + maillage. A fait émerger sur #11 deux maillages absents du brief (pretium doloris, dossier médical).
+
+### LEARN-054 — élagué de l'actif
+Déjà promu 2026-06-02. Ré-exercé #11 via WebSearch courdecassation.fr/Légifrance/Conseil constitutionnel (Judilibre indisponible en worktree : `.env` hors worktree, script lit un chemin fixe → fallback WebSearch suffisant pour sourcer ass. plén. 20 janv. 2023 + QPC 2010-8).

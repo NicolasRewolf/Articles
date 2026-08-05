@@ -23,7 +23,7 @@ Sinistre habitation : vos recours quand l'assureur refuse, traîne ou sous-indem
 - **Droit des assurances** — `edd6c343-05a3-4bf9-929e-527fad068557` *(thématique)*
 
 ## 6. Tags (15)
-dégât des eaux · incendie · catastrophe naturelle · sécheresse · fissures · assurance habitation · refus d'indemnisation · contre-expertise · vétusté · mise en demeure · médiateur de l'assurance · référé-provision · prescription biennale · perte d'exploitation · Bordeaux
+dégât des eaux, incendie, catastrophe naturelle, sécheresse, fissures, assurance habitation, refus d'indemnisation, contre-expertise, vétusté, mise en demeure, médiateur de l'assurance, référé-provision, prescription biennale, perte d'exploitation, Bordeaux
 
 ## 7. Image hero + alt
 - **Brief image** : photo réaliste et sobre d'un dégât domestique — mur de maison fissuré (sécheresse) **ou** plafond/mur marqué par un dégât des eaux ; lumière naturelle, pas de mise en scène dramatique. Éviter les visuels « assurance » génériques (poignée de main, parapluie).

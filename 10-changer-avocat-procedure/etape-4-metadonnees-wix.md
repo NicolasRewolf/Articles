@@ -19,7 +19,7 @@
 
 ## Tags
 
-`changer d'avocat` · `changer d'avocat en cours de procédure` · `dessaisissement avocat` · `changer d'avocat aide juridictionnelle` · `avocat commis d'office` · `honoraires avocat` · `révoquer son avocat` · `transmission dossier avocat` · `RIN article 9` · `contestation honoraires bâtonnier` · `lettre de dessaisissement` · `droit pénal` · `Bordeaux`
+changer d'avocat, changer d'avocat en cours de procédure, dessaisissement avocat, changer d'avocat aide juridictionnelle, avocat commis d'office, honoraires avocat, révoquer son avocat, transmission dossier avocat, RIN article 9, contestation honoraires bâtonnier, lettre de dessaisissement, droit pénal, Bordeaux
 
 ## Image hero (suggestions — sources libres + alt)
 

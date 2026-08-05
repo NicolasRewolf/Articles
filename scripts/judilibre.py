@@ -20,12 +20,13 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from scripts.piste_auth import api_base, get_token  # noqa: E402
+from scripts.piste_auth import api_base, get_token, http_json  # noqa: E402
 
 JUDILIBRE_PATH = "/cassation/judilibre/v1.0"
 
@@ -46,19 +47,14 @@ def _request(path: str, params: dict | None = None) -> dict:
                 items.append((k, v))
         url += "?" + urllib.parse.urlencode(items)
 
-    req = urllib.request.Request(
+    return http_json(
         url,
         headers={
             "Authorization": f"Bearer {get_token()}",
             "Accept": "application/json",
         },
+        label="Judilibre",
     )
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            return json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        body = e.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"Judilibre HTTP {e.code} on {url}: {body}") from e
 
 
 def search(
@@ -66,6 +62,7 @@ def search(
     *,
     size: int = 10,
     sort: str = "score",
+    order: str | None = None,
     jurisdiction: list[str] | None = None,
     chamber: list[str] | None = None,
     date_start: str | None = None,
@@ -76,7 +73,9 @@ def search(
     Recherche full-text sur Judilibre.
     - query: chaîne de recherche
     - size: nb de résultats (max 50)
-    - sort: 'score'|'date_asc'|'date_desc'
+    - sort: 'score' | 'scorepub' | 'date'  (le sens du tri se règle avec `order`,
+      PAS avec 'date_asc'/'date_desc' — valeurs qui n'existent pas côté API)
+    - order: 'asc' | 'desc' (défaut API : 'desc')
     - jurisdiction: ex ['cc'] pour Cour de cassation
     - chamber: ex ['civ1', 'civ2', 'crim', 'soc']
     - date_start / date_end: 'YYYY-MM-DD'
@@ -88,6 +87,7 @@ def search(
             "query": query,
             "page_size": size,
             "sort": sort,
+            "order": order,
             "jurisdiction": jurisdiction,
             "chamber": chamber,
             "date_start": date_start,
@@ -129,8 +129,14 @@ def _cli() -> None:
     ps = sub.add_parser("search", help="Recherche full-text")
     ps.add_argument("query")
     ps.add_argument("--size", type=int, default=5)
-    ps.add_argument("--sort", default="score")
+    ps.add_argument("--sort", default="score", choices=["score", "scorepub", "date"])
+    ps.add_argument("--order", choices=["asc", "desc"], default=None,
+                    help="Sens du tri (défaut API : desc)")
     ps.add_argument("--chamber", action="append")
+    ps.add_argument("--jurisdiction", action="append",
+                    help="ex : cc (Cour de cassation) — répétable")
+    ps.add_argument("--publication", action="append",
+                    help="ex : b (bulletin), r (rapport) — répétable")
     ps.add_argument("--from", dest="date_start")
     ps.add_argument("--to", dest="date_end")
     ps.add_argument("--raw", action="store_true", help="Sort le JSON brut")
@@ -149,7 +155,10 @@ def _cli() -> None:
             args.query,
             size=args.size,
             sort=args.sort,
+            order=args.order,
+            jurisdiction=args.jurisdiction,
             chamber=args.chamber,
+            publication=args.publication,
             date_start=args.date_start,
             date_end=args.date_end,
         )

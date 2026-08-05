@@ -16,7 +16,7 @@
 
 ## Tags
 
-`pension alimentaire` · `abandon de famille` · `ARIPA` · `recouvrement pension` · `révision pension alimentaire` · `pension impayée` · `ASF` · `JAF` · `droit de la famille` · `Bordeaux`
+pension alimentaire, abandon de famille, ARIPA, recouvrement pension, révision pension alimentaire, pension impayée, ASF, JAF, droit de la famille, Bordeaux
 
 ## Image hero (suggestions — sources libres + alt)
 

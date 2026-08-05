@@ -158,6 +158,7 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 - **Inventaire systématique de la catégorie « Ressources et notions juridiques »** (consigne Nicolas 2026-06-23) : query Wix `ExecuteWixAPI` posts par `categoryId 9477320f-…` AVANT le cadrage → anti-cannibalisation + shortlist de maillage notion↔notion. Ne jamais se fier au seul repo local.
 - Articles déjà publiés sur sujets connexes (sitemap jplouton-avocat.fr/sitemap.xml) ; **vérifier les slugs publiés réels** (Wix MCP / export CSV) et **tester les liens en HTTP** avant cross-link (LEARN-057, anti-404)
 - Affaires réelles du cabinet à intégrer (fournies au cas par cas) ; lire le `CONTENT_TEXT` du post pour fonder motif/date/montant (LEARN-063)
+- **Reprises presse : atout à exploiter, mais à vérifier avant de la revendiquer** (LEARN-056, promu 2026-08-05). Si un média a réellement traité l'affaire ou le sujet, c'est un signal d'autorité fort — le citer et le lier. En revanche, **confirmer l'existence réelle de l'article de presse** (titre, média, date, URL vivante) avant toute mention : sur #6, une prétendue « reprise Sud Ouest » n'était que la date du post blog. Jamais de reprise presse affirmée sans source consultable.
 - Pages d'expertise pertinentes pour linking sortant
 - Suggestions de liens internes via projet `links` si pertinent (MCP Supabase optionnel)
 
@@ -208,10 +209,11 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 
 **Livrable** (2 fichiers + 1 livraison chat) :
 
-- `etape-4-article.md` — article complet en **markdown** (LEARN-002 — Nicolas copie-colle et refait la mise en page Ricos manuellement ; pas de push API par défaut, LEARN-004)
+- `etape-4-article.md` — article complet en **markdown** : source de travail, archive et **entrée de `md_to_ricos.py`** pour le push (cf. « Push Wix » ci-dessous)
 - Balisage structuré : H1, H2, H3, listes, encadrés, FAQ
 - **Liens internes** en URLs absolues (`https://www.jplouton-avocat.fr/...`), convention `rel` follow/nofollow (LEARN-024)
-- `etape-4-metadonnees-wix.md` — méta SEO prêtes à coller : titre ≤ 60 c, description ≤ 155 c, slug sans accent (LEARN-001), **2 catégories Wix** (Ressources et notions juridiques + catégorie thématique), tags
+- `etape-4-metadonnees-wix.md` — méta SEO prêtes à coller : titre ≤ 60 c, description ≤ 155 c, slug sans accent (LEARN-001), **2 catégories Wix** (Ressources et notions juridiques + catégorie thématique), **tags séparés par des virgules** (10-15, jamais de middot `·`). Structure des 8 sections : `ARTICLE_TEMPLATE.md` §Étape 4
+- `ricos.min.json` — sortie de `md_to_ricos.py`, poussée en draft `UNPUBLISHED` (cf. « Push Wix » ci-dessous)
 - **JSON-LD FAQPage livré dans le chat** (LEARN-027 + LEARN-041 — bloc `<script>` minifié, FAQPage seul ; Person/LegalService gérés au niveau site Plouton)
 - Suggestions d'images (sources libres + alt text, ou brief génération)
 
@@ -219,8 +221,9 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 
 **Push Wix :**
 
-- Par défaut : **Nicolas copie-colle le markdown** dans l'éditeur Wix Studio et refait la mise en page (LEARN-002 + LEARN-004 validés).
-- Push API Wix REST **opérationnel et fiable** (LEARN-064, validé #10 + #11) : `md_to_ricos.py` → minifier → embarquer en littéral JS dans `ExecuteWixAPI` (scope **SITE**, `memberId` requis `07454f1f-…`, `seoSlug` settable, 2 `categoryIds`), **garde-fou `nodes.length`/`faqCount` avant POST** puis vérif `GET …/draft-posts/{id}`. Toujours **draft `UNPUBLISHED`**, jamais publié sans ordre explicite. (Vraie limite API = 400 Ko/post ; un article minifié pèse ~36-40 Ko.)
+- **Par défaut (décision Nicolas 2026-08-05) : push API Wix REST**, **opérationnel et fiable** (LEARN-064, validé #10 + #11) : `md_to_ricos.py` → minifier (`ricos.min.json`) → embarquer en littéral JS dans `ExecuteWixAPI` (scope **SITE**, `memberId` requis `07454f1f-…`, `seoSlug` settable, 2 `categoryIds`), **garde-fou `nodes.length`/`faqCount` avant POST** puis vérif `GET …/draft-posts/{id}`. Toujours **draft `UNPUBLISHED`**, jamais publié sans ordre explicite. (Vraie limite API = 400 Ko/post ; un article minifié pèse ~36-40 Ko.)
+- **Régénérer `ricos.min.json` à chaque modification de l'article** et resynchroniser le draft — sans quoi le draft Wix diverge silencieusement du markdown (constaté sur #10 : draft poussé avant le fix TDM, donc publié sans sommaire).
+- **Fallback** : si l'API échoue, **Nicolas copie-colle le markdown** dans l'éditeur Wix Studio et refait la mise en page (LEARN-002 + LEARN-004).
 
 **Post-livraison :** mise à jour de `LEARNINGS.md` et `ARTICLE_TEMPLATE.md`. Date de prochain refresh dans le commit message (LEARN-046).
 
@@ -251,12 +254,12 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 | Outil                                                                                            | Usage                                                                                                                          | Étape                      |
 | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------- |
 | API DataForSEO (40€ crédits)                                                                     | Volumes, SERP, related keywords, questions                                                                                     | Étape 2                    |
-| **Judilibre PROD** (LEARN-054) + Légifrance (API Data Gouv)                                      | **Jurisprudence Cass. de référence** (verbatim + n° pourvoi vérifiés) ; setup : creds prod `.env`, `SSL_CERT_FILE=certifi`, `judilibre.py search "…" --sort score`. + Légifrance pour les textes. | Étape 2 (Bloc A)           |
+| **Judilibre PROD** (LEARN-054) + Légifrance (API Data Gouv)                                      | **Jurisprudence Cass. de référence** (verbatim + n° pourvoi vérifiés) ; setup : creds prod dans `.env` (`PISTE_ENV=prod`), puis `judilibre.py search "…" --sort score`. Si erreur SSL macOS → workaround unique documenté dans README §Quirks. + Légifrance pour les textes. | Étape 2 (Bloc A)           |
 | MCP data.gouv.fr                                                                                 | Stats officielles (BAAC, INSEE, ONIAM…) — Bloc D                                                                               | Étape 2                    |
 | **WebSearch ciblée** `allowed_domains=["legifrance.gouv.fr"]` + courdecassation.fr + juricaf.org | Sourcing primaire juridique (1er recours fact-check)                                                                           | Toutes                     |
 | **NotebookLM via Nicolas** (LEARN-022) — pas via MCP par défaut (LEARN-050)                      | Cluster d'info ciblé quand Claude doute : Claude formule la question → Nicolas la pose à NotebookLM → Claude ingère la réponse | Étape 2, 3, 4 selon besoin |
 | Wix MCP (`ExecuteWixAPI`)                                                                        | **Inventaire catégorie Ressources** (query `categoryId 9477320f-…`) avant cadrage + lecture `CONTENT_TEXT` des posts-preuve + **push draft fiable** (LEARN-064)                        | Étape 2-C, 4               |
-| API Wix REST                                                                                     | Push article (site ID `0870235c-b92d-4a69-a2f4-25a976ae5f0c`) — facultatif, draft only                                         | Étape 4                    |
+| API Wix REST                                                                                     | Push article (site ID `0870235c-b92d-4a69-a2f4-25a976ae5f0c`) — **flux par défaut**, draft `UNPUBLISHED` only                  | Étape 4                    |
 | Sitemap — jplouton-avocat.fr/sitemap.xml                                                         | Cartographie interne                                                                                                           | Étape 2 / 3                |
 | WebSearch / WebFetch                                                                             | Veille externe + sourcing complémentaire                                                                                       | Toutes                     |
 

@@ -4,7 +4,7 @@
 - **Titre SEO (≤60)** : Faute inexcusable de l'employeur : être mieux indemnisé
 - **Slug** : `faute-inexcusable-employeur-indemnisation`
 - **URL publiée** : `https://www.jplouton-avocat.fr/post/faute-inexcusable-employeur-indemnisation`
-- **Meta description (~155)** : Faute inexcusable de l'employeur après un accident du travail ou une maladie professionnelle : conditions, preuve, procédure, majoration de la rente et réparation de tous vos préjudices.
+- **Meta description (≤ 155)** : Faute inexcusable de l'employeur après un accident du travail : conditions, preuve, procédure et majoration de votre rente. Avocat victimes à Bordeaux.
 - **Excerpt / chapô** : Après un accident du travail, l'indemnisation de base est forfaitaire. La faute inexcusable de l'employeur est le levier pour obtenir une réparation complète : majoration de la rente et préjudices personnels.
 
 ## Catégories (2 — taguer les deux)
@@ -12,7 +12,7 @@
 - Droit et accidents du travail — `ed75e638-104d-42ec-8e85-7ddb79e0928b`
 
 ## Tags suggérés
-faute inexcusable · faute inexcusable de l'employeur · accident du travail · obligation de sécurité · indemnisation dommage corporel · majoration de rente · maladie professionnelle · avocat accident du travail Bordeaux
+faute inexcusable, faute inexcusable de l'employeur, accident du travail, obligation de sécurité, indemnisation dommage corporel, majoration de rente, maladie professionnelle, pôle social, CPAM, préjudice moral, intérimaire, amiante, avocat accident du travail Bordeaux
 
 ## Image hero (à fournir)
 - Suggestion : chantier / équipement de protection (casque, garde-corps) ou salarié en situation de travail à risque — sobre, sans sensationnalisme.
@@ -29,3 +29,7 @@ L'ancienne URL `/actualites-indemnisations-accidents-travail/faute-inexcusable-a
 
 ## JSON-LD FAQPage
 Bloc `application/ld+json` (8 questions) livré **dans le chat** (règle mémoire : jamais de fichier HTML intermédiaire). À coller dans le panneau code/SEO Wix. Source des Q/R : section « Questions fréquentes » de l'article.
+
+## Refresh (LEARN-046)
+- **Prochain refresh : décembre 2026** (M+6 après la rédaction de juin 2026).
+- **Déclencheurs à surveiller en priorité** : la version en vigueur de l'article L452-2 du Code de la sécurité sociale (réforme LFSS 2025, version du 2026-06-01 — vérifier qu'elle n'a pas été modifiée) ; les chiffres Assurance Maladie sur les maladies professionnelles (millésime 2024 cité, à passer au millésime suivant dès publication) ; toute nouvelle décision de la Cour de cassation sur le déficit fonctionnel permanent après les arrêts d'assemblée plénière du 20 janvier 2023.

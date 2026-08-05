@@ -4,7 +4,9 @@
 > Chaque entrée est conservée pour traçabilité du *« pourquoi cette règle existe »*.
 > Append-only — ne pas modifier les entrées passées.
 >
-> **Mise en place : 2026-05-13** (post article #4, cycliste renversé). 51 learnings audités, 50 promus, 2 conservés en `LEARNINGS.md` actif.
+> **Mise en place : 2026-05-13** (post article #4, cycliste renversé).
+>
+> *Correction (audit 2026-08-05) : l'en-tête d'origine annonçait « 51 learnings audités, 50 promus, 2 conservés » — chiffres arithmétiquement incohérents (50 + 2 ≠ 51) et figés depuis. **Seule la cartographie ci-dessous fait foi**, et le Bilan qui la suit est recompté à chaque digestion.*
 
 ---
 
@@ -66,10 +68,18 @@
 | LEARN-052 | Voix victime / main tendue (durable) | **PROMU** | BRIEF.md §2 ton éditorial + TEMPLATE.md voix + checklist + mémoire persistante |
 | LEARN-053 | Doctrine Google AI Search 2026 (officielle) | **PROMU** | BRIEF.md §6 nouvelle sous-section + TEMPLATE.md nouveau bloc checklist |
 | LEARN-054 | Judilibre PROD = référence jurisprudence Cass. | **PROMU** (2026-06-02) | BRIEF.md §5 outils + TEMPLATE.md Cap général sourcing — confirmé #6 + #7 |
+| LEARN-056 | Reprise presse : atout réel, mais à vérifier avant de la revendiquer | **PROMU** (2026-08-05) | BRIEF.md §4 Bloc C — décision Nicolas : citer et lier une reprise réelle, ne jamais l'affirmer sans source consultable |
+| LEARN-057 | Slugs publiés réels + test HTTP avant cross-link (anti-404) | **PROMU** (2026-06-23) | BRIEF.md **§4** Étape 2 Bloc C + tableau MCP §5 + TEMPLATE.md Bloc C |
+| LEARN-063 | Lire le `CONTENT_TEXT` du post-preuve avant de citer une affaire | **PROMU** (2026-06-23) | BRIEF.md **§4** Étape 2 Bloc C |
+| LEARN-064 | Push draft Wix par API = opérationnel et fiable (limite 400 Ko/post) | **PROMU** (2026-06-23) | BRIEF.md **§4** Étape 4 Push Wix + tableau MCP §5 ; **devenu le flux par défaut le 2026-08-05** (décision Nicolas) → README + TEMPLATE alignés |
+| LEARN-065 | `md_to_ricos.py` : listes ordonnées + convention rel automatique | **ARCHIVÉ TECHNIQUE** (2026-06-23) | correctif appliqué au script ; étendu par l'audit 2026-08-05 (hostname, absolutisation, parenthèses, FAQ multi-paragraphes) |
+| LEARN-067 | Inventaire de la catégorie Ressources avant chaque article | **PROMU** (2026-06-23) | BRIEF.md **§4** Étape 2 Bloc C + TEMPLATE.md Bloc C + mémoire `feedback_inventaire_categorie_ressources` |
 | LEARN-META-1 | Une session ≠ tout le workflow | **RETIRÉ DE L'ACTIF** (2026-06-01) | non-opérationnel — couvert par README.md ; dédupliqué |
 | LEARN-META-2 | Cible volume 2 000-2 500 vs pratique 3 900-5 700 | **RÉSOLU** (2026-06-01) | décision Nicolas option b — BRIEF.md §3 + §4 Étape 4 + TEMPLATE.md |
 
-**Bilan** (maj 2026-06-02) : 52 promus / 4 actifs (LEARN-055, LEARN-056, LEARN-057, LEARN-058) + 1 résolu (LEARN-META-2) + 1 retiré (LEARN-META-1) — + 7 archivés comme savoirs techniques ou principes stratégiques (référence consultable).
+**Bilan (maj 2026-08-05 — recompté ligne à ligne sur la cartographie ci-dessus ; vérifié par `scripts/lint_pipeline.py`)** : **49 promus**, **10 archivés** comme savoirs techniques ou principes stratégiques (référence consultable), **1 fusionné** (LEARN-013 → LEARN-012), **1 résolu** (LEARN-META-2), **1 retiré** (LEARN-META-1). **Actifs restants dans `LEARNINGS.md`** : LEARN-055, 058, 059, 060, 061, 062, 066.
+
+*Bilan précédent, conservé pour l'historique (maj 2026-06-02, avant la digestion #11 et l'audit de cohérence) : 52 promus / 4 actifs (LEARN-055, LEARN-056, LEARN-057, LEARN-058) + 1 résolu + 1 retiré + 7 archivés. Ce décompte ignorait les promotions 057/063/064/067 et surestimait les promus.*
 
 ---
 
@@ -241,3 +251,32 @@ Consigne Nicolas (2026-06-23) : inventorier systématiquement la catégorie « R
 
 ### LEARN-054 — élagué de l'actif
 Déjà promu 2026-06-02. Ré-exercé #11 via WebSearch courdecassation.fr/Légifrance/Conseil constitutionnel (Judilibre indisponible en worktree : `.env` hors worktree, script lit un chemin fixe → fallback WebSearch suffisant pour sourcer ass. plén. 20 janv. 2023 + QPC 2010-8).
+
+---
+
+## Digestion 2026-08-05 — audit de cohérence du pipeline
+
+Pas d'article produit : passe de mise en cohérence de l'outil lui-même (57 issues tracées dans [`AUDIT-2026-08-05.md`](AUDIT-2026-08-05.md), méthode L/R/S). Ce qui touche la gouvernance des learnings est consigné ici.
+
+### LEARN-056 — ✅ PROMU → BRIEF §4 (Étape 2, Bloc C)
+Parqué deux digestions durant avec la mention « Ne pas promouvoir », alors qu'il portait une vraie règle. Arbitrage Nicolas (2026-08-05) : **une reprise presse réelle est un atout — il faut la garder, la citer et la lier** ; l'obligation porte sur la *vérification* de son existence (titre, média, date, URL vivante) avant de la revendiquer. Origine : sur #6, la prétendue « reprise Sud Ouest » n'était que la date du post blog.
+
+### Erratum de destinations — LEARN-057 / 063 / 067
+Les entrées de la digestion #11 indiquent « BRIEF §2 (Bloc C) ». **Destination réelle : BRIEF §4** (« Workflow », Étape 2, Bloc C). Le §2 du BRIEF est le contexte business et n'a jamais contenu ces règles — « §2 » y avait été écrit pour « Étape 2 ». La cartographie ci-dessus porte la destination corrigée.
+
+### Clarification — la ligne « digestion 2026-06-15 (#8) »
+`LEARNINGS.md` listait cette date parmi les digestions ; l'archive n'en porte aucune trace, seulement une *note technique* datée du même jour (extraction PDF institutionnel). Il s'agissait d'une **capture de learnings**, pas d'une digestion : aucune promotion n'a été appliquée ce jour-là. Les promotions correspondantes ont été faites lors de la digestion #11 du 2026-06-23. Corrigé dans l'en-tête du journal.
+
+### Correctif technique — `md_to_ricos.py` (prolonge LEARN-065)
+Quatre bugs confirmés par test lors de l'audit, tous corrigés et couverts par des cas de régression : détection du domaine interne par **hostname parsé** (une URL externe contenant la chaîne du domaine était publiée en follow sans rel) ; **absolutisation** des liens relatifs et **percent-encodage** idempotent des accents (source de la divergence #10 absolu / #11 relatif) ; URL contenant des parenthèses tronquée au premier « ) » ; réponses de FAQ multi-paragraphes qui **fuyaient hors de l'accordéon**.
+
+### Garde-fou — `scripts/lint_pipeline.py`
+Enseignement central de l'audit : **une règle qui n'est ni unique ni vérifiée par une machine finit toujours par dériver** (la règle « tags en virgules » a été violée sur 5 articles consécutifs alors qu'elle existait en mémoire). Toute règle mécanisable est désormais contrôlée par le lint, y compris le Bilan ci-dessus, recompté sur la cartographie.
+
+---
+
+## Abandonnés
+
+*Section prévue par la procédure de digestion (étape 5) — créée le 2026-08-05, elle n'existait pas alors qu'elle était référencée.*
+
+Aucun learning abandonné à ce jour. LEARN-056, seul candidat historique, a finalement été **promu** (voir ci-dessus).

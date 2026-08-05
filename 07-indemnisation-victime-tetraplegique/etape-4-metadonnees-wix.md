@@ -29,7 +29,7 @@ URL finale : `https://www.jplouton-avocat.fr/post/indemnisation-tetraplegie`
 
 ## 6. Tags (14)
 
-tétraplégie · indemnisation tétraplégie · dommage corporel · tierce personne · déficit fonctionnel permanent · nomenclature Dintilhac · réparation intégrale · accident de la route · préjudice corporel · expertise médicale · rente viagère · PCH · blessé médullaire · avocat dommage corporel Bordeaux
+tétraplégie, indemnisation tétraplégie, dommage corporel, tierce personne, déficit fonctionnel permanent, nomenclature Dintilhac, réparation intégrale, accident de la route, préjudice corporel, expertise médicale, rente viagère, PCH, blessé médullaire, avocat dommage corporel Bordeaux
 
 ## 7. Image hero + alt
 

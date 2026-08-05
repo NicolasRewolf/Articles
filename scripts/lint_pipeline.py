@@ -184,6 +184,36 @@ def verifier_liens_fichiers(chemin: Path, rap: Rapport) -> None:
             rap.erreur(chemin.name, f"lien vers un fichier inexistant : {cible}")
 
 
+def verifier_bilan_archive(rap: Rapport) -> None:
+    """Le Bilan de l'archive doit correspondre au décompte réel de sa cartographie.
+
+    Seul endroit du repo où un compteur est autorisé — parce qu'il est ici
+    dérivé de la table qui le précède, et vérifié mécaniquement.
+    """
+    chemin = ROOT / "LEARNINGS-archive.md"
+    if not chemin.exists():
+        return
+    texte = chemin.read_text()
+    reel = {"promu": 0, "archivé": 0}
+    for _, _, statut in re.findall(r"^\|\s*(LEARN-[\w-]+)\s*\|([^|]*)\|([^|]*)\|", texte, re.M):
+        s = statut.replace("*", "").strip().upper()
+        if s.startswith("PROMU"):
+            reel["promu"] += 1
+        elif "ARCHIVÉ" in s:
+            reel["archivé"] += 1
+
+    m = re.search(r"\*\*Bilan[^\n]*?\*\*\s*:\s*\*\*(\d+)\s+promus\*\*,\s*\*\*(\d+)\s+archivés\*\*", texte)
+    if not m:
+        rap.avertir("LEARNINGS-archive.md", "Bilan introuvable ou format non reconnu "
+                                            "(attendu : « **N promus**, **M archivés** »)")
+        return
+    annonce = (int(m.group(1)), int(m.group(2)))
+    if annonce != (reel["promu"], reel["archivé"]):
+        rap.erreur("LEARNINGS-archive.md",
+                   f"Bilan faux : annonce {annonce[0]} promus / {annonce[1]} archivés, "
+                   f"la cartographie en compte {reel['promu']} / {reel['archivé']}")
+
+
 def verifier_compteurs_figes(chemin: Path, rap: Rapport) -> None:
     """Compteurs et dates en dur : ils mentent dès la digestion suivante."""
     texte = chemin.read_text()
@@ -411,6 +441,7 @@ def main() -> int:
             verifier_liens_fichiers(chemin, rap)
             if nom in DOCS_SANS_COMPTEUR:
                 verifier_compteurs_figes(chemin, rap)
+        verifier_bilan_archive(rap)
         verifier_repo(rap)
 
     for d in dossiers:

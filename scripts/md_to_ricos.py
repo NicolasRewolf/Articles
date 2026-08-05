@@ -11,10 +11,17 @@ Stdlib uniquement. Supporte :
 - FAQ : H3 sous `## H2 6 — Questions fréquentes` → COLLAPSIBLE_LIST automatique
 
 Convention liens (LEARN-024) appliquée automatiquement par `_link_data` :
-- interne (domaine INTERNAL_DOMAIN, défaut « jplouton-avocat.fr », ou URL relative « / »)
-  → target SELF, sans rel
+- interne (hostname == INTERNAL_DOMAIN ou sous-domaine, défaut « jplouton-avocat.fr »,
+  URL relative « / », ancre « # ») → target SELF, sans rel
 - externe → target BLANK + rel { nofollow, noopener, noreferrer }
-INTERNAL_DOMAIN est surchargeable via la variable d'environnement RICOS_INTERNAL_DOMAIN.
+La comparaison se fait sur le HOSTNAME parsé (pas par sous-chaîne).
+
+Normalisation appliquée à chaque URL (`normalize_url`) :
+- lien relatif « /… » → absolutisé sur INTERNAL_BASE (checklist TEMPLATE)
+- accents → percent-encodés (idempotent : une URL déjà encodée ne l'est pas deux fois)
+- ancre « #… » → laissée telle quelle
+
+Surcharges d'environnement : RICOS_INTERNAL_DOMAIN, RICOS_INTERNAL_BASE.
 
 Exclusions par défaut :
 - H1
@@ -35,19 +42,68 @@ import json
 import os
 import re
 import sys
-import uuid
+import urllib.parse
 from pathlib import Path
 
 # Domaine considéré « interne » pour la convention rel (LEARN-024).
 # Surchargeable via la variable d'environnement RICOS_INTERNAL_DOMAIN.
 INTERNAL_DOMAIN = os.environ.get("RICOS_INTERNAL_DOMAIN", "jplouton-avocat.fr")
+# Base utilisée pour absolutiser les liens internes écrits en relatif.
+INTERNAL_BASE = os.environ.get("RICOS_INTERNAL_BASE", "https://www.jplouton-avocat.fr")
+
+
+def _is_internal_host(url: str) -> bool:
+    """Vrai si l'URL pointe vers le domaine interne — comparaison sur le HOSTNAME.
+
+    Un test par sous-chaîne (`INTERNAL_DOMAIN in url`) classait « interne » toute
+    URL externe contenant la chaîne (cache, annuaire, `not-jplouton-avocat.fr.x`),
+    donc publiée en follow sans rel — violation silencieuse de LEARN-024.
+    """
+    host = (urllib.parse.urlparse(url).hostname or "").lower()
+    if not host:
+        return False
+    domain = INTERNAL_DOMAIN.lower()
+    return host == domain or host.endswith("." + domain)
+
+
+def _encode_non_ascii(url: str) -> str:
+    """Percent-encode les caractères non-ASCII (accents) en laissant le reste intact.
+
+    Idempotent : une URL déjà encodée (`%C3%A9`) n'est pas ré-encodée, contrairement
+    à `quote()` qui transformerait `%` en `%25`.
+    """
+    out = []
+    for ch in url:
+        if ord(ch) < 128:
+            out.append(ch)
+        else:
+            out.append("".join(f"%{b:02X}" for b in ch.encode("utf-8")))
+    return "".join(out)
+
+
+def normalize_url(url: str) -> str:
+    """Normalise une URL de lien avant écriture dans le Ricos.
+
+    - ancre `#…` : inchangée (lien intra-page)
+    - chemin relatif `/…` : absolutisé sur INTERNAL_BASE (checklist TEMPLATE :
+      « liens internes en URL absolue ») — c'était la source de la divergence
+      entre #10 (absolu) et #11 (relatif)
+    - accents : percent-encodés
+    """
+    url = url.strip()
+    if url.startswith("#"):
+        return url
+    if url.startswith("/"):
+        url = INTERNAL_BASE.rstrip("/") + url
+    return _encode_non_ascii(url)
 
 
 def _link_data(url: str) -> dict:
-    """Convention rel (LEARN-024) : lien interne (INTERNAL_DOMAIN ou URL relative
-    « / ») → target SELF sans rel ; lien externe → target BLANK + rel
-    nofollow/noopener/noreferrer."""
-    is_internal = url.startswith("/") or url.startswith("#") or INTERNAL_DOMAIN in url
+    """Convention rel (LEARN-024) : lien interne (domaine INTERNAL_DOMAIN, URL
+    relative « / » ou ancre « # ») → target SELF sans rel ; lien externe →
+    target BLANK + rel nofollow/noopener/noreferrer."""
+    url = normalize_url(url)
+    is_internal = url.startswith("#") or _is_internal_host(url)
     if is_internal:
         return {"link": {"url": url, "target": "SELF"}}
     return {"link": {"url": url, "target": "BLANK",
@@ -68,17 +124,22 @@ def _id(prefix: str = "n") -> str:
 # 3. **text**         → bold seul
 # 4. [text](url)      → link seul
 # 5. *text*           → italic seul
+# URL tolérant UN niveau de parenthèses internes : sans cela
+# `[wiki](https://fr.wikipedia.org/wiki/Loi_Badinter_(1985))` était tronqué au
+# premier « ) » et le lien publié était cassé.
+_URL = r"(?:[^()\s]|\([^()]*\))+"
+
 INLINE_RE = re.compile(
-    r"(\*\*\[[^\]]+\]\([^)]+\)\*\*)"  # **[link](url)**
-    r"|(\[\*\*[^*]+\*\*\]\([^)]+\))"  # [**link**](url)
-    r"|(\*\*[^*]+\*\*)"               # bold
-    r"|(\[[^\]]+\]\([^)]+\))"         # link
-    r"|(\*[^*]+\*)"                   # italic
+    r"(\*\*\[[^\]]+\]\(" + _URL + r"\)\*\*)"  # **[link](url)**
+    r"|(\[\*\*[^*]+\*\*\]\(" + _URL + r"\))"  # [**link**](url)
+    r"|(\*\*[^*]+\*\*)"                       # bold
+    r"|(\[[^\]]+\]\(" + _URL + r"\))"         # link
+    r"|(\*[^*]+\*)"                           # italic
 )
 
-_LINK_INNER = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
-_BOLD_LINK = re.compile(r"\*\*\[([^\]]+)\]\(([^)]+)\)\*\*")
-_LINK_BOLD = re.compile(r"\[\*\*([^*]+)\*\*\]\(([^)]+)\)")
+_LINK_INNER = re.compile(r"\[([^\]]+)\]\((" + _URL + r")\)")
+_BOLD_LINK = re.compile(r"\*\*\[([^\]]+)\]\((" + _URL + r")\)\*\*")
+_LINK_BOLD = re.compile(r"\[\*\*([^*]+)\*\*\]\((" + _URL + r")\)")
 
 
 def parse_inline(text: str) -> list[dict]:
@@ -246,10 +307,18 @@ def DIV() -> dict:
     }
 
 
-def FAQ(qa_pairs: list[tuple[str, str]]) -> dict:
-    """Construit un COLLAPSIBLE_LIST à partir de paires (question, réponse)."""
+def FAQ(qa_pairs: list[tuple[str, list[str]]]) -> dict:
+    """Construit un COLLAPSIBLE_LIST à partir de paires (question, paragraphes).
+
+    La réponse est une LISTE de paragraphes : une réponse en plusieurs
+    paragraphes restait auparavant hors de l'accordéon (les paragraphes 2+
+    remontaient comme nœuds de premier niveau, avant la FAQ).
+    """
     items = []
     for q, a in qa_pairs:
+        paragraphs = [a] if isinstance(a, str) else list(a)
+        if not paragraphs:
+            paragraphs = [""]
         items.append({
             "type": "COLLAPSIBLE_ITEM",
             "id": _id("ci"),
@@ -271,9 +340,9 @@ def FAQ(qa_pairs: list[tuple[str, str]]) -> dict:
                     "nodes": [{
                         "type": "PARAGRAPH",
                         "id": _id("p"),
-                        "nodes": parse_inline(a),
+                        "nodes": parse_inline(par),
                         "paragraphData": {},
-                    }],
+                    } for par in paragraphs],
                 },
             ],
         })
@@ -302,7 +371,7 @@ def parse_markdown(md: str) -> list[dict]:
 
     i = 0
     in_faq_section = False
-    faq_buffer: list[tuple[str, str]] = []
+    faq_buffer: list[tuple[str, list[str]]] = []
     skip_notes = False  # quand on entre dans "## Notes méthodologiques", on skip tout
 
     def flush_faq():
@@ -384,27 +453,28 @@ def parse_markdown(md: str) -> list[dict]:
                 txt = txt_stripped
 
             if in_faq_section:
-                # Le H3 est une question FAQ ; la réponse suit dans le prochain paragraphe
-                # Récupérer le H3 comme question
-                question = txt
-                # Nettoyer le préfixe "Q1 — " etc.
-                question_clean = re.sub(r"^Q\d+\s*—\s*", "", question)
-                # Avancer
+                # Le H3 est une question FAQ ; la réponse est TOUT ce qui suit
+                # jusqu'à la prochaine question / section (plusieurs paragraphes
+                # possibles — ils restaient auparavant hors de l'accordéon).
+                question_clean = re.sub(r"^Q\d+\s*—\s*", "", txt)
                 i += 1
-                # Skip blank
-                while i < len(lines) and not lines[i].strip():
-                    i += 1
-                # Récupérer la réponse (un ou plusieurs paragraphes — on prend le premier)
-                if i < len(lines) and lines[i].strip() and not lines[i].startswith("#"):
-                    answer = lines[i].strip()
-                    i += 1
-                    # multi-line paragraph: continue while not blank and not #
-                    while i < len(lines) and lines[i].strip() and not lines[i].startswith("#") and not lines[i].startswith("---"):
-                        answer += " " + lines[i].strip()
+                paragraphs: list[str] = []
+                current: list[str] = []
+                while i < len(lines):
+                    stripped = lines[i].strip()
+                    if stripped.startswith("#") or stripped == "---":
+                        break
+                    if not stripped:
+                        if current:
+                            paragraphs.append(" ".join(current))
+                            current = []
                         i += 1
-                    faq_buffer.append((question_clean, answer))
-                else:
-                    faq_buffer.append((question_clean, ""))
+                        continue
+                    current.append(stripped)
+                    i += 1
+                if current:
+                    paragraphs.append(" ".join(current))
+                faq_buffer.append((question_clean, paragraphs))
                 continue
 
             # H3 normal

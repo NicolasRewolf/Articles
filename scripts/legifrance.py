@@ -21,34 +21,29 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import urllib.error
 import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from scripts.piste_auth import api_base, get_token  # noqa: E402
+from scripts.piste_auth import api_base, get_token, http_json  # noqa: E402
 
 LEGIFRANCE_PATH = "/dila/legifrance/lf-engine-app"
 
 
 def _post(path: str, payload: dict) -> dict:
     url = api_base() + LEGIFRANCE_PATH + path
-    body = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(
+    return http_json(
         url,
-        data=body,
+        data=json.dumps(payload).encode("utf-8"),
         headers={
             "Authorization": f"Bearer {get_token()}",
             "Content-Type": "application/json",
             "Accept": "application/json",
         },
         method="POST",
+        label="Légifrance",
     )
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            return json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        body_err = e.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"Légifrance HTTP {e.code} on {url}: {body_err}") from e
 
 
 def search(
@@ -101,6 +96,14 @@ def consult_code_article(code_name: str, article_num: str) -> dict:
     """
     Récupère un article d'un code par son numéro lisible.
     Exemple: consult_code_article("Code de la sécurité sociale", "L. 376-1")
+
+    ⚠️ NON VALIDÉ CONTRE L'API (audit 2026-08-05) : le schéma `CodeConsultRequest`
+    de PISTE attend vraisemblablement un `textId` (LEGITEXT…) + une `date`, pas le
+    couple {textTitle, searchedString} envoyé ici — un 400 est probable. Aucun
+    usage réussi n'est tracé dans le repo (les vérifications d'articles passent par
+    la WebSearch Légifrance). Avant de s'en servir : confronter au swagger PISTE,
+    et si besoin résoudre d'abord le nom du code en LEGITEXT via `search`
+    (fond CODE_DATE), puis appeler `get_article`.
     """
     return _post(
         "/consult/code",

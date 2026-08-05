@@ -165,28 +165,35 @@ Format BLOCKQUOTE :
 - **Depuis 2026-06-23, `md_to_ricos.py` CONVERTIT le sommaire** (auparavant supprimé à la bascule Ricos) → la TDM est poussée dans le draft Wix ; Nicolas fait la mise en page
 - Format liste à puces
 
-### H2 1 — Contextualisation thématique (pourquoi le sujet est spécifique)
-- Encadré chiffré (BLOCKQUOTE avec titre gras + bullets)
-- Transition vers cadre légal
+*Squelette générique, valable pour les **3 familles d'expertise** du BRIEF (indemnisation des victimes, défense pénale, contrats & personnes). Les intitulés se réécrivent avec le vocabulaire du lecteur — ce sont des rôles de section, pas des titres à recopier.*
+
+### H2 1 — Contextualisation (pourquoi ce sujet appelle un traitement spécifique)
+- Encadré chiffré (BLOCKQUOTE, **prose continue — pas de bullets**, LEARN-025)
+- Transition vers le cadre légal
 
 ### H2 2 — Cadre légal sourcé
-- 3-4 H3 selon les articles de loi mobilisés
-- Encadrés définition (BLOCKQUOTE) pour concepts juridiques clés
-- Cross-link vers article pilier ressources (cluster sémantique)
+- 3-4 H3 selon les textes mobilisés
+- Encadrés définition (BLOCKQUOTE) pour les concepts juridiques clés
+- Cross-link vers l'article pilier du cluster
 
-### H2 3 — Section CŒUR DIFFÉRENCIANTE (la profondeur distinctive)
-- 4-6 H3 sur les éléments distinctifs
-- Cross-links sortants vers articles ressources existants (délégation profondeur)
-- Lien vers affaire cabinet "haut spectre" en preuve sociale
+### H2 3 — Cœur différenciant (la profondeur distinctive — Information Gain LEARN-039)
+- 4-6 H3 sur ce qui est absent du top 10 SERP
+- Cross-links sortants vers les articles ressources existants (délégation de profondeur)
+- Lien vers une affaire cabinet en preuve
 
-### H2 4 — Cas particuliers (2-4 H3)
+### H2 4 — Cas particuliers et situations limites (2-4 H3)
 - Exploite le cluster sémantique (cross-links variés)
 - Lien affaire cabinet en preuve
 
-### H2 5 — Procédure (3 H3)
-- Expertise médicale (cross-link "dossier médical")
-- Offre assureur (cross-link page d'expertise + formulation cabinet)
-- Contentieux (lien affaire contentieuse)
+### H2 5 — Démarches et procédure (3 H3) — par quoi commencer, devant qui, dans quel délai
+
+**Déclinaisons du H2 5 par famille** (exemples, pas un carcan) :
+
+| Famille | H3 typiques |
+|---|---|
+| Indemnisation des victimes | Expertise médicale (cross-link « dossier médical ») · Offre de l'assureur (cross-link page d'expertise) · Contentieux (lien affaire) |
+| Défense pénale | Garde à vue et enquête · Instruction ou comparution · Audience et voies de recours |
+| Contrats & personnes | Démarche amiable et mise en demeure · Saisine compétente (JAF, médiateur, tribunal) · Exécution de la décision |
 
 ### Mini-CTA inline #2 (vers le milieu du corps)
 > Pour aller plus loin sur [thématique], consultez [notre page d'expertise dédiée](URL).

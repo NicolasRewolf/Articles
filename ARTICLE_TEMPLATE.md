@@ -1,7 +1,7 @@
 # ARTICLE_TEMPLATE — Structure réutilisable affinée
 
 > Squelette des livrables du workflow 4 étapes. **Affiné après chaque article** sur la base des patterns qui ont marché.
-> Dernière mise à jour : 2026-05-14 (harmonisation inter-fichiers : gouvernance journal vs règles digérées, suppression des exemples `&&`, alignement LEARN-039 à LEARN-052).
+> Historique des mises à jour : `git log --oneline -- ARTICLE_TEMPLATE.md` (pas de date en dur — elle mentait ; audit 2026-08-05).
 
 ---
 
@@ -10,9 +10,9 @@
 | Paramètre | Valeur cible |
 |---|---|
 | **Volume** | **2 000-2 500 mots** (révisé Nicolas 2026-05-11 post article #2 — concision > longueur ; médiane Plouton 28j = 1 700 ; profondeur distinctive justifie un peu plus mais pas excessif). **Réaffirmé 2026-06-01 (option b LEARN-META-2)** : cible tenue par une **passe de compression active** en Étape 4, pas par relâchement de la cible. |
-| **Structure** | 1 H1 + 1 intro + 1 TDM + **5-6 H2** + ~8-12 H3 + **FAQ 8-10 Q** + CTA final + **bio auteur** |
-| **Encadrés** | 3-6 définitions (BLOCKQUOTE) + 1-2 encadrés chiffrés (BLOCKQUOTE) + 1-2 encadrés alerte ⚠️ |
-| **Liens internes** | 1 lien tous les ~250 mots — 3 vers pages expertise/CTA + 4-7 vers articles ressources cluster + 2-4 vers affaires cabinet (preuves) |
+| **Structure** | 1 H1 + 1 intro + 1 TDM + **5-6 H2** + ~8-12 H3 + **FAQ 8-10 Q (= dernier H2, avant le CTA final)** + CTA final + **bio auteur** + date de mise à jour. Ordre verrouillé par la décision Nicolas 2026-08-05. |
+| **Encadrés** | 3-6 définitions (BLOCKQUOTE) + 1-2 encadrés chiffrés (BLOCKQUOTE) + 1-2 encadrés alerte (BLOCKQUOTE débutant par « Attention… » — **sans émoji**, garde-fou LEARN-052) |
+| **Liens internes** | 1 lien tous les ~250 mots — **2-3** vers pages expertise/CTA + **4-7** vers articles ressources cluster + **2-4** vers affaires cabinet (preuves). **Seule maison des fourchettes** (la checklist et la table y renvoient — audit 2026-08-05). |
 | **CTA** | 3 au total (Nicolas gère le placement final lors de l'ingestion Wix) : mini-CTA inline #1 post-intro, mini-CTA inline #2 dans le corps, CTA final |
 | **Ton** | Sobre, empathique, précision juridique, anti-marketing — **voix « main tendue » LEARN-052** (adressage direct au « vous », reconnaissance avant info, voix cabinet « nous », CTAs invitation humaine, modulation selon victime/défense pénale) |
 | **Sourcing** | Chaque chiffre = millésime + source primaire ; chaque article de loi = lien Légifrance ; **chaque jurisprudence = n° de pourvoi + date + chambre confirmés** (LEARN-026), vérifiés via **Judilibre PROD** (LEARN-054) |
@@ -120,7 +120,7 @@ Reconnaître les limites du guide = crédibilité renforcée.
 
 ## Étape 3 — Plan justifié (template affiné)
 
-```markdown
+````markdown
 # Plan d'article — [Titre]
 
 ## Méta-données
@@ -160,7 +160,7 @@ Format BLOCKQUOTE :
 > Vous traversez [situation difficile / vécu spécifique du persona] ? Ce guide couvre la plupart des cas en autonomie. Pour les situations complexes — [exemple concret : contestation d'expertise, refus ONIAM, lien fragile] — **vous n'êtes pas obligé de rester seul**. [CTA invitation humaine : *« Si vous voulez en parler »* / *« Premier échange sans engagement »*](URL contact).
 
 ### TDM (juste après l'intro)
-- **5-6 entrées H2 cliquables** (tous les H2 de l'article) avec liens d'ancrage `#section-slug`
+- **Une entrée par H2 de l'article, FAQ comprise** (5-6 H2 de corps + la FAQ = dernier H2), avec liens d'ancrage `#section-slug`
 - Chaque H2 cible reçoit son ancre via `## Titre {#section-slug}` (le lien `#…` est traité comme interne SELF)
 - **Depuis 2026-06-23, `md_to_ricos.py` CONVERTIT le sommaire** (auparavant supprimé à la bascule Ricos) → la TDM est poussée dans le draft Wix ; Nicolas fait la mise en page
 - Format liste à puces
@@ -246,7 +246,7 @@ Format **BLOCKQUOTE** ~150 mots :
 - **Listes ordonnées** — pour les sections "Les X étapes de...", "Les Y postes de..."
 - **FAQ COLLAPSIBLE_LIST** — **8-10 Q&A** (LEARN-044)
 - **JSON-LD FAQPage** — bloc séparé prêt-à-coller dans module SEO Wix (le COLLAPSIBLE_LIST natif ne génère pas le schema automatiquement)
-```
+````
 
 ---
 
@@ -254,10 +254,11 @@ Format **BLOCKQUOTE** ~150 mots :
 
 Chaque article #N doit produire dans son dossier `0N-slug-article/` :
 
-1. **`etape-4-article.md`** — article complet en markdown (lecture/archive + copier-coller Wix Studio par Nicolas)
-2. **`etape-4-metadonnees-wix.md`** — **OBLIGATOIRE, NE PAS ZAPPER** — 10 sections prêtes à coller : H1, méta-title ≤ 60, méta-description ≤ 155, slug sans accent, **catégories Wix (2 IDs : Ressources et notions juridiques + thématique)**, tags (10-15), image hero + alt, Open Graph, schema markup, checklist finale 11 points.
-3. **JSON-LD FAQPage** — **livré DIRECTEMENT dans le chat** (bloc code Markdown, JSON minifié one-liner, avec `type="application/ld+json"`). **PAS de fichier `.json` ou `.html` séparé** (LEARN-027 — validé : Wix Studio rejette les fichiers HTML pour ce champ, copier-coller depuis le chat est l'unique méthode fiable).
-4. *(optionnel)* **`etape-4-corrections-rouge.html`** — visualisation rouge des passages modifiés si fact-check post-rédaction a entraîné des corrections.
+1. **`etape-4-article.md`** — article complet en markdown (source de travail et d'archive ; entrée de `md_to_ricos.py` ; liens internes en URL absolue)
+2. **`etape-4-metadonnees-wix.md`** — **OBLIGATOIRE, NE PAS ZAPPER** — **8 sections** (format stabilisé #10, décision Nicolas 2026-08-05) : **SEO** (H1, méta-title ≤ 60, méta-description ≤ 155, slug sans accent), **Catégories Wix** (2 IDs : Ressources et notions juridiques + thématique — reco BRIEF/README, *pas* LEARN-041 qui concerne le schema FAQPage), **Tags** (10-15, **séparés par des virgules — jamais de middot ·**, règle mémoire), **Image hero + alt**, **Carte des liens** (internes sans rel / externes nofollow), **JSON-LD FAQPage** (renvoi : livré dans le chat), **Push Wix** (`draftPostId` + statut + garde-fou), **Refresh** (date M+6 + déclencheurs).
+3. **`ricos.min.json`** — sortie de `python3 scripts/md_to_ricos.py etape-4-article.md`, minifiée, poussée en **draft `UNPUBLISHED`** via `ExecuteWixAPI` (flux par défaut LEARN-064 — décision 2026-08-05). Garde-fou `nodes.length`/`faqCount` avant POST, vérif `GET …/draft-posts/{id}` après. **À régénérer + resynchroniser à chaque modification de l'article** (anti-drift : le draft #10 avait perdu sa TDM).
+4. **JSON-LD FAQPage** — **livré DIRECTEMENT dans le chat** (bloc code Markdown, JSON minifié one-liner, avec `type="application/ld+json"`). **PAS de fichier `.json` ou `.html` séparé** (LEARN-027 — validé : Wix Studio rejette les fichiers HTML pour ce champ, copier-coller depuis le chat est l'unique méthode fiable).
+5. *(optionnel)* **`etape-4-corrections-rouge.html`** — visualisation rouge des passages modifiés si fact-check post-rédaction a entraîné des corrections.
 
 ## Étape 4 — Fact-check juridique obligatoire AVANT rédaction (LEARN-026 + LEARN-049 anti-récidive)
 
@@ -279,13 +280,14 @@ Chaque article #N doit produire dans son dossier `0N-slug-article/` :
 
 À la fin de la rédaction Étape 4, **présenter à Nicolas en un seul message** avec ce format :
 
-```
+````
 🛑 Étape 4 — Phase 1 (rédaction) terminée.
 
 Livrables :
 1. 📄 etape-4-article.md — article complet (~2 000-2 500 mots)
-2. 📄 etape-4-metadonnees-wix.md — 10 sections SEO prêtes à coller
-3. JSON-LD FAQPage ci-dessous (à coller dans le champ "Marquage 
+2. 📄 etape-4-metadonnees-wix.md — 8 sections SEO prêtes à coller
+3. 📄 ricos.min.json — draft Wix UNPUBLISHED poussé (draftPostId dans les métadonnées)
+4. JSON-LD FAQPage ci-dessous (à coller dans le champ "Marquage 
    structuré" du panneau SEO Wix Studio du post) :
 
    ```
@@ -295,11 +297,11 @@ Livrables :
 Récap fact-check : [N WebSearch ciblées + M demandes NotebookLM Nicolas]
 Sources mobilisées : [résumé bref]
 
-Nicolas copie-colle le markdown dans Wix Studio et refait la mise en page
-manuellement (LEARN-002 + LEARN-004). Pas de push API par défaut.
-```
+Push : draft UNPUBLISHED via API (LEARN-064, flux par défaut).
+Fallback : copier-coller markdown par Nicolas (LEARN-002 + LEARN-004).
+````
 
-**Ne JAMAIS finir l'Étape 4 sans avoir produit les 3 livrables ci-dessus.**
+**Ne JAMAIS finir l'Étape 4 sans avoir produit les 4 livrables ci-dessus.**
 
 ## Étape 4 — Article HTML/Ricos Wix-ready (template)
 
@@ -314,7 +316,7 @@ DIVIDER                      → séparateurs (entre H2)
 COLLAPSIBLE_LIST + ITEMs     → FAQ accordéon
 ```
 
-### Pattern HTML (si copier-coller markdown au lieu de push API)
+### Pattern HTML (fallback copier-coller — le flux par défaut est le push API, cf. livrable 3)
 
 ```html
 <h2 id="section-slug">[H2 title]</h2>
@@ -327,7 +329,7 @@ COLLAPSIBLE_LIST + ITEMs     → FAQ accordéon
 
 <!-- Encadré définition -->
 <blockquote>
-  <p><strong>Définition. [Terme]</strong> — [définition sourcée]. (<a href="URL">Texte complet sur Légifrance</a>.)</p>
+  <p><strong>Définition. [Terme]</strong> — [définition sourcée]. (<a href="URL" target="_blank" rel="noopener noreferrer nofollow">Texte complet sur Légifrance</a>.)</p>
 </blockquote>
 
 <!-- Encadré chiffré (LEARN-025 : PAS de listes à puces dans blockquote, prose continue uniquement) -->
@@ -400,7 +402,7 @@ Les schémas Person, LegalService et Article sont gérés au niveau du site Wix 
 - [ ] Toutes les affirmations juridiques sourcées (Légifrance/Judilibre) ou prudemment formulées
 - [ ] `⚠️ À vérifier` retiré ou résolu
 - [ ] **Chaque jurisprudence** = n° de pourvoi + date + chambre **confirmés** (LEARN-026)
-- [ ] **Fact-check NotebookLM** effectué AVANT rédaction sur zones juridiques précises (LEARN-026 anti-récidive)
+- [ ] **Fact-check effectué AVANT rédaction** sur chaque zone juridique précise : WebSearch ciblée en 1er recours, NotebookLM via Nicolas si non confirmé (LEARN-026 + LEARN-049 — procédure « Fact-check » ci-dessus)
 
 ### Bloc Information Gain & E-E-A-T (Lucid Media 2026)
 - [ ] **Au moins 2-3 éléments distinctifs absents du top 10 SERP** (LEARN-039 — gap analysis formalisée Bloc B)
@@ -421,7 +423,8 @@ Les schémas Person, LegalService et Article sont gérés au niveau du site Wix 
 - [ ] **Pas de bullets dans blockquotes Wix** (LEARN-025 — prose continue uniquement)
 - [ ] Alt text sur toutes les images
 - [ ] Méta-title ≤ 60 caractères
-- [ ] Méta-description ≤ 155 caractères
+- [ ] Méta-description ≤ 155 caractères (comptage réel, pas « ~155 »)
+- [ ] **Tags séparés par des virgules** (10-15, jamais de middot ·) — règle mémoire, violée 5× avant l'audit 2026-08-05
 
 ### Bloc UX & cognitif
 - [ ] **Phrases ≤ 40 mots max, idéal 16-20** (LEARN-030 — relire et raccourcir les phrases longues)
@@ -434,8 +437,9 @@ Les schémas Person, LegalService et Article sont gérés au niveau du site Wix 
 ### Bloc Structure & CTA
 - [ ] **Volume final 2 000-2 500 mots** (LEARN-META-2 option b — décision 2026-06-01) — passe de compression effectuée si le draft dépassait ; densité info (LEARN-028) et Information Gain (LEARN-039) préservés
 - [ ] **FAQ 8-10 questions** (LEARN-044 — vs 5-7 précédemment) — mix PAA + questions issues des gaps
+- [ ] **FAQ placée en dernier H2, avant le CTA final**, et présente dans la TDM (décision Nicolas 2026-08-05)
 - [ ] FAQ privilégie **questions à nuance juridique** (LEARN-045 — anti-AI Overviews)
-- [ ] Au moins 1 lien vers page d'expertise + 1 CTA final + 1-2 mini-CTAs inline
+- [ ] **CTAs conformes au Cap général** : 2 mini-CTAs inline (#1 post-intro, #2 corps) + 1 CTA final (décision Nicolas 2026-08-05)
 - [ ] **CTAs spécifiques** : zéro libellé vague (pas de « En savoir plus » / « Cliquez ici » / « Contact ») — LEARN-037
 - [ ] **Mini-CTA #1 « double-face »** appliqué (reconnaît les limites du guide, précise pour qui un avocat est utile) — LEARN-031
 
@@ -451,7 +455,7 @@ Les schémas Person, LegalService et Article sont gérés au niveau du site Wix 
 - [ ] **Modulation selon le sujet** : victime = empathie haute ; défense pénale = empathie modulée + présomption d'innocence ; contrats/famille = empathie sobre
 
 ### Bloc Cluster & maillage interne
-- [ ] **3-5 cross-links** vers articles du même cluster sémantique (LEARN-047 — 3 deep clusters > 30 shallow)
+- [ ] **Maillage cluster conforme au Cap général** (fourchettes uniques définies au Cap — LEARN-047 : 3 deep clusters > 30 shallow)
 - [ ] Date de prochain refresh notée dans le commit message (LEARN-046 — refresh tous les 6 mois)
 
 ### Bloc Doctrine Google AI Search 2026 (officielle — ingérée 2026-05-16)
@@ -466,7 +470,8 @@ Source : [Google Search Central — AI Optimization Guide](https://developers.go
 - [ ] **Anti-scaled-content** : ne pas dupliquer ce sujet en plusieurs micro-articles. Si plusieurs angles → 1 pilier dense (cohérent avec LEARN-047).
 
 ### Bloc Process
-- [ ] **Livrable markdown** (Nicolas copie-colle dans Wix Studio et refait la mise en page — LEARN-002, LEARN-004). Pas de push API par défaut.
+- [ ] **Draft Wix poussé par API** (flux par défaut LEARN-064) : `ricos.min.json` régénéré depuis la version finale de l'article, garde-fou `nodes.length`/`faqCount`, draft `UNPUBLISHED` vérifié par GET. Fallback : copier-coller markdown par Nicolas (LEARN-002/004).
+- [ ] **Lint passé** : `python3 scripts/lint_pipeline.py 0N-slug-article/` sans erreur
 - [ ] Mise à jour `LEARNINGS.md` post-publication si nouveau learning identifié
 - [ ] Mise à jour `ARTICLE_TEMPLATE.md` si nouveau pattern identifié
 - [ ] **Commit Git local** : `git add -A`, vérifier que `.env` n'est PAS staged, puis `git commit -m "Article #N : slug"` (pas de `&&`)

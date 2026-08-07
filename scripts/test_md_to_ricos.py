@@ -187,6 +187,47 @@ def test_sommaire_et_ancres():
     print("OK sommaire — H2 conservé, ancres posées sur les H2, liens #ancre internes SELF")
 
 
+DOC = (
+    "## Sommaire\n\n- [Définition](#definition)\n\n"
+    "## Définition {#definition}\n\nUn [lien](/x) et une liste :\n\n- a\n- b\n\n"
+    "> Encadré.\n\n---\n\n"
+    "## Questions fréquentes\n\n### Q1 — Une question ?\n\nUne réponse.\n"
+)
+
+
+def test_parse_est_deterministe():
+    """Régression : `_counter` était un global de module.
+
+    Deux appels sur le même markdown rendaient des ids différents (p1 vs p2), et
+    l'appelant devait remettre le compteur à zéro derrière l'interface.
+    """
+    assert m.parse_markdown(DOC) == m.parse_markdown(DOC), "meme entree, sorties differentes"
+    ids = [n["id"] for n in m.parse_markdown(DOC)]
+    assert len(ids) == len(set(ids)), f"ids dupliques dans un meme document : {ids}"
+    print("OK determinisme — meme markdown, meme document Ricos")
+
+
+def test_fraicheur():
+    """La question du garde-fou, répondue derrière l'interface du convertisseur."""
+    a_jour = m.fraicheur(DOC, m.rendre(DOC))
+    assert a_jour.a_jour and a_jour.detail == "", a_jour
+
+    # Un nœud en plus dans l'article → le stocké est périmé, et on sait de combien.
+    perime = m.fraicheur(DOC + "\n## Ajout\n\nTexte.\n", m.rendre(DOC))
+    assert not perime.a_jour, perime
+    assert "nœuds stockés vs" in perime.detail, perime
+
+    # Même nombre de nœuds, contenu différent → divergence sans décompte.
+    modifie = m.fraicheur(DOC.replace("Une réponse.", "Une autre réponse."), m.rendre(DOC))
+    assert not modifie.a_jour and modifie.detail == "contenu divergent", modifie
+    print("OK fraicheur — a jour, perime avec decompte, contenu divergent")
+
+
+def test_rendre_est_le_document_complet():
+    assert m.rendre(DOC) == {"nodes": m.parse_markdown(DOC)}
+    print("OK rendre — exactement ce qui est ecrit dans ricos.min.json")
+
+
 if __name__ == "__main__":
     test_ordered_list()
     test_bulleted_still_works()
@@ -196,4 +237,7 @@ if __name__ == "__main__":
     test_url_avec_parentheses()
     test_faq_reponse_multi_paragraphes()
     test_sommaire_et_ancres()
+    test_parse_est_deterministe()
+    test_fraicheur()
+    test_rendre_est_le_document_complet()
     print("\nTOUS LES TESTS PASSENT")

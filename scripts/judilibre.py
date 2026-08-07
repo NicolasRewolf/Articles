@@ -20,41 +20,24 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-import urllib.error
-import urllib.parse
-import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from scripts.piste_auth import api_base, get_token, http_json  # noqa: E402
+from scripts.piste_auth import PisteClient  # noqa: E402
 
 JUDILIBRE_PATH = "/cassation/judilibre/v1.0"
 
+_CLIENT: PisteClient | None = None
 
-def _request(path: str, params: dict | None = None) -> dict:
-    base = api_base() + JUDILIBRE_PATH
-    url = base + path
-    if params:
-        # On accepte les params multivalués (listes) en répétant la clé.
-        items = []
-        for k, v in params.items():
-            if v is None:
-                continue
-            if isinstance(v, (list, tuple)):
-                for item in v:
-                    items.append((k, item))
-            else:
-                items.append((k, v))
-        url += "?" + urllib.parse.urlencode(items)
 
-    return http_json(
-        url,
-        headers={
-            "Authorization": f"Bearer {get_token()}",
-            "Accept": "application/json",
-        },
-        label="Judilibre",
-    )
+def _api(client: PisteClient | None = None) -> PisteClient:
+    """Client Judilibre — celui fourni, sinon celui du process (construit une fois)."""
+    global _CLIENT
+    if client is not None:
+        return client
+    if _CLIENT is None:
+        _CLIENT = PisteClient(JUDILIBRE_PATH, label="Judilibre")
+    return _CLIENT
 
 
 def search(
@@ -68,6 +51,7 @@ def search(
     date_start: str | None = None,
     date_end: str | None = None,
     publication: list[str] | None = None,
+    client: PisteClient | None = None,
 ) -> dict:
     """
     Recherche full-text sur Judilibre.
@@ -81,7 +65,7 @@ def search(
     - date_start / date_end: 'YYYY-MM-DD'
     - publication: ex ['b'] (bulletin), ['r'] (rapport)
     """
-    return _request(
+    return _api(client).get(
         "/search",
         {
             "query": query,
@@ -97,14 +81,14 @@ def search(
     )
 
 
-def get_decision(decision_id: str) -> dict:
+def get_decision(decision_id: str, *, client: PisteClient | None = None) -> dict:
     """Récupère le contenu complet d'une décision par son ID."""
-    return _request("/decision", {"id": decision_id})
+    return _api(client).get("/decision", {"id": decision_id})
 
 
-def taxonomy(key: str) -> dict:
+def taxonomy(key: str, *, client: PisteClient | None = None) -> dict:
     """Liste les valeurs possibles d'un facet (jurisdiction, chamber, publication, ...)."""
-    return _request("/taxonomy", {"id": key})
+    return _api(client).get("/taxonomy", {"id": key})
 
 
 def _format_hit(hit: dict) -> str:

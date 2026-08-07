@@ -11,10 +11,21 @@ Usage en CLI:
     python3 scripts/piste_auth.py            # imprime un token valide
     python3 scripts/piste_auth.py --refresh  # force une nouvelle authentification
 
-Usage en import:
-    from scripts.piste_auth import get_token, api_base, http_json
-    token = get_token()
-    base = api_base()
+Usage en import — `PisteClient` est la surface à utiliser :
+    from scripts.piste_auth import PisteClient
+    api = PisteClient("/cassation/judilibre/v1.0", label="Judilibre")
+    api.get("/search", {"query": "…", "chamber": ["civ2", "crim"]})
+
+Le client absorbe ce que chaque wrapper refaisait à la main : résolution de
+l'environnement (UNE fois, à la construction, contre deux relectures de `.env`
+par appel auparavant), cache du token, montage de l'URL de service, en-tête
+`Authorization`, libellé d'erreur, indice SSL macOS.
+
+`transport` est le seam : `http_json` en production, un transport de test dans
+les tests (cf. scripts/test_piste_client.py) — aucun appel réseau n'est requis
+pour vérifier ce que les wrappers envoient réellement.
+
+`get_token` / `api_base` / `http_json` restent disponibles pour les usages ad hoc.
 
 Configuration (lue dans .env, surchargeable par les variables d'environnement) :
     PISTE_CLIENT_ID, PISTE_CLIENT_SECRET  — credentials de l'app PISTE
@@ -163,12 +174,19 @@ def http_json(
         raise RuntimeError(f"{label} injoignable ({url}) : {e.reason}{hint}") from e
 
 
-def get_token(force_refresh: bool = False, scope: str = "openid") -> str:
-    """Retourne un access_token valide (cache disque, par environnement)."""
-    env = _load_env()
-    env_name = _env_name(env)
+def _obtenir_jeton(
+    env: dict,
+    env_name: str,
+    *,
+    force_refresh: bool = False,
+    scope: str = "openid",
+    transport=None,
+    cache: bool = True,
+) -> str:
+    """access_token valide, à partir d'une configuration DÉJÀ résolue."""
+    transport = transport or http_json
 
-    if not force_refresh:
+    if cache and not force_refresh:
         cached = _read_cache(env_name)
         if cached:
             return cached["access_token"]
@@ -190,7 +208,7 @@ def get_token(force_refresh: bool = False, scope: str = "openid") -> str:
         }
     ).encode("utf-8")
 
-    payload = http_json(
+    payload = transport(
         _endpoints(env_name)["oauth"],
         data=body,
         headers={"Content-Type": "application/x-www-form-urlencoded"},
@@ -204,8 +222,100 @@ def get_token(force_refresh: bool = False, scope: str = "openid") -> str:
 
     payload["expires_at"] = int(time.time()) + int(payload.get("expires_in", 3600))
     payload["piste_env"] = env_name
-    _write_cache(env_name, payload)
+    if cache:
+        _write_cache(env_name, payload)
     return payload["access_token"]
+
+
+def get_token(force_refresh: bool = False, scope: str = "openid") -> str:
+    """Retourne un access_token valide (cache disque, par environnement)."""
+    env = _load_env()
+    return _obtenir_jeton(env, _env_name(env), force_refresh=force_refresh, scope=scope)
+
+
+def _encoder_params(params: dict) -> str:
+    """Query string acceptant les params multivalués (la clé est répétée)."""
+    items: list[tuple[str, object]] = []
+    for k, v in params.items():
+        if v is None:
+            continue
+        if isinstance(v, (list, tuple)):
+            items.extend((k, item) for item in v)
+        else:
+            items.append((k, v))
+    return urllib.parse.urlencode(items)
+
+
+class PisteClient:
+    """Accès à UN service PISTE (Judilibre, Légifrance…).
+
+    Un client = un chemin de service. La configuration est résolue à la
+    construction, pas à chaque appel : `api_base()` puis `get_token()` relisaient
+    `.env` deux fois par requête, et réémettaient deux fois l'avertissement
+    « PISTE_ENV non défini ».
+
+    `transport` est le seam. `jeton` court-circuite l'authentification (tests,
+    ou jeton obtenu par ailleurs) : dans ce cas ni appel OAuth, ni cache disque.
+    """
+
+    def __init__(
+        self,
+        chemin_service: str,
+        *,
+        label: str,
+        transport=None,
+        env: dict | None = None,
+        jeton: str | None = None,
+        cache: bool = True,
+        timeout: int = 30,
+    ) -> None:
+        self._service = chemin_service.rstrip("/")
+        self._label = label
+        self._transport = transport or http_json
+        self._env = dict(env) if env is not None else _load_env()
+        self._nom_env = _env_name(self._env)
+        self._base = _endpoints(self._nom_env)["api"]
+        self._jeton_fixe = jeton
+        self._cache = cache
+        self._timeout = timeout
+
+    @property
+    def nom_env(self) -> str:
+        return self._nom_env
+
+    def url(self, chemin: str) -> str:
+        return self._base + self._service + chemin
+
+    def _jeton(self) -> str:
+        if self._jeton_fixe is not None:
+            return self._jeton_fixe
+        return _obtenir_jeton(self._env, self._nom_env,
+                              transport=self._transport, cache=self._cache)
+
+    def _entetes(self, **extra: str) -> dict:
+        entetes = {"Authorization": f"Bearer {self._jeton()}", "Accept": "application/json"}
+        entetes.update(extra)
+        return entetes
+
+    def get(self, chemin: str, params: dict | None = None) -> dict:
+        url = self.url(chemin)
+        if params:
+            query = _encoder_params(params)
+            if query:
+                url += "?" + query
+        return self._transport(
+            url, headers=self._entetes(), timeout=self._timeout, label=self._label
+        )
+
+    def post(self, chemin: str, payload: dict) -> dict:
+        return self._transport(
+            self.url(chemin),
+            data=json.dumps(payload).encode("utf-8"),
+            headers=self._entetes(**{"Content-Type": "application/json"}),
+            method="POST",
+            timeout=self._timeout,
+            label=self._label,
+        )
 
 
 if __name__ == "__main__":

@@ -49,12 +49,15 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 ├── .env.example              ← template des variables d'environnement
 ├── .gitignore                ← exclusions
 ├── scripts/                  ← helpers Python (stdlib only)
-│   ├── piste_auth.py         ← OAuth PISTE (Légifrance + Judilibre)
+│   ├── piste_auth.py         ← client PISTE : OAuth + appels (`PisteClient`)
 │   ├── legifrance.py         ← wrapper Légifrance API
 │   ├── judilibre.py          ← wrapper Judilibre API
+│   ├── politique_liens.py    ← convention de liens LEARN-024 — source unique
+│   │                            partagée par le rendu Ricos et le garde-fou
 │   ├── md_to_ricos.py        ← parser markdown → Ricos JSON (push Wix)
-│   ├── test_md_to_ricos.py   ← suite de tests du parser (python3 test_md_to_ricos.py)
-│   └── lint_pipeline.py      ← garde-fou : vérifie les règles mécanisables (cf. §Garde-fous)
+│   ├── lint_pipeline.py      ← garde-fou : vérifie les règles mécanisables (cf. §Garde-fous)
+│   ├── run_tests.py          ← lance toutes les suites (`python3 scripts/run_tests.py`)
+│   └── test_*.py             ← suites de tests (stdlib, aucun appel réseau)
 └── NN-slug-article/          ← un dossier par article (NN = numéro chronologique, slug sans accent)
     ├── etape-1-cadrage.md    ← livrable Étape 1
     ├── etape-2-collecte.md   ← livrable Étape 2

@@ -19,6 +19,7 @@ Usage en import:
 from __future__ import annotations
 
 import argparse
+import datetime
 import json
 import re
 import sys
@@ -96,6 +97,73 @@ def _normaliser_num(num: str) -> str:
     return re.sub(r"[\s.]", "", num or "")
 
 
+# Nombre de versions candidates qu'on accepte d'aller chercher pour trouver
+# celle qui couvre le jour demandé. Borne le coût réseau : au-delà, le jeu de
+# versions rendu par la recherche est probablement incomplet de toute façon.
+_MAX_VERSIONS_TESTEES = 5
+
+
+def _aujourdhui() -> str:
+    return datetime.date.today().isoformat()
+
+
+_MOTIF_JOUR = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def _en_date(valeur) -> str:
+    """Rend « AAAA-MM-JJ » depuis un timestamp Légifrance (ms) ou une date ISO.
+
+    Rend « » sur tout ce qui n'est pas une date lisible. Ne jamais tronquer une
+    chaîne inconnue à 10 caractères : elle deviendrait une pseudo-date, comparée
+    lexicographiquement comme les autres, et fausserait la sélection de version
+    sans rien signaler.
+    """
+    if valeur is None or valeur == "":
+        return ""
+    if isinstance(valeur, str):
+        jour = valeur[:10]
+        return jour if _MOTIF_JOUR.match(jour) else ""
+    try:
+        horodatage = datetime.datetime.fromtimestamp(int(valeur) / 1000, datetime.timezone.utc)
+    except (TypeError, ValueError, OSError, OverflowError):
+        return ""
+    return horodatage.strftime("%Y-%m-%d")
+
+
+def _en_vigueur_le(article: dict, jour: str) -> bool:
+    """Vrai si la version d'article couvre `jour`, sur les bornes [dateDebut, dateFin[.
+
+    On tranche sur les DATES, jamais sur le libellé `etat`. Une version
+    parfaitement applicable peut porter `ABROGE_DIFF` — le libellé signifie
+    « abrogation déjà programmée à une date future », pas « plus applicable ».
+    C'est le cas de tout le code pénal depuis l'ordonnance du 19 novembre 2025,
+    qui recodifie au 2029-01-01 : se fier au libellé faisait écarter le texte en
+    vigueur (constaté sur l'art. 222-22 CP pendant la rédaction de l'article #12).
+    """
+    debut = _en_date(article.get("dateDebut"))
+    if not debut or debut > jour:
+        return False
+    fin = _en_date(article.get("dateFin"))
+    return not fin or jour < fin
+
+
+def _ordonner_candidats(candidats: dict[str, tuple[str, str, str]]) -> list[str]:
+    """Ordre d'examen : `VIGUEUR` d'abord, puis la date de version décroissante.
+
+    Garde le chemin rapide d'avant (un article dont une version est explicitement
+    en VIGUEUR est résolu en un seul appel) tout en laissant une porte de sortie
+    quand aucune version ne porte ce libellé.
+    """
+    return [
+        ident
+        for ident, _ in sorted(
+            candidats.items(),
+            key=lambda kv: (kv[1][1].upper() == "VIGUEUR", kv[1][2]),
+            reverse=True,
+        )
+    ]
+
+
 def consult_code_article(code_name: str, article_num: str, *,
                          client: PisteClient | None = None) -> dict:
     """Récupère un article d'un code par son numéro lisible.
@@ -107,10 +175,13 @@ def consult_code_article(code_name: str, article_num: str, *,
     date de version.
 
     ⚠️ La recherche rend TOUTES les versions successives de l'article, la plupart
-    en `legalStatus=MODIFIE` (périmées). On retient la version en **VIGUEUR**, la
-    plus récente — citer une version modifiée serait une faute de fond. Si aucune
-    version en vigueur n'est trouvée, on rend la plus récente en signalant son
-    statut dans `_source` (à ne pas citer sans vérification).
+    en `legalStatus=MODIFIE` (périmées). Citer une version modifiée serait une
+    faute de fond. On retient donc la version qui **couvre la date du jour**, sur
+    les bornes `dateDebut`/`dateFin` — et non celle dont le libellé vaut
+    littéralement `VIGUEUR` : une version applicable peut porter `ABROGE_DIFF`
+    (abrogation programmée à une date future, cf. `_en_vigueur_le`). Si aucune
+    version ne couvre le jour, on rend la meilleure candidate en posant
+    `_source["en_vigueur"] = False` (à ne pas citer sans vérification).
 
     L'endpoint `/consult/code` de PISTE répond 500 sur toutes les formes de
     payload essayées (validé contre l'API prod le 2026-08-07 : `{textTitle,
@@ -168,14 +239,29 @@ def consult_code_article(code_name: str, article_num: str, *,
             f"({reponse.get('totalResultNumber', 0)} résultats pour ce numéro, tous codes confondus)"
         )
 
-    # VIGUEUR d'abord, puis version la plus récente.
-    ident, (titre, statut, date_version) = max(
-        candidats.items(),
-        key=lambda kv: (kv[1][1].upper() == "VIGUEUR", kv[1][2]),
-    )
-    article = get_article(ident, client=api)
+    # On examine les candidates dans l'ordre (VIGUEUR d'abord, puis les plus
+    # récentes) et on retient la première qui couvre réellement le jour.
+    jour = _aujourdhui()
+    ordre = _ordonner_candidats(candidats)
+    retenu: tuple[str, dict] | None = None
+    couvre = False
+
+    for ident in ordre[:_MAX_VERSIONS_TESTEES]:
+        article = get_article(ident, client=api)
+        if _en_vigueur_le(article.get("article") or {}, jour):
+            retenu, couvre = (ident, article), True
+            break
+        if retenu is None:
+            retenu = (ident, article)  # meilleur défaut : la tête de l'ordre
+
+    ident, article = retenu  # `candidats` non vide ⇒ `retenu` non nul
+    titre, statut, date_version = candidats[ident]
+    contenu = article.get("article") or {}
     article["_source"] = {"code": titre, "article_id": ident,
                           "legal_status": statut, "date_version": date_version,
+                          "date_debut": _en_date(contenu.get("dateDebut")),
+                          "date_fin": _en_date(contenu.get("dateFin")),
+                          "en_vigueur": couvre, "jour_teste": jour,
                           "versions_vues": len(candidats)}
     return article
 
@@ -275,9 +361,11 @@ def _cli() -> int:
         else:
             src = result.get("_source", {})
             statut = src.get("legal_status", "?")
-            marque = "" if statut.upper() == "VIGUEUR" else "  ⚠️ PAS EN VIGUEUR"
+            jour = src.get("jour_teste", "?")
+            marque = "" if src.get("en_vigueur") else f"  ⚠️ NE COUVRE PAS LE {jour}"
+            bornes = f"{src.get('date_debut') or '?'} → {src.get('date_fin') or '?'}"
             print(f"{src.get('code', '')} — article {args.article_num}")
-            print(f"({src.get('article_id', '')} · {statut} · version {src.get('date_version', '?')} "
+            print(f"({src.get('article_id', '')} · {statut} · applicable {bornes} "
                   f"· {src.get('versions_vues', '?')} version(s) vue(s)){marque}\n")
             _afficher_article(result)
     return 0

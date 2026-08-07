@@ -61,6 +61,14 @@ L'app PISTE **« Clear »** (PROD, client_id du `.env`) n'était abonnée qu'à 
 #12 : `ricos.min.json` = **51 Ko** (contre 45 Ko pour #11) — très loin de la limite API de 400 Ko, mais **au-delà de ce qu'une lecture de fichier rend d'un coup**, donc impossible à embarquer tel quel dans `ExecuteWixAPI`. Contournement validé : **compaction sémantique** avant envoi (retrait de `id:""`, `nodes:[]`, `decorations:[]`, `paragraphData:{}`) → **42 Ko, −19 %**, document strictement identique (contrôle : égalité des nœuds de texte). `ricos.min.json` reste la forme canonique attendue par le lint. *1 article.*
 **Quirk associé** : `sante.gouv.fr` bloque WebFetch (écran CAPTCHA Cegedim), comme Légifrance. Passer par WebSearch ou par les pages ARS régionales.
 
+### LEARN-074 — Judilibre : sur une infraction récente et peu pourvue, vérifier vite et passer
+#12 : recherche du verbatim de l'art. 222-30-1 (« substance de nature à altérer son discernement ») → **0 hit** ; recherche sur le numéro d'article → bruit de tokenisation uniquement. Explication structurelle : délit puni de 5 ans (monte rarement en cassation), créé en 2018, et poursuivi en pratique sous les qualifications **aggravées** de viol ou d'agression sexuelle plutôt que sous l'infraction autonome. La base Cour de cassation est donc vide sur ce terrain. Le rendement était ailleurs — rapports et fiches professionnelles (LEARN-072).
+**Le vrai défaut était l'ordre** : Judilibre a été sauté au Bloc A, puis vérifié après coup sur question de Nicolas. La vérification a confirmé l'absence de matière, mais une conclusion juste obtenue après coup ne vaut pas une vérification faite au bon moment. *1 article.*
+
+### LEARN-075 — Légifrance : `--fond LODA_DATE` pour les lois et décrets, pas WebSearch par réflexe
+#12 : l'API a très bien servi pour les **codes** (5 verbatims avec bornes d'application : 222-30-1, 222-22, 222-23, 222-15, art. 7 CPP), mais **tous les textes du JORF** — loi n° 2025-1057, décret n° 2025-1208, arrêté du 11 décembre 2025, art. 706-3 et 706-5 CPP — sont passés par WebSearch, par simple réflexe. `legifrance.py search --fond LODA_DATE` existe et n'a pas été essayé une seule fois.
+**Nuance à ne pas perdre** : les pièges de version (`ABROGE_DIFF`, version périmée de l'art. 8 CPP) n'existent **que** par l'API — le site public sert la version en vigueur par défaut. L'API reste supérieure (verbatim exact + bornes + horizon de recodification, tout ce qui sert le refresh), mais elle exige une discipline de version, désormais portée par le script (LEARN-069) et non plus par l'œil. *1 article.*
+
 ---
 
 ## Procédure de digestion v2 (avant chaque nouvel article)

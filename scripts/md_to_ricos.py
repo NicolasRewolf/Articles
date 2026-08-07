@@ -10,18 +10,14 @@ Stdlib uniquement. Supporte :
 - Inline: **bold**, *italic*, [text](url)
 - FAQ : H3 sous `## H2 6 — Questions fréquentes` → COLLAPSIBLE_LIST automatique
 
-Convention liens (LEARN-024) appliquée automatiquement par `_link_data` :
-- interne (hostname == INTERNAL_DOMAIN ou sous-domaine, défaut « jplouton-avocat.fr »,
-  URL relative « / », ancre « # ») → target SELF, sans rel
-- externe → target BLANK + rel { nofollow, noopener, noreferrer }
-La comparaison se fait sur le HOSTNAME parsé (pas par sous-chaîne).
+Convention liens (LEARN-024) et normalisation des URL : déléguées à
+`politique_liens`, qui est la source unique partagée avec `lint_pipeline`
+(le garde-fou signale et le convertisseur rend d'après la même classification).
 
-Normalisation appliquée à chaque URL (`normalize_url`) :
-- lien relatif « /… » → absolutisé sur INTERNAL_BASE (checklist TEMPLATE)
-- accents → percent-encodés (idempotent : une URL déjà encodée ne l'est pas deux fois)
-- ancre « #… » → laissée telle quelle
-
-Surcharges d'environnement : RICOS_INTERNAL_DOMAIN, RICOS_INTERNAL_BASE.
+`parse_markdown` est fonction de sa seule entrée : les ids de nœuds sont
+alloués par un compteur créé à chaque appel. Deux appels sur le même markdown
+rendent le même document — c'est ce qui permet de comparer un `ricos.min.json`
+stocké à l'article sans toucher aux internes du module (cf. `fraicheur`).
 
 Exclusions par défaut :
 - H1
@@ -39,83 +35,41 @@ Usage :
 from __future__ import annotations
 
 import json
-import os
 import re
 import sys
-import urllib.parse
 from pathlib import Path
+from typing import NamedTuple
 
-# Domaine considéré « interne » pour la convention rel (LEARN-024).
-# Surchargeable via la variable d'environnement RICOS_INTERNAL_DOMAIN.
-INTERNAL_DOMAIN = os.environ.get("RICOS_INTERNAL_DOMAIN", "jplouton-avocat.fr")
-# Base utilisée pour absolutiser les liens internes écrits en relatif.
-INTERNAL_BASE = os.environ.get("RICOS_INTERNAL_BASE", "https://www.jplouton-avocat.fr")
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from scripts import politique_liens  # noqa: E402
 
-
-def _is_internal_host(url: str) -> bool:
-    """Vrai si l'URL pointe vers le domaine interne — comparaison sur le HOSTNAME.
-
-    Un test par sous-chaîne (`INTERNAL_DOMAIN in url`) classait « interne » toute
-    URL externe contenant la chaîne (cache, annuaire, `not-jplouton-avocat.fr.x`),
-    donc publiée en follow sans rel — violation silencieuse de LEARN-024.
-    """
-    host = (urllib.parse.urlparse(url).hostname or "").lower()
-    if not host:
-        return False
-    domain = INTERNAL_DOMAIN.lower()
-    return host == domain or host.endswith("." + domain)
-
-
-def _encode_non_ascii(url: str) -> str:
-    """Percent-encode les caractères non-ASCII (accents) en laissant le reste intact.
-
-    Idempotent : une URL déjà encodée (`%C3%A9`) n'est pas ré-encodée, contrairement
-    à `quote()` qui transformerait `%` en `%25`.
-    """
-    out = []
-    for ch in url:
-        if ord(ch) < 128:
-            out.append(ch)
-        else:
-            out.append("".join(f"%{b:02X}" for b in ch.encode("utf-8")))
-    return "".join(out)
-
-
-def normalize_url(url: str) -> str:
-    """Normalise une URL de lien avant écriture dans le Ricos.
-
-    - ancre `#…` : inchangée (lien intra-page)
-    - chemin relatif `/…` : absolutisé sur INTERNAL_BASE (checklist TEMPLATE :
-      « liens internes en URL absolue ») — c'était la source de la divergence
-      entre #10 (absolu) et #11 (relatif)
-    - accents : percent-encodés
-    """
-    url = url.strip()
-    if url.startswith("#"):
-        return url
-    if url.startswith("/"):
-        url = INTERNAL_BASE.rstrip("/") + url
-    return _encode_non_ascii(url)
+# Réexports historiques : la politique de liens vit désormais dans son module.
+INTERNAL_DOMAIN = politique_liens.DOMAINE_INTERNE
+INTERNAL_BASE = politique_liens.BASE_INTERNE
+normalize_url = politique_liens.normaliser
 
 
 def _link_data(url: str) -> dict:
-    """Convention rel (LEARN-024) : lien interne (domaine INTERNAL_DOMAIN, URL
-    relative « / » ou ancre « # ») → target SELF sans rel ; lien externe →
-    target BLANK + rel nofollow/noopener/noreferrer."""
-    url = normalize_url(url)
-    is_internal = url.startswith("#") or _is_internal_host(url)
-    if is_internal:
-        return {"link": {"url": url, "target": "SELF"}}
-    return {"link": {"url": url, "target": "BLANK",
-                     "rel": {"nofollow": True, "noopener": True, "noreferrer": True}}}
+    """Enveloppe Ricos autour des attributs décidés par `politique_liens`."""
+    return {"link": politique_liens.attributs(url)}
 
 
 # ---------- Helpers id ----------
-_counter = 0
-def _id(prefix: str = "n") -> str:
-    global _counter
-    _counter += 1
-    return f"{prefix}{_counter}"
+class _Ids:
+    """Allocateur d'ids propre à UN document.
+
+    Il remplace un compteur global de module : `parse_markdown` en crée un à
+    chaque appel, donc le même markdown rend toujours le même document. Avant,
+    l'appelant devait remettre à zéro `md_to_ricos._counter` — le garde-fou le
+    faisait, en passant derrière l'interface.
+    """
+
+    def __init__(self) -> None:
+        self._n = 0
+
+    def __call__(self, prefix: str = "n") -> str:
+        self._n += 1
+        return f"{prefix}{self._n}"
 
 # ---------- Inline parsing ----------
 # Ordre des patterns : du plus spécifique au plus général
@@ -124,10 +78,11 @@ def _id(prefix: str = "n") -> str:
 # 3. **text**         → bold seul
 # 4. [text](url)      → link seul
 # 5. *text*           → italic seul
-# URL tolérant UN niveau de parenthèses internes : sans cela
-# `[wiki](https://fr.wikipedia.org/wiki/Loi_Badinter_(1985))` était tronqué au
-# premier « ) » et le lien publié était cassé.
-_URL = r"(?:[^()\s]|\([^()]*\))+"
+# Motif d'URL partagé avec le garde-fou (cf. politique_liens.MOTIF_URL) : il
+# tolère UN niveau de parenthèses internes, sans quoi
+# `[wiki](https://fr.wikipedia.org/wiki/Loi_Badinter_(1985))` est tronqué au
+# premier « ) » et le lien publié est cassé.
+_URL = politique_liens.MOTIF_URL
 
 INLINE_RE = re.compile(
     r"(\*\*\[[^\]]+\]\(" + _URL + r"\)\*\*)"  # **[link](url)**
@@ -219,95 +174,98 @@ def _text(content: str, *, bold: bool = False, italic: bool = False, link: str |
 
 
 # ---------- Node builders ----------
-def P(text: str | list[dict], anchor: str | None = None) -> dict:
+# Chaque constructeur reçoit l'allocateur d'ids du document en cours. L'ordre
+# d'allocation est significatif : il fixe la numérotation des `ricos.min.json`
+# déjà poussés en draft Wix — ne pas le réordonner.
+def P(ids: _Ids, text: str | list[dict]) -> dict:
     if isinstance(text, str):
         children = parse_inline(text)
     else:
         children = text
     node = {
         "type": "PARAGRAPH",
-        "id": _id("p"),
+        "id": ids("p"),
         "nodes": children,
         "paragraphData": {},
     }
     return node
 
 
-def H(level: int, text: str, anchor: str | None = None) -> dict:
+def H(ids: _Ids, level: int, text: str, anchor: str | None = None) -> dict:
     return {
         "type": "HEADING",
-        "id": anchor or _id("h"),
+        "id": anchor or ids("h"),
         "headingData": {"level": level},
         "nodes": parse_inline(text),
     }
 
 
-def UL(items: list[str]) -> dict:
+def UL(ids: _Ids, items: list[str]) -> dict:
     list_items = []
     for it in items:
         list_items.append({
             "type": "LIST_ITEM",
-            "id": _id("li"),
+            "id": ids("li"),
             "nodes": [{
                 "type": "PARAGRAPH",
-                "id": _id("p"),
+                "id": ids("p"),
                 "nodes": parse_inline(it),
                 "paragraphData": {},
             }],
         })
     return {
         "type": "BULLETED_LIST",
-        "id": _id("ul"),
+        "id": ids("ul"),
         "nodes": list_items,
     }
 
 
-def OL(items: list[str]) -> dict:
+def OL(ids: _Ids, items: list[str]) -> dict:
     list_items = []
     for it in items:
         list_items.append({
             "type": "LIST_ITEM",
-            "id": _id("li"),
+            "id": ids("li"),
             "nodes": [{
                 "type": "PARAGRAPH",
-                "id": _id("p"),
+                "id": ids("p"),
                 "nodes": parse_inline(it),
                 "paragraphData": {},
             }],
         })
     return {
         "type": "ORDERED_LIST",
-        "id": _id("ol"),
+        "id": ids("ol"),
         "nodes": list_items,
     }
 
 
-def BQ(paras: list[str]) -> dict:
+def BQ(ids: _Ids, paras: list[str]) -> dict:
     children = []
     for p in paras:
         children.append({
             "type": "PARAGRAPH",
-            "id": _id("p"),
+            "id": ids("p"),
             "nodes": parse_inline(p),
             "paragraphData": {},
         })
     return {
         "type": "BLOCKQUOTE",
-        "id": _id("bq"),
+        "id": ids("bq"),
         "nodes": children,
     }
 
 
-def DIV() -> dict:
+def DIV(ids: _Ids) -> dict:
     return {
         "type": "DIVIDER",
-        "id": _id("d"),
+        "id": ids("d"),
         "dividerData": {"lineStyle": "SINGLE", "width": "MEDIUM", "alignment": "CENTER"},
         "nodes": [],
     }
 
 
-def FAQ(qa_pairs: list[tuple[str, list[str]]]) -> dict:
+def FAQ(ids: _Ids, qa_pairs: list[tuple[str, list[str]]]) -> dict:
     """Construit un COLLAPSIBLE_LIST à partir de paires (question, paragraphes).
 
     La réponse est une LISTE de paragraphes : une réponse en plusieurs
@@ -321,25 +279,25 @@ def FAQ(qa_pairs: list[tuple[str, list[str]]]) -> dict:
             paragraphs = [""]
         items.append({
             "type": "COLLAPSIBLE_ITEM",
-            "id": _id("ci"),
+            "id": ids("ci"),
             "collapsibleItemData": {},
             "nodes": [
                 {
                     "type": "COLLAPSIBLE_ITEM_TITLE",
-                    "id": _id("ct"),
+                    "id": ids("ct"),
                     "nodes": [{
                         "type": "PARAGRAPH",
-                        "id": _id("p"),
+                        "id": ids("p"),
                         "nodes": parse_inline(q),
                         "paragraphData": {},
                     }],
                 },
                 {
                     "type": "COLLAPSIBLE_ITEM_BODY",
-                    "id": _id("cb"),
+                    "id": ids("cb"),
                     "nodes": [{
                         "type": "PARAGRAPH",
-                        "id": _id("p"),
+                        "id": ids("p"),
                         "nodes": parse_inline(par),
                         "paragraphData": {},
                     } for par in paragraphs],
@@ -348,7 +306,7 @@ def FAQ(qa_pairs: list[tuple[str, list[str]]]) -> dict:
         })
     return {
         "type": "COLLAPSIBLE_LIST",
-        "id": _id("cl"),
+        "id": ids("cl"),
         "collapsibleListData": {"initialExpandedItems": "FIRST", "direction": "LTR", "expandOnlyOne": False},
         "nodes": items,
     }
@@ -365,9 +323,14 @@ HIDDEN_HEADINGS = {"intro", "cta final"}
 
 
 def parse_markdown(md: str) -> list[dict]:
-    """Parse markdown → liste de nœuds Ricos top-level."""
+    """Parse markdown → liste de nœuds Ricos top-level.
+
+    Fonction de sa seule entrée : l'allocateur d'ids naît et meurt ici, donc
+    deux appels sur le même markdown rendent des nœuds identiques.
+    """
     lines = md.split("\n")
     nodes: list[dict] = []
+    ids = _Ids()
 
     i = 0
     in_faq_section = False
@@ -376,7 +339,7 @@ def parse_markdown(md: str) -> list[dict]:
 
     def flush_faq():
         if faq_buffer:
-            nodes.append(FAQ(faq_buffer.copy()))
+            nodes.append(FAQ(ids, faq_buffer.copy()))
             faq_buffer.clear()
 
     while i < len(lines):
@@ -421,8 +384,8 @@ def parse_markdown(md: str) -> list[dict]:
             # Détection FAQ : "Questions fréquentes"
             if "Questions fréquentes" in txt or "FAQ" in txt.upper():
                 in_faq_section = True
-                nodes.append(DIV())
-                nodes.append(H(2, txt, anchor=anchor))
+                nodes.append(DIV(ids))
+                nodes.append(H(ids, 2, txt, anchor=anchor))
                 i += 1
                 # skip line "(format COLLAPSIBLE_LIST...)"
                 while i < len(lines) and lines[i].strip().startswith("*("):
@@ -433,8 +396,8 @@ def parse_markdown(md: str) -> list[dict]:
             flush_faq()
             in_faq_section = False
             if nodes:  # ajouter un divider avant chaque H2 (sauf le 1er)
-                nodes.append(DIV())
-            nodes.append(H(2, txt, anchor=anchor))
+                nodes.append(DIV(ids))
+            nodes.append(H(ids, 2, txt, anchor=anchor))
             i += 1
             continue
 
@@ -478,7 +441,7 @@ def parse_markdown(md: str) -> list[dict]:
                 continue
 
             # H3 normal
-            nodes.append(H(3, txt, anchor=anchor))
+            nodes.append(H(ids, 3, txt, anchor=anchor))
             i += 1
             continue
 
@@ -495,7 +458,7 @@ def parse_markdown(md: str) -> list[dict]:
                 if k < len(lines):
                     next_non_blank = lines[k]
                 if not next_non_blank.startswith("## "):
-                    nodes.append(DIV())
+                    nodes.append(DIV(ids))
             i += 1
             continue
 
@@ -523,7 +486,7 @@ def parse_markdown(md: str) -> list[dict]:
             if current:
                 paras.append(" ".join(current).strip())
             if paras:
-                nodes.append(BQ(paras))
+                nodes.append(BQ(ids, paras))
             continue
 
         # Liste ordonnée (1. 2. 3.)
@@ -536,7 +499,7 @@ def parse_markdown(md: str) -> list[dict]:
                     item_text += " " + lines[i].strip()
                     i += 1
                 ol_items.append(item_text)
-            nodes.append(OL(ol_items))
+            nodes.append(OL(ids, ol_items))
             continue
 
         # Liste à puces
@@ -550,7 +513,7 @@ def parse_markdown(md: str) -> list[dict]:
                     item_text += " " + lines[i].strip()
                     i += 1
                 items.append(item_text)
-            nodes.append(UL(items))
+            nodes.append(UL(ids, items))
             continue
 
         # Sinon: paragraphe (peut être multi-ligne jusqu'à blank ou heading/list)
@@ -566,13 +529,40 @@ def parse_markdown(md: str) -> list[dict]:
             para_lines.append(nxt)
             i += 1
         para_text = " ".join(s.strip() for s in para_lines)
-        nodes.append(P(para_text))
+        nodes.append(P(ids, para_text))
 
     # Flush FAQ si on est encore dedans
     if in_faq_section:
-        nodes.append(FAQ(faq_buffer.copy()))
+        nodes.append(FAQ(ids, faq_buffer.copy()))
 
     return nodes
+
+
+def rendre(md: str) -> dict:
+    """Document Ricos complet — exactement ce qui est écrit dans `ricos.min.json`."""
+    return {"nodes": parse_markdown(md)}
+
+
+class Fraicheur(NamedTuple):
+    a_jour: bool
+    detail: str  # vide si à jour
+
+
+def fraicheur(article_md: str, stocke: dict) -> Fraicheur:
+    """Le Ricos stocké correspond-il encore à l'article ?
+
+    C'est la question que pose le garde-fou, et c'est celle qui aurait évité de
+    pousser le draft #10 sans son sommaire. Elle est répondue ici : l'appelant
+    n'a plus à re-render lui-même ni à connaître les internes du module.
+    """
+    attendu = rendre(article_md)
+    if stocke == attendu:
+        return Fraicheur(True, "")
+    n_stocke = len(stocke.get("nodes", []))
+    n_attendu = len(attendu["nodes"])
+    detail = (f"{n_stocke} nœuds stockés vs {n_attendu} régénérés"
+              if n_stocke != n_attendu else "contenu divergent")
+    return Fraicheur(False, detail)
 
 
 def main() -> None:
@@ -582,9 +572,7 @@ def main() -> None:
 
     md_path = Path(sys.argv[1])
     md = md_path.read_text(encoding="utf-8")
-    nodes = parse_markdown(md)
-    rich_content = {"nodes": nodes}
-    json.dump(rich_content, sys.stdout, ensure_ascii=False, indent=2)
+    json.dump(rendre(md), sys.stdout, ensure_ascii=False, indent=2)
 
 
 if __name__ == "__main__":

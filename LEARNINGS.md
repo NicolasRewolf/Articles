@@ -34,10 +34,16 @@ Utile cluster route axé mortalité (#6) ; n/a pour grand blessé survivant (#7)
 
 ### LEARN-062 — Légifrance : contrôler la version EN VIGUEUR (date + réforme récente)
 #8 : L125-2 modifié peu avant rédaction. #11 : L452-2 a une version en vigueur 2026-06-01 (réforme LFSS 2025 post ass. plén. 2023) → formulation prudente sur le calcul de la rente. Vérifier date de version + réforme récente. *2 articles — candidat promotion prochaine digestion.*
+**Désormais outillé (2026-08-07, cf. LEARN-068)** : `scripts/legifrance.py code "<Code>" "<n°>"` retient automatiquement la version en VIGUEUR et affiche `⚠️ PAS EN VIGUEUR` sinon. La vigilance humaine reste requise sur la *réforme récente* (une version en vigueur peut être toute fraîche), mais le choix de version ne dépend plus de l'œil.
 
 ### LEARN-066 — Sujet issu du CSV des prises de contact = mine à pages-carrefour
 #10 « changer d'avocat » né du CSV (686 demandes) ; #11 « faute inexcusable » relié à un contact (#575) mais sujet fourni par brief. Demande first-party + volume/concurrence se valident mutuellement. *1-2 articles.*
 
+
+### LEARN-068 — API Légifrance : jamais souscrite, et 3 bugs que le 403 masquait
+L'app PISTE **« Clear »** (PROD, client_id du `.env`) n'était abonnée qu'à JUDILIBRE : **tout** endpoint Légifrance répondait 403 — y compris `ping`, alors qu'un chemin inexistant rend 404 (donc refus délibéré de la passerelle, pas un bug de payload). Ni les credentials ni le scope n'étaient en cause : PISTE accorde `openid resource.READ` quoi qu'on demande. Souscription cochée le **2026-08-07** (Applications → Clear → Modifier → API Légifrance) ; **aucune CGU à accepter**, la souscription a suffi. L'`APP_SANDBOX_…` est créée d'office par PISTE, en SANDBOX, avec un autre client_id — inerte pour nous (et explication probable de l'`invalid_client` de LEARN-006 : credentials sandbox essayés contre la prod).
+**Ce que l'accès a révélé, invisible tant que tout était en 403** : (1) le payload de `search` portait `"filtres": [{"facette":"DATE_VERSION","singleDate":null}]` → 500 systématique du backend DILA ; (2) `_format_hit` lisait des clés inexistantes → résultats vides ; (3) `/consult/code` répond 500 sur toute forme de payload — cassé côté DILA, contourné via la facette `NUM_ARTICLE` sur `CODE_DATE` puis `getArticle`. Les trois sont corrigés.
+**Le piège de fond** : la recherche rend **toutes les versions successives** d'un article, majoritairement en `legalStatus=MODIFIE`. Une implémentation naïve renvoyait pour `CSS L. 376-1` une version **de 2015 abrogée**. Voir LEARN-062 : c'est désormais le script qui tranche. *1 session outil — à confirmer sur un article réel avant promotion vers BRIEF §5.*
 ---
 
 ## Procédure de digestion v2 (avant chaque nouvel article)
@@ -50,6 +56,6 @@ Utile cluster route axé mortalité (#6) ; n/a pour grand blessé survivant (#7)
 4. **Propager** — `grep` du mot-clé de la règle sur *tout* le périmètre (repo + dossiers d'articles + mémoire persistante). Chaque écho trouvé est soit supprimé, soit transformé en pointeur vers la maison. **Une règle qui existe en deux exemplaires finira par diverger.**
 5. **Rafraîchir le README** (point d'entrée) et la mémoire persistante si la règle les concerne : carte du projet, tableaux d'outils, index des règles non négociables. Ne jamais y recopier la règle — seulement le pointeur.
 6. **Recompter le Bilan** de l'archive sur sa cartographie (il est vérifié mécaniquement par le lint).
-7. **Vérifier** : `python3 scripts/test_md_to_ricos.py` puis `python3 scripts/lint_pipeline.py`. Zéro erreur avant de commiter.
+7. **Vérifier** : `python3 scripts/run_tests.py` (toutes les suites) puis `python3 scripts/lint_pipeline.py`. Zéro erreur avant de commiter.
 
 **But : ce fichier < 100 lignes.** Toute règle mécanisable doit finir dans `scripts/lint_pipeline.py`, pas seulement en prose : c'est la seule forme de règle qui ne dérive pas.

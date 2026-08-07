@@ -20,7 +20,6 @@ Stdlib uniquement.
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import json
 import re
 import sys
@@ -28,6 +27,8 @@ import unicodedata
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+from scripts import md_to_ricos, politique_liens  # noqa: E402
 
 # Documents de gouvernance soumis aux contrôles de forme.
 DOCS = ["README.md", "BRIEF.md", "ARTICLE_TEMPLATE.md",
@@ -118,15 +119,6 @@ def _sans_accent(s: str) -> bool:
 
 def _headings(md: str, niveau: int = 2) -> list[str]:
     return re.findall(r"^" + "#" * niveau + r"\s+(.+?)\s*$", md, re.M)
-
-
-def _charger_convertisseur():
-    spec = importlib.util.spec_from_file_location(
-        "md2ricos", Path(__file__).resolve().parent / "md_to_ricos.py")
-    mod = importlib.util.module_from_spec(spec)
-    assert spec and spec.loader
-    spec.loader.exec_module(mod)
-    return mod
 
 
 # --------------------------------------------------------------------------
@@ -288,11 +280,20 @@ def verifier_article(dossier: Path, bloquant: bool, rap: Rapport) -> None:
         return
     texte = fichier.read_text()
 
-    # Liens internes en URL absolue (checklist TEMPLATE)
-    relatifs = [m.group(1) for m in re.finditer(r"\]\((/[^)#][^)]*)\)", texte)]
-    if relatifs:
-        rap.signaler(bloquant, ou, f"{len(relatifs)} lien(s) interne(s) en relatif "
-                                   f"(attendu URL absolue) — ex. {relatifs[0]}")
+    # Politique de liens (LEARN-024) — jugée par le module qui rend le Ricos,
+    # pas par une regex parallèle qui divergeait de lui.
+    groupes: dict[str, tuple[str, int, str]] = {}
+    for m in re.finditer(politique_liens.MOTIF_LIEN, _hors_blocs_code(texte)):
+        url = m.group(1)
+        for c in politique_liens.constats(url):
+            gravite, n, exemple = groupes.get(c.message, (c.gravite, 0, url))
+            groupes[c.message] = (gravite, n + 1, exemple)
+    for message, (gravite, n, exemple) in groupes.items():
+        detail = f"{n} lien(s) — {message} — ex. {exemple}"
+        if gravite == "erreur":
+            rap.signaler(bloquant, ou, detail)
+        else:
+            rap.avertir(ou, detail)
 
     # Bio auteur (E-E-A-T, LEARN-040)
     if "À propos de l'auteur" not in texte:
@@ -354,10 +355,11 @@ def verifier_article(dossier: Path, bloquant: bool, rap: Rapport) -> None:
                         f"(attendu 2 + 1 CTA final — décision 2026-08-05)")
 
 
-def verifier_ricos(dossier: Path, bloquant: bool, rap: Rapport, conv) -> None:
+def verifier_ricos(dossier: Path, bloquant: bool, rap: Rapport) -> None:
     """Le ricos poussé doit correspondre à la version courante de l'article.
 
     C'est ce contrôle qui aurait évité de pousser le draft #10 sans son sommaire.
+    La comparaison elle-même appartient au convertisseur (`md_to_ricos.fraicheur`).
     """
     art = dossier / "etape-4-article.md"
     ricos = dossier / "ricos.min.json"
@@ -373,13 +375,9 @@ def verifier_ricos(dossier: Path, bloquant: bool, rap: Rapport, conv) -> None:
     except json.JSONDecodeError as e:
         rap.erreur(ou, f"JSON invalide : {e}")
         return
-    conv._counter = 0  # ids déterministes : on repart du même compteur
-    attendu = {"nodes": conv.parse_markdown(art.read_text(encoding="utf-8"))}
-    if stocke != attendu:
-        n_s = len(stocke.get("nodes", []))
-        n_a = len(attendu["nodes"])
-        detail = f"{n_s} nœuds stockés vs {n_a} régénérés" if n_s != n_a else "contenu divergent"
-        rap.signaler(bloquant, ou, f"obsolète par rapport à etape-4-article.md ({detail}) — "
+    etat = md_to_ricos.fraicheur(art.read_text(encoding="utf-8"), stocke)
+    if not etat.a_jour:
+        rap.signaler(bloquant, ou, f"obsolète par rapport à etape-4-article.md ({etat.detail}) — "
                                    f"régénérer puis resynchroniser le draft Wix")
 
 
@@ -421,7 +419,6 @@ def main() -> int:
     args = p.parse_args()
 
     rap = Rapport()
-    conv = _charger_convertisseur()
 
     if args.cible:
         dossiers = [Path(args.cible).resolve()]
@@ -449,7 +446,7 @@ def main() -> int:
         verifier_livrables(d, bloquant, rap)
         verifier_metadonnees(d, bloquant, rap)
         verifier_article(d, bloquant, rap)
-        verifier_ricos(d, bloquant, rap, conv)
+        verifier_ricos(d, bloquant, rap)
 
     for msg in rap.avertissements:
         print(f"  AVERTISSEMENT  {msg}")

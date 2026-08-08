@@ -28,3 +28,10 @@ Thumbs.db
 # Drafts API qu'on ne veut pas commit
 **/_draft_response.json
 **/_serp_cache.json
+
+# Travail local non versionné (notes de méthode, base générée pour le maillage)
+# Rien n'est supprimé : ces fichiers restent sur le disque, ils sortent seulement
+# du suivi Git pour garder `git status` lisible. À versionner un jour ? les retirer d'ici.
+/Techniques.md
+/knowledge_base_liens_internes.json
+/knowledge_base_liens_internes_maintenance_report.json

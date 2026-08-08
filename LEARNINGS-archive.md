@@ -256,7 +256,7 @@ Déjà promu 2026-06-02. Ré-exercé #11 via WebSearch courdecassation.fr/Légif
 
 ## Digestion 2026-08-05 — audit de cohérence du pipeline
 
-Pas d'article produit : passe de mise en cohérence de l'outil lui-même (57 issues tracées dans [`AUDIT-2026-08-05.md`](AUDIT-2026-08-05.md), méthode L/R/S). Ce qui touche la gouvernance des learnings est consigné ici.
+Pas d'article produit : passe de mise en cohérence de l'outil lui-même (57 issues, méthode L/R/S). Le tracker `AUDIT-2026-08-05.md` a été retiré du repo à la clôture de l'audit ; il reste consultable dans l'historique : `git show 649a47c:AUDIT-2026-08-05.md`. Ce qui touche la gouvernance des learnings est consigné ici.
 
 ### LEARN-056 — ✅ PROMU → BRIEF §4 (Étape 2, Bloc C)
 Parqué deux digestions durant avec la mention « Ne pas promouvoir », alors qu'il portait une vraie règle. Arbitrage Nicolas (2026-08-05) : **une reprise presse réelle est un atout — il faut la garder, la citer et la lier** ; l'obligation porte sur la *vérification* de son existence (titre, média, date, URL vivante) avant de la revendiquer. Origine : sur #6, la prétendue « reprise Sud Ouest » n'était que la date du post blog.

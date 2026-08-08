@@ -229,11 +229,14 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 
 ### Procédure refresh M+6 (LEARN-046)
 
-**Critères déclencheurs** (l'un suffit) :
-- 6 mois depuis la date de publication ou du dernier refresh
+**Déclencheurs de fond — primaires, ils commandent une réécriture** (l'un suffit) :
 - Chiffre clé daté de N-2 ou antérieur (ONISR, ONIAM, INSEE, CNAM-AT…)
 - Nouvelle jurisprudence majeure publiée (Cass. ou CA) impactant le fond de l'article
 - Changement législatif ou réglementaire sur le sujet
+- Entrée en vigueur ou extension territoriale d'un dispositif cité comme non applicable (LEARN-071)
+- Horizon de recodification ou d'abrogation programmée atteint sur un article cité (`ABROGE_DIFF`, LEARN-069)
+
+**Échéance 6 mois — revue de contrôle, pas réécriture d'office.** On vérifie les déclencheurs de fond ci-dessus ; si aucun n'est atteint, on note « revu le [date], rien à changer » et on s'arrête là. Fondement : les Search Quality Rater Guidelines posent que *« freshness is generally less of a concern for Page Quality rating — stale pages can have high Page Quality ratings »*, mais que *« unmaintained and inaccurate/misleading content is a reason for a low Page Quality rating »* (§18, p. 158). Ce qui déclasse un article, ce n'est pas son âge : c'est de devenir faux. Réécrire un article stable consomme le quota de production sans gain de qualité.
 
 **Workflow du refresh** :
 1. Relire l'article publié + le fichier `etape-2-collecte.md` (Bloc A juridique + Bloc D stats)
@@ -267,6 +270,23 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 ---
 
 ## 6. Critères de qualité — NON NÉGOCIABLES
+
+### Standard qualité YMYL (Search Quality Rater Guidelines — 11 septembre 2025)
+
+Source : Google, *General Guidelines*, version du 11 septembre 2025 (ingérée 2026-08-07). Seul changement de fond de cette version : *« Updated YMYL definitions »* — précisément la catégorie qui nous concerne. Ce standard **cadre tout le §6** : les sous-sections suivantes en sont les déclinaisons opérationnelles.
+
+**Nos articles sont en YMYL « clair » sur trois axes simultanément** : *Health or Safety* (dommage corporel), *Financial Security* (indemnisation, assurance), *Government, Civics & Society* (le pénal touche la confiance dans les institutions). Conséquence textuelle : *« very high Page Quality rating standards »* (§2.3, p. 13).
+
+**Quatre règles structurantes :**
+
+1. **Trust est au centre, et rien ne le compense.** *« Le rating Low doit être utilisé si la page manque de E-E-A-T approprié. Aucune autre considération — réputation positive, type de site — ne peut compenser »* (§5.1, p. 60). La notoriété du cabinet ne rattrape jamais un article faible.
+2. **La qualité est un plancher, pas une moyenne.** *« For any type of page, a single Low quality attribute is enough to use the Low quality rating »* (§5.0, p. 59). D'où les **portes bloquantes 🔴** de la checklist `ARTICLE_TEMPLATE.md` : un seul manquement suffit à déclasser l'article, quel que soit le reste.
+3. **« Aussi bon que la concurrence » vaut Medium, pas High.** *« "Typical" and "average" pages on a topic generally have Medium (not High) quality MC. Have high standards! »* (§7.1, p. 72). Pour viser High il faut au moins un de : effort/originalité/talent élevé, réputation positive, E-E-A-T élevé. L'« effort » inclut explicitement la **fonctionnalité de page** (§3.2, p. 21) — un calculateur comme celui de l'échelle de Glasgow est un signal d'effort au sens des guidelines. D'où le champ **Preuve d'originalité** obligatoire en Étape 1.
+4. **L'IA n'est pas disqualifiante ; le peu d'effort l'est — et il se juge au niveau du SITE.** *« The use of Generative AI tools alone does not determine the level of effort or Page Quality rating »* (§4.6.6, p. 43), mais *« vous devez utiliser le rating Lowest quand vous suspectez fortement du scaled content abuse après avoir regardé plusieurs pages du site »* (§4.6.5, p. 42). Un article faible dégrade la lecture de **tous** les autres du domaine.
+
+**Signaux de « paraphrase sans valeur » à fuir** (§4.6.7, p. 44) — ils décrivent exactement le piège de l'article juridique : ne contenir que des faits communément connus · fort recouvrement avec des sources bien établies · résumer une page sans valeur ajoutée. Un article qui reformule Légifrance et Service-Public coche les trois.
+
+**Le pire scénario documenté** (§4.7, p. 45) : un article informationnel classé **Lowest** uniquement pour des inexactitudes factuelles trahissant une génération sans relecture — *« No matter how this content was created, the odd statements and factual inaccuracies make this article untrustworthy and therefore Lowest E-E-A-T and Lowest quality »*. Un numéro d'article inventé ne coûte pas « Low » : il coûte **Lowest**. C'est le fondement de la règle *Anti-hallucination* ci-dessous.
 
 ### E-E-A-T (renforcé Core Updates mars-avril 2026 — LEARN-040)
 

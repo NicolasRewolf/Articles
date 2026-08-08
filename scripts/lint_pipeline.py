@@ -60,6 +60,16 @@ TAGS_MIN, TAGS_MAX = 10, 15
 
 ARTICLE_DIR_RE = re.compile(r"^\d{2}-[a-z0-9-]+$")
 
+# Survente dans un titre ou un H1. Le titre fait partie du Main Content : un
+# titre survendu par rapport au contenu suffit à faire Low (Search Quality Rater
+# Guidelines §5.2, p. 60 — cf. BRIEF.md §6 « Standard qualité YMYL »).
+# Avertissement seulement : c'est un jugement éditorial, le lint signale.
+SURVENTE_RE = re.compile(
+    r"(meilleurs?\b|incroyable|révolutionnaire|ultime|infaillible|miracle"
+    r"|ne veut pas que vous|secrets? bien gardés?|!{2,})",
+    re.I,
+)
+
 
 class Rapport:
     def __init__(self) -> None:
@@ -239,6 +249,9 @@ def verifier_metadonnees(dossier: Path, bloquant: bool, rap: Rapport) -> None:
         rap.signaler(bloquant, ou, "titre SEO introuvable")
     elif len(titre) > MAX_TITLE:
         rap.signaler(bloquant, ou, f"titre SEO : {len(titre)} caractères (max {MAX_TITLE})")
+    if titre and SURVENTE_RE.search(titre):
+        rap.avertir(ou, f"titre SEO potentiellement survendu — « {titre} » "
+                        f"(le titre fait partie du Main Content, Guidelines §5.2)")
 
     desc = _champ(texte, "Meta description", "Méta-description", "Description")
     if desc is None:
@@ -298,6 +311,20 @@ def verifier_article(dossier: Path, bloquant: bool, rap: Rapport) -> None:
     # Bio auteur (E-E-A-T, LEARN-040)
     if "À propos de l'auteur" not in texte:
         rap.signaler(bloquant, ou, "bloc « À propos de l'auteur » absent (bio obligatoire, LEARN-040)")
+
+    # Marqueur de doute résiduel : il ne doit jamais survivre à la relecture.
+    # Sur un sujet YMYL, une inexactitude factuelle ne coûte pas « Low » mais
+    # « Lowest » (Guidelines §4.7, p. 45 — BRIEF.md §6, porte bloquante 🔴).
+    if re.search(r"À vérifier", texte, re.I):
+        rap.signaler(bloquant, ou,
+                     "marqueur « ⚠️ À vérifier » résiduel — résoudre ou retirer avant push")
+
+    # Survente du H1 (porte bloquante 🔴 en prose ; ici en avertissement car
+    # l'appréciation reste éditoriale — le lint signale, Nicolas tranche).
+    for h1 in re.findall(r"^#\s+(.+?)\s*$", texte, re.M):
+        if SURVENTE_RE.search(h1):
+            rap.avertir(ou, f"H1 potentiellement survendu — « {h1[:70]} » "
+                            f"(le titre fait partie du Main Content, Guidelines §5.2)")
 
     # Date de mise à jour visible (LEARN-043)
     if not re.search(r"(Derni[èe]re mise à jour|Mis à jour le)", texte, re.I):
@@ -385,6 +412,19 @@ def verifier_livrables(dossier: Path, bloquant: bool, rap: Rapport) -> None:
     for nom in ["etape-1-cadrage.md", "etape-2-collecte.md", "etape-3-plan.md"]:
         if not (dossier / nom).exists():
             rap.signaler(bloquant, dossier.name, f"livrable {nom} manquant")
+
+    # Preuve d'originalité (Étape 1, obligatoire depuis 2026-08-07) : nommer
+    # l'artefact qui n'existe nulle part ailleurs. « Aussi bon que la
+    # concurrence » vaut Medium (Guidelines §7.1, p. 72 — BRIEF.md §6).
+    # Avertissement tant que les dossiers antérieurs à la règle n'ont pas été
+    # complétés ; à passer en `signaler(bloquant, …)` ensuite.
+    cadrage = dossier / "etape-1-cadrage.md"
+    if cadrage.exists():
+        bloc = _section(cadrage.read_text(encoding="utf-8"), r"Preuve d'originalité")
+        if bloc is None or not bloc.strip():
+            rap.avertir(f"{dossier.name}/etape-1-cadrage.md",
+                        "section « Preuve d'originalité » absente ou vide "
+                        "(champ Étape 1 obligatoire depuis 2026-08-07)")
 
 
 # --------------------------------------------------------------------------

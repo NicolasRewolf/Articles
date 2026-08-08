@@ -74,6 +74,17 @@ Reconnaître les limites du guide = crédibilité renforcée.
 
 ## Hypothèse de valeur
 [Pourquoi cet article peut performer. Gap concurrentiel observé en SERP. Intent mal servi.]
+
+## Preuve d'originalité
+[OBLIGATOIRE — nommer l'artefact qui n'existe nulle part ailleurs, pas une intention.
+Catalogue des sources d'originalité déjà éprouvées :
+- affaire cabinet réelle avec montant obtenu (+ lien interne vers le post d'affaire) ;
+- discipline absente du SERP — sujet capté par le sanitaire/scientifique, jamais traité en droits (LEARN-070) ;
+- périmètre territorial d'un dispositif national vérifié dans l'arrêté, pas dans la presse (LEARN-071) ;
+- fiche destinée aux professionnels plutôt que la page grand public (LEARN-072) ;
+- donnée calculée ou agrégée par nous, tableau construit, outil/calculateur.
+Champ vide après le Bloc B = pivoter ou abandonner le sujet. Cf. BRIEF.md §6
+« Standard qualité YMYL » règle 3 : un article aussi bon que la concurrence vaut Medium.]
 ```
 
 ---
@@ -405,18 +416,23 @@ Les schémas Person, LegalService et Article sont gérés au niveau du site Wix 
 
 ## Checklist qualité (à passer avant push)
 
+> **Convention de sévérité.** Les items marqués **🔴** sont des **portes bloquantes** : un seul manquement suffit à déclasser l'article, quel que soit le reste — c'est la règle 2 du *Standard qualité YMYL* (BRIEF.md §6). On ne pousse pas un article dont une porte 🔴 est ouverte. Les autres items sont des optimisations : on les vise tous, mais leur absence ne bloque pas la publication.
+
 ### Bloc Sourcing & juridique
 - [ ] Toutes les affirmations juridiques sourcées (Légifrance/Judilibre) ou prudemment formulées
-- [ ] `⚠️ À vérifier` retiré ou résolu
-- [ ] **Chaque jurisprudence** = n° de pourvoi + date + chambre **confirmés** (LEARN-026)
-- [ ] **Fact-check effectué AVANT rédaction** sur chaque zone juridique précise : WebSearch ciblée en 1er recours, NotebookLM via Nicolas si non confirmé (LEARN-026 + LEARN-049 — procédure « Fact-check » ci-dessus)
+- [ ] 🔴 `⚠️ À vérifier` retiré ou résolu *(contrôlé par le lint)*
+- [ ] 🔴 **Chaque jurisprudence** = n° de pourvoi + date + chambre **confirmés** (LEARN-026)
+- [ ] 🔴 **Fact-check effectué AVANT rédaction** sur chaque zone juridique précise : WebSearch ciblée en 1er recours, NotebookLM via Nicolas si non confirmé (LEARN-026 + LEARN-049 — procédure « Fact-check » ci-dessus)
 
 ### Bloc Information Gain & E-E-A-T (Lucid Media 2026)
+- [ ] 🔴 **Preuve d'originalité tenue** : l'artefact nommé en Étape 1 est bien présent dans l'article publié (pas seulement annoncé au cadrage)
 - [ ] **Au moins 2-3 éléments distinctifs absents du top 10 SERP** (LEARN-039 — gap analysis formalisée Bloc B)
-- [ ] **Bio auteur Maître Plouton** en pied d'article (LEARN-040) — bloc ~150 mots avec EFB/cabinet 2009/IDC/ADAP/IDA/adresse
+- [ ] 🔴 **Bio auteur Maître Plouton** en pied d'article (LEARN-040) — bloc ~150 mots avec EFB/cabinet 2009/IDC/ADAP/IDA/adresse
+- [ ] 🔴 **Aucun claim exagéré** sur le cabinet ou l'auteur — la bio porte du **vérifiable** (barreau, serment, mentions de spécialisation, publications), jamais des adjectifs. *« E-E-A-T assessments should be based on the MC itself, reputation research, verifiable credentials — not just claims of "I'm an expert!" »* (Guidelines §5.6, p. 63 : une info exagérée sur soi-même = Low)
+- [ ] 🔴 **Titre et H1 ni exagérés ni trompeurs** — le titre fait partie du Main Content : un titre survendu par rapport au contenu suffit à faire Low (Guidelines §5.2, p. 60). Proscrit : « ce que votre assureur ne veut pas que vous sachiez », superlatifs, promesses chiffrées non tenues dans le corps *(signalé par le lint)*
 - [ ] **Date de mise à jour visible** en italique en pied (LEARN-043) — cohérente avec Schema `dateModified`
 - [ ] **3 ancrages Bordeaux/Nouvelle-Aquitaine** minimum (LEARN-042) : juridiction locale + adresse cabinet + zone d'intervention
-- [ ] **Chaque affaire cabinet citée porte un lien interne** vers son post `/post/...` (FAQ + encadrés inclus) — règle stricte 2026-06-02 ; ancre neutre OK, slug réel via Wix MCP
+- [ ] 🔴 **Chaque affaire cabinet citée porte un lien interne** vers son post `/post/...` (FAQ + encadrés inclus) — règle stricte 2026-06-02 ; ancre neutre OK, slug réel via Wix MCP
 
 ### Bloc Schema markup
 - [ ] **JSON-LD FAQPage** livré dans le chat (LEARN-041 — UNIQUEMENT FAQPage par article ; Person/LegalService gérés au niveau site Wix)
@@ -442,6 +458,7 @@ Les schémas Person, LegalService et Article sont gérés au niveau du site Wix 
 - [ ] **Storytelling cognitif** en ouverture d'au moins 1 section H2 critique (LEARN-035)
 
 ### Bloc Structure & CTA
+- [ ] 🔴 **Réponse utile dans le premier écran** — l'intro reconnaît le vécu puis répond ; aucun développement de contexte ne s'interpose entre le H1 et la première information actionnable. Le *filler* placé avant le contenu utile est un motif de Low à lui seul (Guidelines §5.2.2, p. 62 : *« place the most helpful and essential MC near the top »*)
 - [ ] **Volume final 2 000-2 500 mots** (LEARN-META-2 option b — décision 2026-06-01) — passe de compression effectuée si le draft dépassait ; densité info (LEARN-028) et Information Gain (LEARN-039) préservés
 - [ ] **FAQ 8-10 questions** (LEARN-044 — vs 5-7 précédemment) — mix PAA + questions issues des gaps
 - [ ] **FAQ placée en dernier H2, avant le CTA final**, et présente dans la TDM (décision Nicolas 2026-08-05)

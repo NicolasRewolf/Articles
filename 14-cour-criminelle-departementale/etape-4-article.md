@@ -48,12 +48,10 @@ La [loi n° 2026-651 du 23 juillet 2026 sur la justice criminelle et le respect 
 
 Voici, poste par poste, ce que les textes disent.
 
-| Avant le 25 juillet 2026 | Depuis | Ce que ça change pour vous |
-|---|---|---|
-| La cour jugeait les crimes commis **« hors récidive »** | La mention a disparu | Un accusé en état de récidive légale est désormais jugé par cinq magistrats, non par un jury |
-| Le délai avant comparution était **ramené à six mois** | Cette phrase est supprimée | Le délai d'un an redevient la règle : l'attente peut s'allonger |
-| Le président devait **avoir exercé les fonctions de président d'assises** | L'exigence a disparu | Le magistrat qui présidera votre procès n'a pas nécessairement cette expérience |
-| Une seule cour siégeait par département | Deux peuvent siéger **simultanément** | L'audience peut être fixée plus tôt, dans une autre salle que celle des assises |
+- **La récidive ne change plus la juridiction.** La loi a retiré les mots « hors récidive ». Un accusé en état de récidive légale est désormais jugé par cinq magistrats, là où il relevait d'un jury.
+- **Le délai avant comparution double.** Il était ramené à six mois ; cette phrase est supprimée, le délai d'un an redevient la règle. Votre attente peut s'allonger d'autant.
+- **Le président peut n'avoir jamais présidé d'assises.** L'exigence figurait dans le texte, elle a disparu.
+- **Deux cours peuvent siéger en même temps** dans un département. Votre audience peut être fixée plus tôt, dans une autre salle que celle des assises.
 
 ### La cour juge désormais aussi les récidivistes
 
@@ -158,6 +156,8 @@ C'est un dialogue encadré entre une victime et un auteur qui reconnaît les fai
 
 ### La cour peut-elle renvoyer mon affaire devant une cour d'assises ?
 Oui. Si elle estime, pendant ou à l'issue des débats, que les faits constituent un crime puni de trente ans ou de la réclusion à perpétuité, elle doit renvoyer l'affaire aux assises. La personne détenue le reste jusqu'à cette nouvelle comparution.
+
+## En conclusion : vous n'avez pas à traverser ce procès sans être accompagnée
 
 Comprendre la juridiction qui jugera votre affaire, c'est déjà reprendre un peu de prise sur une procédure qui avance sans vous demander votre avis. Mais aucun guide ne remplace l'écoute d'un dossier réel.
 

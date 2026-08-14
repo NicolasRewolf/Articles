@@ -53,9 +53,13 @@ cour criminelle départementale, cour d'assises, viol, victime de viol, partie c
 
 ## 7. Push Wix
 
-- **Statut** : `UNPUBLISHED` (draft), jamais publié sans ordre explicite.
-- **`draftPostId`** : *(à renseigner après le push)*
-- **Garde-fou** : contrôler `nodes.length` et `faqCount` avant POST, puis vérifier par `GET …/draft-posts/{id}`.
+- **Statut** : `UNPUBLISHED` (draft) — poussé le 2026-08-14.
+- **`draftPostId`** : `04b2f02c-3a72-4e19-b1be-cc9e8bdbc7af`
+- **Garde-fou** : 74 nœuds racine et 10 questions de FAQ envoyés, **74 et 10 relus** par `GET …/draft-posts/{id}?fieldsets=RICH_CONTENT`. Contenu intègre.
+
+> ⚠️ **Piège de vérification** : un `GET` **sans** `fieldsets=RICH_CONTENT` renvoie `richContent` vide. Le garde-fou lit alors 0 nœud et conclut à tort que le push a échoué. Toujours demander le fieldset.
+
+> 🔴 **Slug à contrôler avant publication.** Le `seoSlug` a bien été accepté (`cour-criminelle-departementale-victimes-viol`), mais le champ `url` du brouillon affiche un chemin dérivé du **titre**, avec accents : `/post/cour-criminelle-départementale-ce-que-la-loi-du-23-juillet-2026-…`. Vérifier dans le panneau SEO Wix Studio que l'URL publiée est bien le slug sans accent **avant** de publier — la règle slug-sans-accent est non négociable, et un slug accentué crée les doublons raw/percent-encodés déjà constatés.
 
 ## 8. Refresh
 

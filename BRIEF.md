@@ -129,6 +129,8 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 
 **Sujets mixtes (violences conjugales, accident impliquant 2 parties, etc.)** : si l'article peut servir simultanément une persona victime ET une persona défendeur, l'arbitrage se fait ici. L'article est cadré par sa page d'expertise cible — `/defense-penale/...` → modulation défense pénale ; `/indemnisation-des-victimes/...` → modulation victimes. Un article ne cible jamais 2 personas opposés sans arbitrage explicite Nicolas inscrit dans le livrable Étape 1.
 
+**Sujets de niche à faible volume (LEARN-058, promu 2026-08-14)** : un head term à volume nul ou marginal ne disqualifie pas le sujet — il en fait un **actif d'autorité**, dont la valeur est la qualité de l'intent, pas son débit. Deux conditions pour le cadrer ainsi : l'assumer explicitement dans le livrable (« niche-autorité », pas « pilier »), et **nommer le pilier-volume adjacent** — le head term voisin à fort volume qui justifiera un futur article. Sur #7, « tétraplégie » plafonnait à ~10 recherches/mois avec « nomenclature dintilhac » à 3 600/mo juste à côté. Le pilier repéré s'inscrit dans le champ dédié du livrable de cadrage (`ARTICLE_TEMPLATE.md` §Étape 1) : le backlog des futurs piliers se reconstitue alors par `grep` sur les `etape-1-cadrage.md`, à partir de volumes observés plutôt que d'intuitions — et il ne dépend d'aucun fichier de backlog séparé, qui dériverait.
+
 🛑 STOP — validation requise avant Étape 2.
 
 ### Étape 2 — Collecte & analyse de la matière
@@ -145,13 +147,34 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 - Définitions techniques
 - Règle : toute info juridique DOIT être sourcée (URL ou référence article).
 
+**Discipline de version Légifrance (LEARN-062 + LEARN-069 + LEARN-075, promus 2026-08-14).** L'API rend **toutes les versions successives** d'un article, la plupart périmées — une lecture naïve cite un texte abrogé. Trois règles :
+
+1. **Passer par le script, jamais par l'œil** : `python3 scripts/legifrance.py code "<Code>" "<n°>"` sélectionne la version applicable sur les **dates** (`dateDebut ≤ jour < dateFin`) et affiche sa fenêtre d'application.
+2. **Le libellé ne décide jamais.** Un article peut porter `ABROGE_DIFF` — abrogation *déjà programmée* — tout en étant le texte applicable aujourd'hui. Sur #12, l'art. 222-22 du code pénal s'appliquait depuis le 8 novembre 2025 tout en étant abrogé au 1ᵉʳ janvier 2029 par la recodification du CPP. Écarter un texte sur son étiquette, c'est citer le mauvais.
+3. **Lois, décrets et arrêtés du JORF passent par `--fond LODA_DATE`**, pas par WebSearch par réflexe. L'API donne le verbatim exact **et** les bornes d'application — précisément ce qui servira au refresh M+6. Le site public sert la version en vigueur par défaut : il dépanne, mais il masque l'horizon d'abrogation.
+
+**Vigilance humaine résiduelle** : une version en vigueur peut être toute fraîche. Vérifier qu'une réforme récente n'a pas changé le régime décrit (#11 : art. L. 452-2 du CSS, version en vigueur au 1ᵉʳ juin 2026 après la LFSS 2025 → formulation prudente sur le calcul de la rente).
+
+**Judilibre se consulte au Bloc A, pas après coup (LEARN-074, archivé 2026-08-14).** Une base vide est une information, pas un échec — et elle se constate en deux requêtes (verbatim de l'article, puis numéro). Trois signaux annoncent une base structurellement vide : infraction **récente**, **peine faible** au regard de l'échelle criminelle (le délit de #12 est puni de cinq ans, il monte rarement en cassation), et poursuite en pratique sous une qualification **aggravée** plutôt que sous l'infraction autonome. Quand les trois sont réunis : constater, documenter, et chercher le rendement ailleurs (rapports et fiches professionnelles — Bloc D). Une conclusion juste obtenue après coup ne vaut pas une vérification faite au bon moment.
+
 **Bloc B — Données SEO (API DataForSEO — 40€ crédits)**
 
-- Volumes de recherche + variantes (`keywords_data/google_ads/search_volume`)
+- Volumes de recherche + variantes (`keywords_data/google_ads/search_volume`). **Élargir le faisceau aux termes de PROCÉDURE et de recours**, pas seulement au vocabulaire du dommage : c'est là que se cachent les head terms (LEARN-060, promu 2026-08-14 — « médiateur assurance » 6 600/mo découvert ainsi sur #8, « médiateur bancaire » 1 600/mo sur le faux conseiller). **L'endpoint n'impose pas de limite à 10 mots-clés** — la limite observée était celle du serveur MCP, pas de l'API (12 termes passés en un appel, vérifié le 2026-08-14 avec `scripts/dataforseo.py`, qui batche par 100).
+- ⚠️ **`n/d` n'est pas zéro.** Google Ads **supprime** les volumes de certains termes sexuels bruts : « agression sexuelle » et « inceste » seuls rendent `n/d`, quand « porter plainte pour agression sexuelle » rend 110/mo et « violences conjugales » 12 100/mo. Sur ces sujets, la demande se mesure par **proxies procéduraux + SERP/PAA**, jamais par le seul volume — et une absence de donnée ne se lit jamais comme une absence de demande.
 - SERP top 10 sur requête principale (`serp/google/organic/live/advanced`) : URLs, titres, type, structure, longueur
 - Questions PAA, autocomplete, related searches
 - Difficulté approximative + nature des pages qui rankent
 - **Gap analysis** : quel angle reste à occuper ?
+
+**Typologie de l'angle mort concurrentiel (LEARN-059 + LEARN-070, promus 2026-08-14).** L'Information Gain se mesure à ce qui manque au top 10, et ce manque a trois degrés. Nommer explicitement le degré observé dans le livrable :
+
+| Degré | Ce qu'on observe dans le top 10 | Ce que ça vaut |
+|---|---|---|
+| **Aucun angle mort** | Des cabinets traitent déjà le sujet côté demandeur, avec preuves et profondeur | Pivoter ou renoncer — cf. §6, « aussi bon que la concurrence » vaut Medium |
+| **Angle mort partiel** | Des avocats sont présents, mais **aucun côté demandeur avec preuves** (montants réels, volet pénal, dossiers) | Gain réel, à mériter par la profondeur (#08, #11) |
+| **Angle mort total** | **Aucun contenu juridique** : le sujet est capté par une autre discipline — sanitaire, scientifique, associative — et jamais traité en droits | Gain maximal (#12 : les dix résultats organiques étaient sanitaires) |
+
+**Signal repérable dès le cadrage** : un `competition_index` très bas sur un volume élevé (#12 : 2 sur 2 400 recherches/mois) annonce souvent un angle mort total — personne n'achète ce terrain. Ce n'est qu'une hypothèse : **c'est le top 10 du Bloc B qui tranche**, jamais l'indice de concurrence seul.
 
 **Bloc C — Contexte interne Plouton**
 
@@ -174,6 +197,8 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
   - **Famille / conjugal** : INSEE (Enquête Cadre de Vie et Sécurité), MIPROF, SSMSI
   - **Génériques** : Service-Public.fr (données institutionnelles), data.gouv.fr (recherche dataset)
 - **Règle :** toute donnée chiffrée citée DOIT renvoyer à la source primaire + millésime de la donnée. Pas de chiffre orphelin. Si chiffre douteux : `⚠️ À vérifier — millésime/source à confirmer`.
+- **La source primaire, c'est le rapport détaillé — pas la page HTML « chiffres clés »** (LEARN-061, promu 2026-08-14), qui arrondit systématiquement. Sur #8, France Assureurs affichait 44 % / 4 % en HTML là où le rapport donnait **43,7 % / 3,6 %**. Citer le PDF (décimales + millésime). Si WebFetch ne rend qu'un binaire illisible, le fichier est tout de même sauvegardé sur disque : l'extraire en local avec `pypdf` (note technique en archive).
+- **Sur tout sujet à protocole, chercher la fiche destinée aux PROFESSIONNELS**, pas la page grand public (LEARN-072, promu 2026-08-14). Sur #12, la donnée la plus actionnable de l'article — cinq jours de fenêtre de détection pour le sang et l'urine, jusqu'à six mois pour les cheveux, prélèvements conservés trois ans pour contre-expertise — venait de la fiche de synthèse des conseils régionaux de l'Ordre des médecins, quand les pages grand public répétaient toutes « moins de 48 heures ».
 - **Millésime ONISR** (LEARN-020, confirmé #4 + #6) : l'ONISR publie les résultats **provisoires** de l'année N-1 fin janvier, puis les **définitifs** fin mai. Entre fin janvier et fin mai → mentionner explicitement « provisoires [année] » dans toute citation chiffrée ; après mai → utiliser les définitifs.
 - **Outils :** MCP `data.gouv.fr` (recherche + query CSV/parquet directement), WebFetch sur sites institutionnels.
 
@@ -221,7 +246,8 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 
 **Push Wix :**
 
-- **Par défaut (décision Nicolas 2026-08-05) : push API Wix REST**, **opérationnel et fiable** (LEARN-064, validé #10 + #11) : `md_to_ricos.py` → minifier (`ricos.min.json`) → embarquer en littéral JS dans `ExecuteWixAPI` (scope **SITE**, `memberId` requis `07454f1f-…`, `seoSlug` settable, 2 `categoryIds`), **garde-fou `nodes.length`/`faqCount` avant POST** puis vérif `GET …/draft-posts/{id}`. Toujours **draft `UNPUBLISHED`**, jamais publié sans ordre explicite. (Vraie limite API = 400 Ko/post ; un article minifié pèse ~36-40 Ko.)
+- **Par défaut (décision Nicolas 2026-08-05) : push API Wix REST**, **opérationnel et fiable** (LEARN-064, validé #10 + #11) : `md_to_ricos.py` → minifier (`ricos.min.json`) → embarquer en littéral JS dans `ExecuteWixAPI` (scope **SITE**, `memberId` requis `07454f1f-…`, `seoSlug` settable, 2 `categoryIds`), **garde-fou `nodes.length`/`faqCount` avant POST** puis vérif `GET …/draft-posts/{id}`. Toujours **draft `UNPUBLISHED`**, jamais publié sans ordre explicite.
+- **Le plafond n'est pas l'API, c'est le transport (LEARN-073, promu 2026-08-14).** La limite de l'API est de 400 Ko/post et ne se rencontre jamais en pratique ; ce qui bloque, c'est ce qu'une lecture de fichier rend d'un coup pour être embarqué en littéral dans `ExecuteWixAPI`. Les articles ont grossi — #11 pesait 45 Ko, #12 en pesait 51 et n'a pas pu être embarqué tel quel. **Procédure quand le fichier ne passe pas** : compaction sémantique avant envoi (retrait de `id:""`, `nodes:[]`, `decorations:[]`, `paragraphData:{}`) → ~−19 % pour un document strictement identique, à contrôler par l'égalité des nœuds de texte. `ricos.min.json` reste la forme canonique attendue par le lint : la compaction ne sert qu'au transport. *(Règle mécanisable — un flag `--compact` sur `md_to_ricos.py` la sortirait de la prose.)*
 - **Régénérer `ricos.min.json` à chaque modification de l'article** et resynchroniser le draft — sans quoi le draft Wix diverge silencieusement du markdown (constaté sur #10 : draft poussé avant le fix TDM, donc publié sans sommaire).
 - **Fallback** : si l'API échoue, **Nicolas copie-colle le markdown** dans l'éditeur Wix Studio et refait la mise en page (LEARN-002 + LEARN-004).
 
@@ -256,8 +282,8 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 
 | Outil                                                                                            | Usage                                                                                                                          | Étape                      |
 | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------- |
-| API DataForSEO (40€ crédits)                                                                     | Volumes, SERP, related keywords, questions                                                                                     | Étape 2                    |
-| **Judilibre PROD** (LEARN-054) + Légifrance (API Data Gouv)                                      | **Jurisprudence Cass. de référence** (verbatim + n° pourvoi vérifiés) ; setup : creds prod dans `.env` (`PISTE_ENV=prod`), puis `judilibre.py search "…" --sort score`. Si erreur SSL macOS → workaround unique documenté dans README §Quirks. + Légifrance pour les textes. | Étape 2 (Bloc A)           |
+| **`scripts/dataforseo.py`** (MCP `dataforseo` en secours)                                        | Volumes, SERP, PAA. **Le script est le chemin fiable** : le serveur MCP dépend d'un `npx` et n'est pas chargé dans toutes les sessions, alors que les credentials sont sur la machine. `dataforseo.py solde` est **gratuit** et sert de test de connexion + relevé du crédit restant ; `volumes` et `serp` sont **facturés**. | Étape 2                    |
+| **Judilibre PROD** (LEARN-054) + Légifrance (API Data Gouv)                                      | **Jurisprudence Cass. de référence** (verbatim + n° pourvoi vérifiés) ; setup : creds prod dans `.env` (`PISTE_ENV=prod`), puis `judilibre.py search "…" --sort score`. Si erreur SSL macOS → workaround unique documenté dans README §Quirks. Textes : `legifrance.py code "<Code>" "<n°>"` pour les codes, `legifrance.py search --fond LODA_DATE` pour les lois/décrets/arrêtés — **discipline de version obligatoire, §4 Bloc A**. | Étape 2 (Bloc A)           |
 | MCP data.gouv.fr                                                                                 | Stats officielles (BAAC, INSEE, ONIAM…) — Bloc D                                                                               | Étape 2                    |
 | **WebSearch ciblée** `allowed_domains=["legifrance.gouv.fr"]` + courdecassation.fr + juricaf.org | Sourcing primaire juridique (1er recours fact-check)                                                                           | Toutes                     |
 | **NotebookLM via Nicolas** (LEARN-022) — pas via MCP par défaut (LEARN-050)                      | Cluster d'info ciblé quand Claude doute : Claude formule la question → Nicolas la pose à NotebookLM → Claude ingère la réponse | Étape 2, 3, 4 selon besoin |

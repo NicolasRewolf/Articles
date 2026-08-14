@@ -68,18 +68,34 @@
 | LEARN-052 | Voix victime / main tendue (durable) | **PROMU** | BRIEF.md §2 ton éditorial + TEMPLATE.md voix + checklist + mémoire persistante |
 | LEARN-053 | Doctrine Google AI Search 2026 (officielle) | **PROMU** | BRIEF.md §6 nouvelle sous-section + TEMPLATE.md nouveau bloc checklist |
 | LEARN-054 | Judilibre PROD = référence jurisprudence Cass. | **PROMU** (2026-06-02) | BRIEF.md §5 outils + TEMPLATE.md Cap général sourcing — confirmé #6 + #7 |
+| LEARN-055 | Matrice de collision ONISR p.15 — chiffre or, mais angle « mortalité » seulement | **ARCHIVÉ TECHNIQUE** (2026-08-14) | portée trop étroite pour une règle ; repère de sourcing route conservé ici |
 | LEARN-056 | Reprise presse : atout réel, mais à vérifier avant de la revendiquer | **PROMU** (2026-08-05) | BRIEF.md §4 Bloc C — décision Nicolas : citer et lier une reprise réelle, ne jamais l'affirmer sans source consultable |
 | LEARN-057 | Slugs publiés réels + test HTTP avant cross-link (anti-404) | **PROMU** (2026-06-23) | BRIEF.md **§4** Étape 2 Bloc C + tableau MCP §5 + TEMPLATE.md Bloc C |
+| LEARN-058 | Sujet de niche = actif d'autorité, avec pilier-volume adjacent nommé | **PROMU** (2026-08-14) | BRIEF.md §4 Étape 1 + ARTICLE_TEMPLATE.md §Étape 1 (champ « Pilier-volume adjacent ») |
+| LEARN-059 | Typologie de l'angle mort concurrentiel (aucun / partiel / total) | **PROMU** (2026-08-14) — fusionné avec LEARN-070 | BRIEF.md §4 Bloc B (tableau des trois degrés) |
+| LEARN-060 | Élargir le faisceau de volumes aux termes de procédure et de recours | **PROMU** (2026-08-14) | BRIEF.md §4 Bloc B |
+| LEARN-061 | Citer le rapport PDF détaillé, pas la page HTML qui arrondit | **PROMU** (2026-08-14) | BRIEF.md §4 Bloc D |
+| LEARN-062 | Légifrance : discipline de version (dates, libellé, fonds) | **PROMU** (2026-08-14) — fusionné avec LEARN-069 et LEARN-075 | BRIEF.md §4 Bloc A + §5 tableau outils + README §Quirks |
 | LEARN-063 | Lire le `CONTENT_TEXT` du post-preuve avant de citer une affaire | **PROMU** (2026-06-23) | BRIEF.md **§4** Étape 2 Bloc C |
 | LEARN-064 | Push draft Wix par API = opérationnel et fiable (limite 400 Ko/post) | **PROMU** (2026-06-23) | BRIEF.md **§4** Étape 4 Push Wix + tableau MCP §5 ; **devenu le flux par défaut le 2026-08-05** (décision Nicolas) → README + TEMPLATE alignés |
 | LEARN-065 | `md_to_ricos.py` : listes ordonnées + convention rel automatique | **ARCHIVÉ TECHNIQUE** (2026-06-23) | correctif appliqué au script ; étendu par l'audit 2026-08-05 (hostname, absolutisation, parenthèses, FAQ multi-paragraphes) |
 | LEARN-067 | Inventaire de la catégorie Ressources avant chaque article | **PROMU** (2026-06-23) | BRIEF.md **§4** Étape 2 Bloc C + TEMPLATE.md Bloc C + mémoire `feedback_inventaire_categorie_ressources` |
+| LEARN-068 | API Légifrance jamais souscrite — et 3 bugs que le 403 masquait | **ARCHIVÉ TECHNIQUE** (2026-08-14) | souscription faite une fois, correctifs appliqués aux scripts ; référence conservée ici |
+| LEARN-069 | La version applicable se choisit sur les DATES, jamais sur le libellé | **PROMU** (2026-08-14, fusionné LEARN-062) | BRIEF.md §4 Bloc A ; déjà déclencheur de refresh en §4 |
+| LEARN-070 | Angle mort TOTAL — sujet capté par une autre discipline | **PROMU** (2026-08-14, fusionné LEARN-059) | BRIEF.md §4 Bloc B + ARTICLE_TEMPLATE.md §Étape 1 catalogue d'originalité |
+| LEARN-071 | Dispositif national déployé par territoires = pivot local | **PROMU** (2026-08-14) | BRIEF.md §4 refresh + ARTICLE_TEMPLATE.md §Étape 1 — écrit lors de #12, régularisé ici |
+| LEARN-072 | Chercher la fiche destinée aux professionnels, pas la page grand public | **PROMU** (2026-08-14) | BRIEF.md §4 Bloc D + ARTICLE_TEMPLATE.md §Étape 1 catalogue d'originalité |
+| LEARN-073 | Le plafond du push Wix est le transport, pas l'API | **PROMU** (2026-08-14) | BRIEF.md §4 Push Wix + README §Quirks — corrige le « ~36-40 Ko » devenu faux |
+| LEARN-074 | Judilibre : une base vide est une information, et se constate au Bloc A | **ARCHIVÉ SAVOIR** (2026-08-14) | signaux structurels conservés ici ; règle d'ordre inscrite en BRIEF.md §4 Bloc A |
+| LEARN-075 | Fonds `LODA_DATE` pour les textes du JORF, pas WebSearch par réflexe | **PROMU** (2026-08-14, fusionné LEARN-062) | BRIEF.md §4 Bloc A + §5 tableau outils |
 | LEARN-META-1 | Une session ≠ tout le workflow | **RETIRÉ DE L'ACTIF** (2026-06-01) | non-opérationnel — couvert par README.md ; dédupliqué |
 | LEARN-META-2 | Cible volume 2 000-2 500 vs pratique 3 900-5 700 | **RÉSOLU** (2026-06-01) | décision Nicolas option b — BRIEF.md §3 + §4 Étape 4 + TEMPLATE.md |
 
-**Bilan (maj 2026-08-05 — recompté ligne à ligne sur la cartographie ci-dessus ; vérifié par `scripts/lint_pipeline.py`)** : **49 promus**, **10 archivés** comme savoirs techniques ou principes stratégiques (référence consultable), **1 fusionné** (LEARN-013 → LEARN-012), **1 résolu** (LEARN-META-2), **1 retiré** (LEARN-META-1). **Actifs restants dans `LEARNINGS.md`** : LEARN-055, 058, 059, 060, 061, 062, 066.
+**Bilan (maj 2026-08-14 — recompté ligne à ligne sur la cartographie ci-dessus ; vérifié par `scripts/lint_pipeline.py`)** : **60 promus**, **13 archivés** comme savoirs techniques ou principes stratégiques (référence consultable), **1 fusionné** (LEARN-013 → LEARN-012), **1 résolu** (LEARN-META-2), **1 retiré** (LEARN-META-1). **Actif restant dans `LEARNINGS.md`** : LEARN-066.
 
-*Bilan précédent, conservé pour l'historique (maj 2026-06-02, avant la digestion #11 et l'audit de cohérence) : 52 promus / 4 actifs (LEARN-055, LEARN-056, LEARN-057, LEARN-058) + 1 résolu + 1 retiré + 7 archivés. Ce décompte ignorait les promotions 057/063/064/067 et surestimait les promus.*
+*Bilan précédent, conservé pour l'historique (maj 2026-08-05, avant la digestion du 2026-08-14) : 49 promus / 10 archivés, actifs LEARN-055, 058, 059, 060, 061, 062, 066. Ce décompte était juste à sa date, mais sa ligne « actifs » n'a pas suivi les captures de #12 : le journal en portait quinze le 2026-08-14.*
+
+*Bilan antérieur (maj 2026-06-02, avant la digestion #11 et l'audit de cohérence) : 52 promus / 4 actifs (LEARN-055, LEARN-056, LEARN-057, LEARN-058) + 1 résolu + 1 retiré + 7 archivés. Ce décompte ignorait les promotions 057/063/064/067 et surestimait les promus.*
 
 ---
 
@@ -228,6 +244,32 @@ Pour qu'un concept juridique soit **mémorisé** par le lecteur (et pas juste lu
 
 **Règle** : pour toute statistique logée dans un PDF institutionnel, ne pas se contenter du résumé WebFetch (souvent incapable de lire le binaire) — récupérer le PDF sauvegardé et l'extraire localement (pypdf). Lié à **LEARN-061** (PDF détaillé > page HTML) et **LEARN-006** (outillage PISTE/scripts).
 
+### LEARN-055 — Matrice de collision ONISR (p. 15) : chiffre or, mais pour le seul angle « mortalité »
+
+La matrice de collision de la synthèse ONISR croise les modes de déplacement des deux véhicules impliqués et donne, pour chaque paire, le nombre de **tués**. Donnée rare et très citable, elle a nourri le cluster route axé mortalité (#6).
+
+**Sa portée est étroite** : elle compte des tués, pas des blessés. Sur #7 (grand blessé survivant, tétraplégie), elle n'était d'aucun secours — l'y forcer aurait produit un chiffre hors sujet. **Règle de sélection** : mobiliser la matrice quand l'angle porte sur la mortalité ; pour un angle « grand blessé », chercher les séries « blessés hospitalisés » (millésime : LEARN-020).
+
+Parqué deux digestions faute d'un second article confirmant, archivé le 2026-08-14 comme repère de sourcing plutôt que promu comme règle.
+
+### LEARN-068 — API Légifrance : la souscription manquante, et les trois bugs que le 403 masquait
+
+**Le diagnostic.** L'app PISTE « Clear » (PROD, `client_id` du `.env`) n'était abonnée qu'à JUDILIBRE : **tout** endpoint Légifrance répondait 403 — `ping` compris, alors qu'un chemin inexistant rend 404. Refus délibéré de la passerelle, donc, et pas un bug de payload. Ni les credentials ni le scope n'étaient en cause : PISTE accorde `openid resource.READ` quoi qu'on demande. Souscription cochée le **2026-08-07** (Applications → Clear → Modifier → API Légifrance) ; **aucune CGU à accepter**, la souscription a suffi.
+
+L'**`APP_SANDBOX_…`** est créée d'office par PISTE, en SANDBOX, avec un autre `client_id` — inerte pour nous, et explication probable de l'`invalid_client` de LEARN-006 : des credentials sandbox essayés contre la prod.
+
+**Ce que l'accès a révélé, invisible tant que tout était en 403** : le payload de `search` portait `"filtres": [{"facette":"DATE_VERSION","singleDate":null}]` → 500 systématique du backend DILA ; `_format_hit` lisait des clés inexistantes → résultats vides ; `/consult/code` répond 500 sur toute forme de payload (cassé côté DILA, contourné via la facette `NUM_ARTICLE` sur `CODE_DATE` puis `getArticle`). Les trois sont corrigés.
+
+**Leçon transposable** : un 403 uniforme sur *tous* les endpoints d'une API, `ping` compris, désigne un défaut d'abonnement, pas de code. Le tester d'abord coûte une requête et fait gagner une session.
+
+### LEARN-074 — Judilibre : reconnaître une base structurellement vide
+
+Sur #12, la recherche du verbatim de l'art. 222-30-1 (« substance de nature à altérer son discernement ») a rendu **0 hit** ; la recherche par numéro d'article n'a produit que du bruit de tokenisation. La base n'était pas défaillante : elle est réellement vide sur ce terrain.
+
+**Trois signaux annoncent ce vide** — infraction récente (créée en 2018), peine faible au regard de l'échelle criminelle (cinq ans, donc rarement portée en cassation), et poursuite en pratique sous les qualifications **aggravées** de viol ou d'agression sexuelle plutôt que sous l'infraction autonome. Quand les trois convergent, deux requêtes suffisent à conclure, et le rendement est ailleurs : rapports et fiches professionnelles.
+
+**Le vrai défaut n'était pas la conclusion, c'était l'ordre.** Judilibre avait été sauté au Bloc A, puis vérifié après coup sur question de Nicolas. La vérification a confirmé l'absence de matière — mais une conclusion juste obtenue après coup ne vaut pas une vérification faite au bon moment. D'où la règle d'ordre inscrite en BRIEF §4 Bloc A.
+
 ---
 
 ## Digestion #11 — 2026-06-23 (post « faute inexcusable de l'employeur »)
@@ -272,6 +314,61 @@ Quatre bugs confirmés par test lors de l'audit, tous corrigés et couverts par 
 
 ### Garde-fou — `scripts/lint_pipeline.py`
 Enseignement central de l'audit : **une règle qui n'est ni unique ni vérifiée par une machine finit toujours par dériver** (la règle « tags en virgules » a été violée sur 5 articles consécutifs alors qu'elle existait en mémoire). Toute règle mécanisable est désormais contrôlée par le lint, y compris le Bilan ci-dessus, recompté sur la cartographie.
+
+---
+
+## Digestion 2026-08-14 (avant l'article #14 — cour criminelle départementale)
+
+Première digestion depuis l'audit du 5 août. Le journal portait quinze entrées actives ; il en ressort avec une.
+
+### Le constat qui explique l'ampleur — des compteurs figés, encore
+
+Chaque entrée du journal porte une mention de maturité (« *1 article* », « *2 articles* ») écrite **au moment de la capture**, jamais réévaluée depuis. Le `grep` de propagation (étape 4 de la procédure) raconte autre chose : LEARN-059 s'annonçait à deux articles et se révèle exercé sur six dossiers (#08, #09, #10, #11, #12 et le WIP fraude bancaire) ; LEARN-058, annoncé à un, en portait quatre.
+
+C'est la maladie déjà diagnostiquée le 5 août sur les compteurs de l'archive et du README : un nombre écrit à la main vieillit mal. **Correctif de méthode** : la maturité d'un learning se mesure par `grep` au moment de la digestion, jamais sur la mention portée dans le journal. Ces mentions restent lisibles comme date de capture, pas comme décompte.
+
+Second facteur d'ampleur : six entrées issues de #12 (LEARN-069 à 075) avaient été **écrites directement dans BRIEF/TEMPLATE au moment de leur capture** tout en restant dans le journal. Elles y dormaient en doublon depuis le 7 août — leur promotion du jour est pour partie une régularisation d'écriture.
+
+### LEARN-059 + LEARN-070 — ✅ PROMUS (fusionnés) → BRIEF §4 Bloc B
+
+Les deux entrées décrivaient le même phénomène à deux intensités : #08/#11 « des avocats sont présents, mais aucun côté demandeur avec preuves » ; #12 « aucun contenu juridique du tout, le sujet est capté par le sanitaire ». Fusionnées en une **typologie à trois degrés** (aucun / partiel / total), chacun assorti de ce qu'il vaut éditorialement. Le signal amont (`competition_index` bas sur volume élevé) est conservé comme *hypothèse de cadrage* : c'est le top 10 du Bloc B qui tranche.
+
+### LEARN-058 — ✅ PROMU → BRIEF §4 Étape 1 + nouveau champ de livrable dans ARTICLE_TEMPLATE
+
+Exercé sur #07, #08-morsure, #09 et #12. La règle tenait en deux gestes : assumer le sujet comme actif d'autorité, et nommer le pilier-volume adjacent. Le second n'avait pas de maison — il en a une : un champ **« Pilier-volume adjacent »** dans le template de cadrage. Le backlog des futurs piliers se reconstitue ainsi par `grep` sur les `etape-1-cadrage.md`, sans recréer de fichier de backlog séparé — celui qui existait a été supprimé au « coup de balai » (`c24ec9a`) et le README le référençait encore.
+
+### LEARN-060 — ✅ PROMU → BRIEF §4 Bloc B
+
+#08, #12 et le WIP fraude bancaire. Le pattern se répète trop bien pour rester une observation : « médiateur assurance » 6 600/mo sur #08, « médiateur bancaire » 1 600/mo sur le WIP — deux head terms de section trouvés en élargissant le faisceau aux termes de procédure. Le plafond de dix mots-clés par appel part avec la règle.
+
+### LEARN-061 — ✅ PROMU → BRIEF §4 Bloc D
+
+#08, #09, #12, WIP. Affine une règle déjà en place (« source primaire + millésime ») au lieu d'en créer une : la source primaire est le rapport détaillé, pas la page de synthèse qui arrondit.
+
+### LEARN-062 + LEARN-069 + LEARN-075 — ✅ PROMUS (fusionnés) → BRIEF §4 Bloc A + §5
+
+Trois entrées, un seul sujet : ne pas citer un texte périmé. Réunies en un bloc « Discipline de version Légifrance » à trois règles — le script tranche sur les dates, le libellé ne décide jamais (`ABROGE_DIFF`), le JORF passe par `--fond LODA_DATE`. LEARN-062 était mûr de longue date (#08, #09, #11, #12) ; LEARN-069 vit désormais dans le script et sa suite de tests. **LEARN-075 est la promotion la plus faible du lot** — un seul article, capacité présente dans le script mais réflexe absent — promue par consolidation plutôt que laissée en moignon renvoyant vers des règles parties ailleurs. Arbitrage Nicolas du 2026-08-14, signalé comme tel avant validation.
+
+### LEARN-073 — ✅ PROMU → BRIEF §4 Push Wix + README §Quirks
+
+Un seul article, mais ce n'était pas une promotion : **une correction**. BRIEF et README affirmaient qu'« un article minifié pèse ~36-40 Ko » — phrase devenue fausse avec #12 (51 Ko, impossible à embarquer tel quel). Le plafond réel n'est pas l'API (400 Ko, jamais atteinte) mais le transport. La procédure de compaction sémantique est inscrite, avec mention explicite qu'elle **devrait être mécanisée** (flag `--compact` sur `md_to_ricos.py`) : une règle qui ne vit qu'en prose finit toujours par dériver.
+
+### LEARN-071 et LEARN-072 — ✅ PROMUS (régularisation)
+
+Déjà écrits dans BRIEF §4 (déclencheur de refresh) et ARTICLE_TEMPLATE §Étape 1 (catalogue d'originalité) lors de #12 : rien de neuf à écrire pour 071. Pour 072, le catalogue portait l'angle d'originalité mais pas le **réflexe de sourcing** — ajouté en Bloc D.
+
+### LEARN-055, LEARN-068, LEARN-074 — 📦 ARCHIVÉS
+
+Corps conservés plus haut, section « Contenu archivé ». LEARN-055 était parqué depuis #07 : tranché plutôt que reparqué une troisième fois, en application directe de la leçon LEARN-056.
+
+### LEARN-066 — ⏸️ maintenu actif
+
+Toujours un seul article net (#10 « changer d'avocat », né du CSV des prises de contact ; #11 n'était qu'un rapprochement après coup). Annoté « revu 2026-08-14 ». Ouvrir une section BRIEF sur le sourcing des sujets pour une observation à un article serait prématuré.
+
+### Reste à faire — hors périmètre d'une digestion
+
+- **Mécaniser la compaction Ricos** (flag `--compact` sur `md_to_ricos.py`), cf. LEARN-073.
+- **Arbitrer l'ordre du fact-check.** La mémoire persistante `feedback_factcheck_juridique_obligatoire` place WebSearch en premier recours ; l'API Légifrance étant souscrite depuis le 2026-08-07, et LEARN-075 montrant que le réflexe WebSearch nous en a détournés, l'ordre mérite une décision. Signalé à Nicolas, **non modifié** — la mémoire persistante ne se réécrit pas sans arbitrage explicite.
 
 ---
 

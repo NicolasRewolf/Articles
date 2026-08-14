@@ -43,8 +43,6 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 ├── ARTICLE_TEMPLATE.md       ← structure des livrables + Cap général (maison des chiffres structurels)
 ├── LEARNINGS.md              ← journal vivant (< 100 lignes) — observations fraîches non promues
 ├── LEARNINGS-archive.md      ← historique append-only des learnings promus + savoirs préservés
-├── BACKLOG-IDEES-ARTICLES.md ← brief éditorial : idées de futurs articles
-├── AUDIT-2026-08-05.md       ← tracker de l'audit de cohérence (issues + décisions)
 ├── .env                      ← credentials PISTE Data Gouv (GITIGNORED)
 ├── .env.example              ← template des variables d'environnement
 ├── .gitignore                ← exclusions
@@ -52,6 +50,7 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 │   ├── piste_auth.py         ← client PISTE : OAuth + appels (`PisteClient`)
 │   ├── legifrance.py         ← wrapper Légifrance API
 │   ├── judilibre.py          ← wrapper Judilibre API
+│   ├── dataforseo.py         ← wrapper DataForSEO (volumes, SERP, PAA, solde)
 │   ├── politique_liens.py    ← convention de liens LEARN-024 — source unique
 │   │                            partagée par le rendu Ricos et le garde-fou
 │   ├── md_to_ricos.py        ← parser markdown → Ricos JSON (push Wix)
@@ -92,9 +91,10 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 | Étape | Outil | Usage |
 |---|---|---|
 | **2-A** Juridique | WebSearch ciblée | `allowed_domains=["legifrance.gouv.fr"]` + courdecassation.fr + juricaf.org — **1er recours fact-check** |
-| **2-A** Juridique | scripts locaux | `python3 scripts/judilibre.py search "..."` (via Bash) |
+| **2-A** Juridique | scripts locaux | `python3 scripts/judilibre.py search "..."` (jurisprudence) et `python3 scripts/legifrance.py code "<Code>" "<n°>"` / `search --fond LODA_DATE` (textes) — via Bash. **Discipline de version : BRIEF.md §4 Bloc A** |
 | **2-A** Juridique | **NotebookLM via Nicolas** (LEARN-022) | Si WebSearch ne suffit pas : Claude formule la question → Nicolas la pose à NotebookLM → Claude ingère la réponse. **PAS via MCP** par défaut (LEARN-050) |
-| **2-B** SEO | DataForSEO MCP | `mcp__dataforseo__serp_organic_live_advanced` (avec PAA), `kw_data_google_ads_search_volume`, `dataforseo_labs_google_keyword_overview` |
+| **2-B** SEO | **scripts locaux** | `python3 scripts/dataforseo.py solde` (gratuit) · `volumes "kw1" "kw2" …` · `serp "requête" --paa 2` — **chemin par défaut**, indépendant de l'état du MCP |
+| **2-B** SEO | DataForSEO MCP *(secours)* | `mcp__dataforseo__serp_organic_live_advanced` (avec PAA), `kw_data_google_ads_search_volume`, `dataforseo_labs_google_keyword_overview` — **à ne pas attendre** : le serveur n'est pas chargé dans toutes les sessions |
 | **2-C** Interne Plouton | Wix MCP | `mcp__cde94955-..._CallWixSiteAPI` (query categories + posts) |
 | **2-C** Interne Plouton | curl Bash | scrape HTML brut + parse JSON-LD pour extraire détails affaires cabinet |
 | **2-D** Stats | data.gouv.fr MCP | `mcp__33cdbda6-..._search_datasets`, `list_dataset_resources`, `query_resource_data` |
@@ -142,8 +142,10 @@ Sans argument, le lint vérifie **tout le repo** (docs de gouvernance + tous les
 | Friction | Workaround validé |
 |---|---|
 | **Python 3.14 macOS — SSL CERTIFICATE_VERIFY_FAILED** sur les scripts `scripts/*.py` | **Workaround unique (ce tableau fait foi)** : exporter le bundle de certificats système avant l'appel — `export SSL_CERT_FILE=/etc/ssl/cert.pem` (stdlib, aucune dépendance tierce). Si la friction persiste : fallback **curl + python3 inline** depuis Bash. *Ne pas utiliser `SSL_CERT_FILE=certifi` : `certifi` est un package tiers et la valeur attendue est un chemin de fichier PEM.* |
-| **Légifrance bloque WebFetch / curl** (Cloudflare anti-bot) | Pour vérifier un article de loi : **WebSearch avec `allowed_domains=["legifrance.gouv.fr"]`** ; si insuffisant, demander à Nicolas un cluster NotebookLM (LEARN-022). |
-| **Taille du push Wix** | Limite réelle de l'API = **400 Ko/post** ; un article minifié pèse ~36-40 Ko — donc aucun blocage en pratique (LEARN-064, validé #10 + #11). *L'ancien diagnostic « échec > 25K tokens » était une limite de corps d'appel outil, pas de l'API : il ne s'applique plus au flux `ricos.min.json`.* En cas d'échec ponctuel : copier-coller markdown dans Wix Studio. |
+| **Légifrance bloque WebFetch / curl** (Cloudflare anti-bot) | Passer par l'**API** : `scripts/legifrance.py code` (codes) ou `search --fond LODA_DATE` (lois/décrets/arrêtés) — souscription active depuis le 2026-08-07, elle donne le verbatim **et** les bornes d'application. **WebSearch avec `allowed_domains=["legifrance.gouv.fr"]`** reste le recours rapide de confirmation ; si insuffisant, cluster NotebookLM via Nicolas (LEARN-022). Discipline de version obligatoire : BRIEF.md §4 Bloc A. |
+| **Taille du push Wix** | Le plafond n'est pas l'API (400 Ko/post, jamais atteint) mais le **transport** : ce qu'une lecture de fichier rend d'un coup pour être embarqué dans `ExecuteWixAPI`. Les articles ont grossi et franchissent désormais ce seuil (LEARN-073). **Workaround : compaction sémantique avant envoi** — procédure dans BRIEF.md §4 « Push Wix ». *L'ancien diagnostic « échec > 25K tokens » était une limite de corps d'appel outil, pas de l'API.* En dernier recours : copier-coller markdown dans Wix Studio. |
+| **`sante.gouv.fr` bloque WebFetch** (écran CAPTCHA Cegedim), comme Légifrance | Passer par WebSearch ou par les pages ARS régionales (LEARN-073). |
+| **Le serveur MCP `dataforseo` n'est pas chargé dans toutes les sessions** (déclaré en global, mais dépend d'un `npx` qui peut échouer sans message) | Ne pas l'attendre : `python3 scripts/dataforseo.py` fait le même travail à partir des credentials déjà présents sur la machine. Tester avec `solde` (gratuit) avant toute commande facturée. |
 | **Wix Studio rejette `<script>...</script>` pour JSON-LD avec erreur de format** | **Livrer le bloc dans le chat** (bloc code Markdown), minifié one-liner avec `type="application/ld+json"`. |
 | *(legacy — hors flux par défaut, LEARN-050)* **NotebookLM MCP `ask_question` : timeout 30s sur 1ère requête** (warm-up browser headless) | Augmenter via `browser_options: {"timeout_ms": 120000}` ou retry. **Rappel : le MCP NotebookLM n'est pas le flux par défaut** — le fact-check passe par WebSearch puis par Nicolas. |
 | *(legacy — hors flux par défaut)* **NotebookLM MCP : tooltip de citation bloque le clic** sur sessions longues | Lancer une **nouvelle session** (omettre `session_id` ou en générer un nouveau). |

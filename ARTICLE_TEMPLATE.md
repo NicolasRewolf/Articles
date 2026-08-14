@@ -15,7 +15,7 @@
 | **Liens internes** | 1 lien tous les ~250 mots — **2-3** vers pages expertise/CTA + **4-7** vers articles ressources cluster + **2-4** vers affaires cabinet (preuves). **Seule maison des fourchettes** (la checklist et la table y renvoient — audit 2026-08-05). |
 | **CTA** | 3 au total (Nicolas gère le placement final lors de l'ingestion Wix) : mini-CTA inline #1 post-intro, mini-CTA inline #2 dans le corps, CTA final |
 | **Ton** | Sobre, empathique, précision juridique, anti-marketing — **voix « main tendue » LEARN-052** (adressage direct au « vous », reconnaissance avant info, voix cabinet « nous », CTAs invitation humaine, modulation selon victime/défense pénale) |
-| **Sourcing** | Chaque chiffre = millésime + source primaire ; chaque article de loi = lien Légifrance ; **chaque jurisprudence = n° de pourvoi + date + chambre confirmés** (LEARN-026), vérifiés via **Judilibre PROD** (LEARN-054) |
+| **Sourcing** | Chaque chiffre = millésime + source primaire ; chaque article de loi = lien Légifrance, **version applicable tranchée par `legifrance.py`** (discipline de version : BRIEF.md §4 Bloc A) ; **chaque jurisprudence = n° de pourvoi + date + chambre confirmés** (LEARN-026), vérifiés via **Judilibre PROD** (LEARN-054) |
 | **Information Gain (LEARN-039)** | **Au moins 2-3 éléments distinctifs absents du top 10 SERP** — sans quoi l'article est déclassé. Identifier en Bloc B (gap analysis). |
 | **Bio auteur (LEARN-040)** | Bloc « À propos de l'auteur » obligatoire en pied d'article (E-E-A-T YMYL). Template en bas du fichier. |
 | **Local-first (LEARN-042)** | Au moins **3 ancrages Bordeaux/Nouvelle-Aquitaine** (juridiction locale + adresse cabinet + zone d'intervention). |
@@ -59,6 +59,12 @@ Reconnaître les limites du guide = crédibilité renforcée.
 ## Requête principale
 `[head term]`
 
+## Pilier-volume adjacent
+[À remplir si le head term est de niche (volume nul ou marginal) — cf. BRIEF.md §4 Étape 1.
+Nommer le head term voisin à fort volume et son volume mesuré : il devient un candidat
+du backlog, et il justifie d'assumer cet article comme actif d'autorité plutôt que comme pilier.
+Sans objet si le head term porte déjà le volume.]
+
 ## Requêtes long-tail (5–10)
 1. `[long-tail 1]`
 2. …
@@ -79,9 +85,9 @@ Reconnaître les limites du guide = crédibilité renforcée.
 [OBLIGATOIRE — nommer l'artefact qui n'existe nulle part ailleurs, pas une intention.
 Catalogue des sources d'originalité déjà éprouvées :
 - affaire cabinet réelle avec montant obtenu (+ lien interne vers le post d'affaire) ;
-- discipline absente du SERP — sujet capté par le sanitaire/scientifique, jamais traité en droits (LEARN-070) ;
+- **angle mort total** — le sujet est capté par une autre discipline et jamais traité en droits (typologie des trois degrés : BRIEF.md §4 Bloc B) ;
 - périmètre territorial d'un dispositif national vérifié dans l'arrêté, pas dans la presse (LEARN-071) ;
-- fiche destinée aux professionnels plutôt que la page grand public (LEARN-072) ;
+- fiche destinée aux professionnels plutôt que la page grand public (réflexe de sourcing : BRIEF.md §4 Bloc D) ;
 - donnée calculée ou agrégée par nous, tableau construit, outil/calculateur.
 Champ vide après le Bloc B = pivoter ou abandonner le sujet. Cf. BRIEF.md §6
 « Standard qualité YMYL » règle 3 : un article aussi bon que la concurrence vaut Medium.]

@@ -126,7 +126,16 @@
 
 **Fait le plus actionnable pour le persona** : certaines dispositions de l'art. 3 s'appliquent **aux procédures en cours non encore jugées au fond**. Une victime dont le dossier est à l'instruction aujourd'hui peut donc voir sa juridiction changer en cours de route. ⚠️ Vérifier lesquels des 4°, 6°, 9°, 11° à 14° concernent la CCD avant de l'affirmer.
 
-### A.8 — Judilibre
+### A.8 — Appel, renvoi, aide juridictionnelle : ce que la loi n'a PAS touché
+
+Quatre articles inchangés (`applicable 2023-01-01 → 2029-01-01`), tous décisifs pour le persona :
+
+- **Art. 380-21 — l'appel se juge devant une cour d'assises.** Verbatim : « L'appel des décisions de la cour criminelle départementale est examiné par **la cour d'assises** dans les conditions prévues au sous-titre Ier du présent titre pour l'appel des arrêts rendus par les cours d'assises en premier ressort. » → **Le jury populaire existe, mais seulement au second degré.** Résout la question 6 de la FAQ.
+- **Art. 380-20 — le renvoi aux assises en cours de procès.** Si la cour estime, au cours ou à l'issue des débats, que les faits constituent un crime puni de **trente ans ou de la réclusion à perpétuité**, elle renvoie l'affaire devant la cour d'assises. Implication : la qualification retenue à l'instruction n'est pas définitive.
+- **Art. 380-22 — aide juridictionnelle.** « Pour l'application des dispositions relatives à l'aide juridictionnelle, la cour criminelle départementale est assimilée à la cour d'assises. » → aucun droit perdu de ce côté.
+- **Art. 380-19, 5° — la cour délibère avec le dossier.** « Les deux derniers alinéas de l'article 347 ne sont pas applicables et la cour criminelle départementale **délibère en étant en possession de l'entier dossier de la procédure**. » → différence de fond avec un jury populaire, qui délibère sans le dossier. À expliquer sans la juger.
+
+### A.9 — Judilibre
 
 **Non interrogé à ce stade.** Une loi promulguée depuis trois semaines ne peut pas avoir produit de jurisprudence de cassation : les trois signaux d'une base structurellement vide sont réunis (texte récent, aucune décision possible sur ce fondement, contentieux encore devant les juridictions du fond). **À constater en deux requêtes à la passe suivante** pour respecter l'ordre du Bloc A (BRIEF §4 Bloc A) — et documenter le vide plutôt que de le supposer.
 
@@ -208,20 +217,25 @@
 
 ## Bloc D — Statistiques
 
-**Source identifiée : rapport du comité d'évaluation et de suivi de la cour criminelle départementale** (période d'expérimentation **5 septembre 2019 – 14 juin 2022**), relayé par France Victimes.
+**Source retenue : rapport d'information de l'Assemblée nationale n° 1687**, commission des lois, mission d'information sur l'évaluation de la création des cours criminelles départementales (Mme Pascale Bordes et M. Stéphane Mazars), **déposé le 9 juillet 2025** — [page du rapport](https://www.assemblee-nationale.fr/dyn/17/rapports/cion_lois/l17b1687_rapport-information), [texte intégral](https://www.assemblee-nationale.fr/dyn/opendata/RINFANR5L17B1687.html).
+
+**Pourquoi celui-ci plutôt que le rapport du comité d'évaluation d'octobre 2022** : le comité couvrait la seule **expérimentation** (5 septembre 2019 – 14 juin 2022), antérieure à la généralisation du 1ᵉʳ janvier 2023. Le rapport parlementaire de 2025 est postérieur à la généralisation, donc seul pertinent pour décrire ce qui attend une victime aujourd'hui.
 
 | Donnée | Valeur | Usage prévu |
 |---|---|---|
-| **Part des condamnés poursuivis pour viol** | **83 %** | **Chiffre-clé de l'article** : la CCD est en pratique la juridiction du viol |
-| Affaires jugées | 387 (455 accusés) | Volumétrie de l'expérimentation |
-| Taux d'acquittement | 5,5 % (25 acquittements / 428 condamnations) | Comparaison assises |
-| Appels | 100 sur 428 condamnations | Taux d'appel supérieur aux assises |
-| Délai d'audiencement moyen | 11,8 mois | Attente pour la victime |
-| Part des affaires d'assises absorbées | ~42 % | Ampleur du transfert |
+| Part des viols et crimes sexuels dans les infractions criminelles sanctionnées | **62 % en 2023**, contre **40 % en 2020** | Encadré chiffré H2 1 — la criminalité jugée s'est déplacée |
+| Part des crimes de viol jugés en CCD | « **plus de 85 %** » | Chiffre-clé — mais ⚠️ voir alerte ci-dessous |
+| Évolution des plaintes | **+152 % entre 2017 et 2023** | Contexte d'engorgement |
+| Arrêts rendus par les cours d'assises | 2 990 en 2005 → **2 098 en 2018** (−30 %) | Origine de la réforme |
+| Délai moyen d'écoulement (assises) | de **11,6 à 13,5 mois** | L'attente, côté victime |
 
-> 🔴 **Toutes ces valeurs sont issues d'une page de synthèse associative, pas du rapport primaire.** Conformément à BRIEF §4 Bloc D (LEARN-061), **aucune ne peut être citée en l'état** : récupérer le rapport lui-même (décimales, millésime, périmètre exact) avant rédaction. Elles décrivent en outre l'**expérimentation**, antérieure à la généralisation de 2023 et *a fortiori* à la loi de 2026 — leur portée doit être datée explicitement.
+> 🔴 **Une ambiguïté à lever avant citation.** La formule « plus de 85 % des crimes de viols » peut signifier deux choses opposées : *85 % des viols sont jugés en CCD*, ou *85 % des affaires de CCD sont des viols*. Les deux sont plausibles et l'article ne dit pas la même chose selon le sens retenu. **Vérifier le verbatim et sa phrase d'origine dans le rapport avant de l'écrire.** À défaut, se rabattre sur le 62 % de 2023, dont la formulation est sans ambiguïté.
+>
+> ⚠️ Ces valeurs viennent d'une lecture assistée du texte intégral, pas d'un relevé manuel. Sur un document parlementaire de cette taille, **confirmer chaque chiffre retenu sur sa phrase** avant publication (BRIEF §4 Bloc D).
 
-⚠️ **À chercher** : données post-généralisation (ministère de la Justice / DSED), et données Nouvelle-Aquitaine si elles existent (ancrage local, BRIEF §6).
+**Chiffres écartés** : les données de l'expérimentation relayées par France Victimes (387 affaires, 83 % des condamnés, 5,5 % d'acquittement, 11,8 mois d'audiencement) — période close, dénominateurs incertains, et source secondaire. Conservées ici pour mémoire, **non citables**.
+
+⚠️ **Non trouvé** : données Nouvelle-Aquitaine ou Gironde. L'ancrage local se fera donc par la juridiction compétente et l'implantation du cabinet, pas par un chiffre régional.
 
 ---
 

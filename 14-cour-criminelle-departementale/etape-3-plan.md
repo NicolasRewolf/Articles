@@ -244,11 +244,16 @@ Bloc BLOCKQUOTE standard, phrase adaptée : « il accompagne les victimes d'infr
 
 ## Ce qui reste bloquant avant la rédaction
 
-| Point | Effet si non résolu |
+| Point | Statut au 2026-08-14 |
 |---|---|
-| 🔴 Rapport primaire du comité d'évaluation | Aucun chiffre citable : l'intro et l'encadré du H2 1 basculent sur le fait juridique seul |
-| 🔴 Voie d'appel d'une décision de CCD | FAQ n° 6 retirée ou reformulée prudemment |
-| 🟡 Avocats honoraires assesseurs | Rien n'en est dit — le plan n'en dépend pas |
-| 🟡 Judilibre | Constat de vide à documenter |
+| ~~Rapport primaire~~ | ✅ **Résolu** — rapport AN n° 1687 du 9 juillet 2025, postérieur à la généralisation. Chiffre retenu : **62 % en 2023 contre 40 % en 2020**. Le « plus de 85 % » reste ambigu et **ne sera pas cité** |
+| ~~Voie d'appel~~ | ✅ **Résolu** — art. 380-21 CPP : l'appel est examiné **par une cour d'assises**. Le jury existe, au second degré |
+| 🟡 Avocats honoraires assesseurs | Non établi — rien n'en est dit dans l'article |
+| 🟡 Judilibre | Base vide par construction (texte de trois semaines) |
 
-🛑 **STOP — validation requise avant l'Étape 4.** À valider : le H1, le plan H2/H3, le budget, et l'arbitrage sur les deux points rouges — soit je les résous d'abord, soit je rédige en formulation prudente et on complète après.
+**Deux ajouts au plan** issus de la résolution de ces points :
+
+- **H2 3** gagne l'art. 380-19, 5° : la cour délibère **en possession de l'entier dossier**, ce qu'un jury ne fait pas. Différence de fond, à exposer sans la juger.
+- **H2 1** gagne l'art. 380-20 : la cour doit **renvoyer aux assises** si les faits méritent trente ans ou la perpétuité. La qualification n'est pas figée.
+
+🛑 **STOP — validation requise avant l'Étape 4.** À valider : le H1, le plan H2/H3 et le budget.

@@ -1,6 +1,6 @@
 # Étape 2 — Collecte & analyse de la matière
 
-**Article #11 — Fraude bancaire & responsabilité de la banque (faux conseiller / spoofing / remboursement)**
+**Article #13 — Fraude bancaire & responsabilité de la banque (faux conseiller / spoofing / remboursement)**
 **Date : 2026-06-29**
 **Statut : ✅ ÉTAPE 2 COMPLÈTE — Bloc B ✅ | Bloc A ✅ | Bloc C ✅ | Bloc D ✅ — 🛑 STOP validation**
 

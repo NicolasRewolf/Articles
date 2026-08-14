@@ -1,6 +1,6 @@
 # Étape 3 — Plan détaillé
 
-**Article #11 — Fraude bancaire & remboursement (faux conseiller / spoofing)**
+**Article #13 — Fraude bancaire & remboursement (faux conseiller / spoofing)**
 **Date : 2026-06-29**
 **Périmètre validé Nicolas : « modéré ancré »** (porte SEO *fraude bancaire/remboursement* + cœur *faux conseiller/négligence grave* + section *médiateur bancaire* + cas carte court→#03)
 **Statut : 🟡 EN ATTENTE VALIDATION NICOLAS**

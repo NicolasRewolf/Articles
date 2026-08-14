@@ -51,6 +51,13 @@ LEGACY = {
     "08-sinistre-habitation-assurance",
     "09-pension-alimentaire",
     "08-indemnisation-morsure-chien",  # gelé — réécriture prévue (décision 2026-08-05)
+    # Publié le 29 juin 2026, donc antérieur aux décisions du 2026-08-05. Ses
+    # livrables locaux sont une photo partielle de l'article en ligne (pas de
+    # FAQ, pas de bio, méta-données incomplètes) : ne pas « compléter » depuis
+    # le local, ce serait écraser la version publiée. Renommé depuis `wip-` le
+    # 2026-08-14 — le préfixe `wip-` le sortait des contrôles, la liste LEGACY
+    # fait désormais ce travail explicitement.
+    "13-fraude-bancaire-remboursement",
 }
 
 MAX_TITLE = 60

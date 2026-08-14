@@ -1,4 +1,4 @@
-# Métadonnées Wix Studio — Article #11
+# Métadonnées Wix Studio — Article #13
 
 > À coller dans le panneau SEO Wix Studio. Slug sans accent (règle MEMORY). 2 catégories systématiques.
 

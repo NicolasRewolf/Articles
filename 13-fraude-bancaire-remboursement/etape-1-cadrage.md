@@ -1,6 +1,6 @@
 # Étape 1 — Cadrage
 
-**Article #11 — Fraude bancaire & responsabilité de la banque (faux conseiller / spoofing / virement non autorisé)**
+**Article #13 — Fraude bancaire & responsabilité de la banque (faux conseiller / spoofing / virement non autorisé)**
 *Titre de travail — H1 final fixé en Étape 3*
 **Date de cadrage : 2026-06-28**
 **Origine du sujet :** suggestion de Maître Mathilde Manson (cabinet Plouton) à Nicolas — article concurrent transmis (LE BOT Avocat, commentaire de TJ Paris, 9 juin 2026, n° RG 24/13522).

@@ -35,8 +35,8 @@
 | LEARN-019 | Loi Badinter art. 4 = pivot conducteur VTM | **ARCHIVÉ SAVOIR JURIDIQUE** | savoir-faire récurrent, conservé ici |
 | LEARN-020 | ONISR provisoires fin janvier / définitifs fin mai | **PROMU** (2026-06-01) | BRIEF.md §4 Bloc D |
 | LEARN-021 | Anti-hallucination : fourchettes prudentes | **PROMU** | BRIEF.md §6 (règle absolue) |
-| LEARN-022 | NotebookLM via Nicolas (workflow définitif) | **PROMU** | BRIEF.md §5 outils |
-| LEARN-023 | Format des demandes NotebookLM à Nicolas | **PROMU** | BRIEF.md §5 outils |
+| LEARN-022 | NotebookLM via Nicolas (workflow définitif) | **RETIRÉ DU PROTOCOLE** (2026-08-24) | décision Nicolas — voir §Retrait du protocole — NotebookLM |
+| LEARN-023 | Format des demandes NotebookLM à Nicolas | **RETIRÉ DU PROTOCOLE** (2026-08-24) | décision Nicolas — voir §Retrait du protocole — NotebookLM |
 | LEARN-024 | Convention `rel` liens internes vs externes | **PROMU** | TEMPLATE.md Étape 4 + checklist + mémoire persistante |
 | LEARN-025 | Pas de bullets dans blockquotes Wix | **PROMU** | TEMPLATE.md Étape 4 + checklist + mémoire persistante |
 | LEARN-026 | Anti-récidive : fact-check juridique obligatoire | **PROMU** | BRIEF.md §6 + TEMPLATE.md Étape 4 + mémoire persistante |
@@ -63,8 +63,8 @@
 | LEARN-047 | 3 deep clusters > 30 shallow | **PROMU** | BRIEF.md §3 + TEMPLATE.md checklist cluster |
 | LEARN-048 | Synthèse profonde substitutive | **PROMU** | BRIEF.md §6 (critères Helpful Content) |
 | LEARN-049 | Anti-récidive : sourcing fiable AVANT rédaction | **PROMU (fusionné LEARN-026)** | BRIEF.md §6 + TEMPLATE.md Étape 4 |
-| LEARN-050 | MCP NotebookLM abandonné par défaut | **PROMU** | BRIEF.md §5 outils |
-| LEARN-051 | Format question NotebookLM : pas de hard wrap | **PROMU** | BRIEF.md §5 outils |
+| LEARN-050 | MCP NotebookLM abandonné par défaut | **RETIRÉ DU PROTOCOLE** (2026-08-24) | décision Nicolas — voir §Retrait du protocole — NotebookLM |
+| LEARN-051 | Format question NotebookLM : pas de hard wrap | **RETIRÉ DU PROTOCOLE** (2026-08-24) | décision Nicolas — voir §Retrait du protocole — NotebookLM |
 | LEARN-052 | Voix victime / main tendue (durable) | **PROMU** | BRIEF.md §2 ton éditorial + TEMPLATE.md voix + checklist + mémoire persistante |
 | LEARN-053 | Doctrine Google AI Search 2026 (officielle) | **PROMU** | BRIEF.md §6 nouvelle sous-section + TEMPLATE.md nouveau bloc checklist |
 | LEARN-054 | Judilibre PROD = référence jurisprudence Cass. | **PROMU** (2026-06-02) | BRIEF.md §5 outils + TEMPLATE.md Cap général sourcing — confirmé #6 + #7 |
@@ -91,7 +91,9 @@
 | LEARN-META-1 | Une session ≠ tout le workflow | **RETIRÉ DE L'ACTIF** (2026-06-01) | non-opérationnel — couvert par README.md ; dédupliqué |
 | LEARN-META-2 | Cible volume 2 000-2 500 vs pratique 3 900-5 700 | **RÉSOLU** (2026-06-01) | décision Nicolas option b — BRIEF.md §3 + §4 Étape 4 + TEMPLATE.md |
 
-**Bilan (maj 2026-08-14 — recompté ligne à ligne sur la cartographie ci-dessus ; vérifié par `scripts/lint_pipeline.py`)** : **60 promus**, **13 archivés** comme savoirs techniques ou principes stratégiques (référence consultable), **1 fusionné** (LEARN-013 → LEARN-012), **1 résolu** (LEARN-META-2), **1 retiré** (LEARN-META-1). **Actif restant dans `LEARNINGS.md`** : LEARN-066.
+**Bilan (maj 2026-08-24 — recompté ligne à ligne sur la cartographie ci-dessus ; vérifié par `scripts/lint_pipeline.py`)** : **56 promus**, **13 archivés** comme savoirs techniques ou principes stratégiques (référence consultable), **4 retirés du protocole** (LEARN-022/023/050/051 — NotebookLM, décision Nicolas, voir §Retrait du protocole), **1 fusionné** (LEARN-013 → LEARN-031 — le bilan précédent portait « → LEARN-012 » ; la cartographie fait foi), **1 résolu** (LEARN-META-2), **1 retiré de l'actif** (LEARN-META-1). **Actif restant dans `LEARNINGS.md`** : voir le journal (à cette date : LEARN-066, 076, 077, 078).
+
+*Bilan précédent, conservé pour l'historique (maj 2026-08-14, avant le retrait NotebookLM) : 60 promus / 13 archivés, actif restant LEARN-066.*
 
 *Bilan précédent, conservé pour l'historique (maj 2026-08-05, avant la digestion du 2026-08-14) : 49 promus / 10 archivés, actifs LEARN-055, 058, 059, 060, 061, 062, 066. Ce décompte était juste à sa date, mais sa ligne « actifs » n'a pas suivi les captures de #12 : le journal en portait quinze le 2026-08-14.*
 
@@ -369,6 +371,20 @@ Toujours un seul article net (#10 « changer d'avocat », né du CSV des prises 
 
 - **Mécaniser la compaction Ricos** (flag `--compact` sur `md_to_ricos.py`), cf. LEARN-073.
 - **Arbitrer l'ordre du fact-check.** La mémoire persistante `feedback_factcheck_juridique_obligatoire` place WebSearch en premier recours ; l'API Légifrance étant souscrite depuis le 2026-08-07, et LEARN-075 montrant que le réflexe WebSearch nous en a détournés, l'ordre mérite une décision. Signalé à Nicolas, **non modifié** — la mémoire persistante ne se réécrit pas sans arbitrage explicite.
+
+---
+
+## Retrait du protocole — NotebookLM (2026-08-24, décision Nicolas)
+
+Nicolas n'utilise plus NotebookLM : l'outil sort du pipeline en entier. Même passe d'hygiène : réparation du MCP `datagouv` (dernier paragraphe).
+
+**Périmètre du retrait** : ligne outils du BRIEF §5 + exception « questions groupées » du §7 ; README (tables workflow et MCP, index des règles non négociables, deux quirks legacy, procédure type 9.a-b) ; ARTICLE_TEMPLATE (procédure fact-check, récap de livraison, checklist 🔴) ; mémoire persistante (`feedback_factcheck_juridique_obligatoire` réécrite, index `MEMORY.md`, libellé dans `project_reels_cabinet_plouton`). Le serveur MCP global `notebooklm` est retiré de `~/.claude.json` (restauration : `claude mcp add --scope user notebooklm -- npx notebooklm-mcp@latest`). Les dossiers d'articles (archives) ne sont pas réécrits.
+
+**Learnings concernés** : LEARN-022 (workflow via Nicolas), LEARN-023 (format des demandes), LEARN-050 (MCP abandonné par défaut), LEARN-051 (pas de hard wrap) — statut « retiré du protocole » dans la cartographie. Les corps des entrées passées restent intacts (append-only).
+
+**Ce qui tient le fact-check désormais** (rien de neuf, le flux existant se resserre) : WebSearch ciblée (Légifrance/courdecassation.fr/juricaf.org) en 1er recours, contrôle par l'API PISTE (`scripts/legifrance.py` verbatim + version applicable, `scripts/judilibre.py` pourvois) ; si toujours non confirmé → reformulation prudente + `⚠️ À vérifier` signalé à Nicolas (LEARN-021 + LEARN-049). L'item ouvert de la digestion 2026-08-14 (« arbitrer l'ordre du fact-check », WebSearch vs API) reste ouvert — ce retrait ne le tranche pas.
+
+**Même passe — MCP `datagouv` réparé** : le serveur (`https://mcp.data.gouv.fr/mcp`) était déclaré au scope du projet `/Users/nicolas` — invisible depuis `~/Desktop/Articles` et ses worktrees, d'où un Bloc D sans MCP. Redéclaré au **scope user** (toutes sessions, worktrees compris). Fallback sans MCP, conforme LEARN-078 : API ouverte `https://www.data.gouv.fr/api/1/` en curl, testée ce jour.
 
 ---
 

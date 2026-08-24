@@ -291,14 +291,9 @@ Chaque article #N doit produire dans son dossier `0N-slug-article/` :
 **Procédure AVANT de rédiger chaque affirmation juridique précise** (n° d'article, n° de pourvoi, fondement, citation verbatim) :
 
 1. **WebSearch ciblée** d'abord : `allowed_domains=["legifrance.gouv.fr"]` pour les articles de loi ; recherche libre courdecassation.fr / juricaf.org pour les arrêts. C'est la voie la plus rapide.
-2. **Si WebSearch ne suffit pas / contradictoire / pas confirmé** → **demander à Nicolas un cluster NotebookLM orienté** (LEARN-022) :
-   - Formuler une question précise (LEARN-051 — pas de hard wrap)
-   - Préciser ce que je ferai de la réponse (LEARN-023)
-   - Attendre la synthèse Nicolas → ingérer et dispatcher dans le draft
-3. **Vérifier 2 fois** chaque numéro d'article cité (idéalement 2 sources convergentes — WebSearch + NotebookLM).
-4. **Si toujours non confirmé** → reformulation prudente (LEARN-021) + `⚠️ À vérifier` noir sur blanc dans le draft.
-
-**Bon réflexe** : grouper jusqu'à 5 zones d'incertitude en **une seule demande NotebookLM** à Nicolas (économise les allers-retours). Prioriser les questions dont une erreur serait une affirmation juridique fausse.
+2. **Si WebSearch ne suffit pas / contradictoire / pas confirmé** → **API PISTE en contrôle** : `python3 scripts/legifrance.py code "<Code>" "<n°>"` (verbatim + version applicable — discipline de version BRIEF §4 Bloc A) ; `python3 scripts/judilibre.py search "…"` (n° pourvoi + date + chambre, LEARN-054).
+3. **Vérifier 2 fois** chaque numéro d'article cité (idéalement 2 sources convergentes — WebSearch + API PISTE).
+4. **Si toujours non confirmé** → reformulation prudente (LEARN-021) + `⚠️ À vérifier` noir sur blanc dans le draft, signalé à Nicolas. Prioriser les vérifications dont une erreur serait une affirmation juridique fausse.
 
 ## Étape 4 — Procédure de livraison fin de rédaction
 
@@ -318,7 +313,7 @@ Livrables :
    <script type="application/ld+json">{...JSON minifié one-liner...}</script>
    ```
 
-Récap fact-check : [N WebSearch ciblées + M demandes NotebookLM Nicolas]
+Récap fact-check : [N WebSearch ciblées + M vérifications API PISTE (Légifrance/Judilibre)]
 Sources mobilisées : [résumé bref]
 
 Push : draft UNPUBLISHED via API (LEARN-064, flux par défaut).
@@ -428,7 +423,7 @@ Les schémas Person, LegalService et Article sont gérés au niveau du site Wix 
 - [ ] Toutes les affirmations juridiques sourcées (Légifrance/Judilibre) ou prudemment formulées
 - [ ] 🔴 `⚠️ À vérifier` retiré ou résolu *(contrôlé par le lint)*
 - [ ] 🔴 **Chaque jurisprudence** = n° de pourvoi + date + chambre **confirmés** (LEARN-026)
-- [ ] 🔴 **Fact-check effectué AVANT rédaction** sur chaque zone juridique précise : WebSearch ciblée en 1er recours, NotebookLM via Nicolas si non confirmé (LEARN-026 + LEARN-049 — procédure « Fact-check » ci-dessus)
+- [ ] 🔴 **Fact-check effectué AVANT rédaction** sur chaque zone juridique précise : WebSearch ciblée en 1er recours, API PISTE (`legifrance.py` / `judilibre.py`) en contrôle ; si toujours non confirmé → reformulation prudente + `⚠️` (LEARN-026 + LEARN-049 — procédure « Fact-check » ci-dessus)
 
 ### Bloc Information Gain & E-E-A-T (Lucid Media 2026)
 - [ ] 🔴 **Preuve d'originalité tenue** : l'artefact nommé en Étape 1 est bien présent dans l'article publié (pas seulement annoncé au cadrage)

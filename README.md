@@ -76,9 +76,9 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 | Étape | Livrable | Outils principaux | STOP attendu |
 |---|---|---|---|
 | **1 — Cadrage** | `etape-1-cadrage.md` (sujet, intent, persona, long-tail, page cible, hypothèse de valeur) | WebSearch, DataForSEO (light) | Oui — validation H1/persona/page cible |
-| **2 — Collecte** | `etape-2-collecte.md` (4 blocs : A juridique, B SEO, C interne, D stats) | WebSearch ciblée + PISTE (Judilibre/Légifrance), DataForSEO, Wix MCP (dont inventaire catégorie Ressources), data.gouv MCP ; NotebookLM **via Nicolas** si besoin | Oui — décision angle confirmé sur data SERP |
+| **2 — Collecte** | `etape-2-collecte.md` (4 blocs : A juridique, B SEO, C interne, D stats) | WebSearch ciblée + PISTE (Judilibre/Légifrance), DataForSEO, Wix MCP (dont inventaire catégorie Ressources), data.gouv (MCP `datagouv` ou API ouverte) | Oui — décision angle confirmé sur data SERP |
 | **3 — Plan** | `etape-3-plan.md` (H1+variantes, méta-tags, slug, plan H2/H3 justifié, stratégie liens, stratégie GEO) | — (rédaction du plan) | Oui — validation plan + intro + TDM + volume |
-| **4 — Rédaction + push** | `etape-4-article.md` + `etape-4-metadonnees-wix.md` + `ricos.min.json` + JSON-LD FAQ (livré dans le chat) | WebSearch ciblée (fact-check, 1er recours) + NotebookLM via Nicolas en backup, `md_to_ricos.py` + Wix MCP (push draft), `lint_pipeline.py`, Git/GitHub | Oui — validation finale avant push Wix + GitHub |
+| **4 — Rédaction + push** | `etape-4-article.md` + `etape-4-metadonnees-wix.md` + `ricos.min.json` + JSON-LD FAQ (livré dans le chat) | WebSearch ciblée + API PISTE (fact-check), `md_to_ricos.py` + Wix MCP (push draft), `lint_pipeline.py`, Git/GitHub | Oui — validation finale avant push Wix + GitHub |
 
 **Règle d'or** : à chaque fin d'étape, livrable produit → STOP → validation explicite Nicolas ("OK go") → étape suivante. **Une action à la fois**, pas de chaînage `&&`, pas de parallélisation suggérée sans accord.
 
@@ -92,14 +92,13 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 |---|---|---|
 | **2-A** Juridique | WebSearch ciblée | `allowed_domains=["legifrance.gouv.fr"]` + courdecassation.fr + juricaf.org — **1er recours fact-check** |
 | **2-A** Juridique | scripts locaux | `python3 scripts/judilibre.py search "..."` (jurisprudence) et `python3 scripts/legifrance.py code "<Code>" "<n°>"` / `search --fond LODA_DATE` (textes) — via Bash. **Discipline de version : BRIEF.md §4 Bloc A** |
-| **2-A** Juridique | **NotebookLM via Nicolas** (LEARN-022) | Si WebSearch ne suffit pas : Claude formule la question → Nicolas la pose à NotebookLM → Claude ingère la réponse. **PAS via MCP** par défaut (LEARN-050) |
 | **2-B** SEO | **scripts locaux** | `python3 scripts/dataforseo.py solde` (gratuit) · `volumes "kw1" "kw2" …` · `serp "requête" --paa 2` — **chemin par défaut**, indépendant de l'état du MCP |
 | **2-B** SEO | DataForSEO MCP *(secours)* | `mcp__dataforseo__serp_organic_live_advanced` (avec PAA), `kw_data_google_ads_search_volume`, `dataforseo_labs_google_keyword_overview` — **à ne pas attendre** : le serveur n'est pas chargé dans toutes les sessions |
 | **2-C** Interne Plouton | Wix MCP | `mcp__cde94955-..._CallWixSiteAPI` (query categories + posts) |
 | **2-C** Interne Plouton | curl Bash | scrape HTML brut + parse JSON-LD pour extraire détails affaires cabinet |
-| **2-D** Stats | data.gouv.fr MCP | `mcp__33cdbda6-..._search_datasets`, `list_dataset_resources`, `query_resource_data` |
+| **2-D** Stats | MCP `datagouv` (`https://mcp.data.gouv.fr/mcp`, scope user depuis le 2026-08-24) | outils `mcp__datagouv__*` (recherche + query datasets) ; **fallback sans MCP** : API ouverte `https://www.data.gouv.fr/api/1/` en curl (LEARN-078) |
 | **2-D** Stats | WebFetch | sources officielles (ONISR, ONIAM, INSEE, etc.) |
-| **3-4** Fact-check obligatoire (LEARN-026 + LEARN-049 anti-récidive) | WebSearch ciblée d'abord, **NotebookLM via Nicolas en backup** | Avant chaque affirmation juridique précise (n° article, n° pourvoi, fondement) |
+| **3-4** Fact-check obligatoire (LEARN-026 + LEARN-049 anti-récidive) | WebSearch ciblée + **API PISTE** (`legifrance.py` / `judilibre.py`) en contrôle | Avant chaque affirmation juridique précise (n° article, n° pourvoi, fondement) ; si non confirmé → reformulation prudente + `⚠️ À vérifier` |
 | **4** Ingestion Wix | `md_to_ricos.py` + Wix MCP (`ExecuteWixAPI`) | **Push API draft = flux par défaut** : markdown → `ricos.min.json` minifié → POST en draft **`UNPUBLISHED`** (scope SITE), garde-fou `nodes.length`/`faqCount` avant POST + vérif `GET`. Détail : BRIEF.md §4 (LEARN-064). Fallback : copier-coller markdown par Nicolas (LEARN-002/004) |
 | **4** Contrôle qualité | scripts locaux | `python3 scripts/lint_pipeline.py NN-slug-article/` avant livraison et avant commit |
 | **4** Git/GitHub | Bash | `git add -A`, `git commit`, `git push origin main` (sur confirmation explicite) |
@@ -113,7 +112,7 @@ Auto-chargées en début de session via `MEMORY.md`. **Source unique et normativ
 1. **Slugs sans accent** — règle stricte pour les nouveaux articles Wix (translittération obligatoire). Pas d'audit rétro.
 2. **Liens internes follow / externes nofollow** — internes (`jplouton-avocat.fr/...`) = pas de `rel`, pas de `target="_blank"`. Externes = `target="_blank" rel="noopener noreferrer nofollow"`.
 3. **Pas de bullets dans blockquotes Wix** — listes à puces interdites dans citations. Encadrés chiffrés en prose continue (séparateurs `;` ou `—`).
-4. **Fact-check juridique obligatoire AVANT rédaction** — toute affirmation juridique précise (n° article, jurisprudence) validée d'abord via WebSearch ciblée (Légifrance/courdecassation.fr/juricaf.org), puis NotebookLM **via Nicolas** si doute ou source manquante (LEARN-050 : pas via le MCP par défaut).
+4. **Fact-check juridique obligatoire AVANT rédaction** — toute affirmation juridique précise (n° article, jurisprudence) validée d'abord via WebSearch ciblée (Légifrance/courdecassation.fr/juricaf.org) + contrôle API PISTE (`scripts/legifrance.py`, `scripts/judilibre.py`) ; si non confirmé → reformulation prudente + `⚠️ À vérifier`. *(NotebookLM retiré du protocole le 2026-08-24 — décision Nicolas.)*
 5. **JSON-LD livré dans le chat** — schemas markup Wix (FAQPage, etc.) livrés en bloc code Markdown dans la conversation, minifié one-liner, avec `type="application/ld+json"`. Pas de fichier HTML intermédiaire.
 6. **Repo Git/GitHub** — `~/Desktop/Articles` lié à `github.com/NicolasRewolf/Articles.git`. Commit après chaque article. Push **sur confirmation explicite uniquement** (jamais auto).
 7. **Voix victime / main tendue** — 7 réflexes opérationnels (BRIEF.md §2), modulés selon victime / défense pénale / contrats-famille. Précision juridique non négociable.
@@ -142,13 +141,11 @@ Sans argument, le lint vérifie **tout le repo** (docs de gouvernance + tous les
 | Friction | Workaround validé |
 |---|---|
 | **Python 3.14 macOS — SSL CERTIFICATE_VERIFY_FAILED** sur les scripts `scripts/*.py` | **Workaround unique (ce tableau fait foi)** : exporter le bundle de certificats système avant l'appel — `export SSL_CERT_FILE=/etc/ssl/cert.pem` (stdlib, aucune dépendance tierce). Si la friction persiste : fallback **curl + python3 inline** depuis Bash. *Ne pas utiliser `SSL_CERT_FILE=certifi` : `certifi` est un package tiers et la valeur attendue est un chemin de fichier PEM.* |
-| **Légifrance bloque WebFetch / curl** (Cloudflare anti-bot) | Passer par l'**API** : `scripts/legifrance.py code` (codes) ou `search --fond LODA_DATE` (lois/décrets/arrêtés) — souscription active depuis le 2026-08-07, elle donne le verbatim **et** les bornes d'application. **WebSearch avec `allowed_domains=["legifrance.gouv.fr"]`** reste le recours rapide de confirmation ; si insuffisant, cluster NotebookLM via Nicolas (LEARN-022). Discipline de version obligatoire : BRIEF.md §4 Bloc A. |
+| **Légifrance bloque WebFetch / curl** (Cloudflare anti-bot) | Passer par l'**API** : `scripts/legifrance.py code` (codes) ou `search --fond LODA_DATE` (lois/décrets/arrêtés) — souscription active depuis le 2026-08-07, elle donne le verbatim **et** les bornes d'application. **WebSearch avec `allowed_domains=["legifrance.gouv.fr"]`** reste le recours rapide de confirmation. Discipline de version obligatoire : BRIEF.md §4 Bloc A. |
 | **Taille du push Wix** | Le plafond n'est pas l'API (400 Ko/post, jamais atteint) mais le **transport** : ce qu'une lecture de fichier rend d'un coup pour être embarqué dans `ExecuteWixAPI`. Les articles ont grossi et franchissent désormais ce seuil (LEARN-073). **Workaround : compaction sémantique avant envoi** — procédure dans BRIEF.md §4 « Push Wix ». *L'ancien diagnostic « échec > 25K tokens » était une limite de corps d'appel outil, pas de l'API.* En dernier recours : copier-coller markdown dans Wix Studio. |
 | **`sante.gouv.fr` bloque WebFetch** (écran CAPTCHA Cegedim), comme Légifrance | Passer par WebSearch ou par les pages ARS régionales (LEARN-073). |
 | **Le serveur MCP `dataforseo` n'est pas chargé dans toutes les sessions** (déclaré en global, mais dépend d'un `npx` qui peut échouer sans message) | Ne pas l'attendre : `python3 scripts/dataforseo.py` fait le même travail à partir des credentials déjà présents sur la machine. Tester avec `solde` (gratuit) avant toute commande facturée. |
 | **Wix Studio rejette `<script>...</script>` pour JSON-LD avec erreur de format** | **Livrer le bloc dans le chat** (bloc code Markdown), minifié one-liner avec `type="application/ld+json"`. |
-| *(legacy — hors flux par défaut, LEARN-050)* **NotebookLM MCP `ask_question` : timeout 30s sur 1ère requête** (warm-up browser headless) | Augmenter via `browser_options: {"timeout_ms": 120000}` ou retry. **Rappel : le MCP NotebookLM n'est pas le flux par défaut** — le fact-check passe par WebSearch puis par Nicolas. |
-| *(legacy — hors flux par défaut)* **NotebookLM MCP : tooltip de citation bloque le clic** sur sessions longues | Lancer une **nouvelle session** (omettre `session_id` ou en générer un nouveau). |
 | **Slugs accents existants sur le site Plouton** | Ne PAS auditer (décision Nicolas 2026-05-11). Règle slug-sans-accent uniquement pour les NOUVEAUX articles. |
 
 ---
@@ -168,14 +165,13 @@ Sans argument, le lint vérifie **tout le repo** (docs de gouvernance + tous les
 7. Étape 3 : plan H2/H3 + intro Version D + TDM + mini-CTAs.
 8. STOP fin Étape 3 → validation → Étape 4.
 9. Étape 4 :
-   a. Fact-check juridique d'abord via WebSearch ciblée (Légifrance/courdecassation.fr/juricaf.org).
-   b. **Si je doute** sur une notion ou un n° de pourvoi : formuler une question à Nicolas (LEARN-022) → il bâtit un cluster NotebookLM orienté → me fournit la réponse → j'ingère et dispatche dans le draft.
-   c. Si toujours non confirmé → reformulation prudente + `⚠️ À vérifier` (LEARN-021 + LEARN-049).
-   d. Produire les 4 livrables Étape 4 (article.md + metadonnees-wix.md + ricos.min.json + JSON-LD FAQPage dans le chat).
-   e. Lancer `python3 scripts/lint_pipeline.py NN-slug-article/` et corriger toute erreur avant de livrer.
-   f. Pousser le draft Wix **`UNPUBLISHED`** par API (flux par défaut, BRIEF §4) ; fallback copier-coller markdown si l'API échoue.
-   g. Méta-données SEO renseignées via le panneau SEO Wix Studio (slug, titre, description, **2 catégories** = Ressources et notions juridiques + thématique, tags, image hero + alt, JSON-LD FAQPage).
-   h. Mise à jour LEARNINGS.md + ARTICLE_TEMPLATE.md si nouveau pattern.
+   a. Fact-check juridique d'abord via WebSearch ciblée (Légifrance/courdecassation.fr/juricaf.org) + contrôle API PISTE (`legifrance.py` / `judilibre.py`).
+   b. Si non confirmé → reformulation prudente + `⚠️ À vérifier` (LEARN-021 + LEARN-049), signalé à Nicolas.
+   c. Produire les 4 livrables Étape 4 (article.md + metadonnees-wix.md + ricos.min.json + JSON-LD FAQPage dans le chat).
+   d. Lancer `python3 scripts/lint_pipeline.py NN-slug-article/` et corriger toute erreur avant de livrer.
+   e. Pousser le draft Wix **`UNPUBLISHED`** par API (flux par défaut, BRIEF §4) ; fallback copier-coller markdown si l'API échoue.
+   f. Méta-données SEO renseignées via le panneau SEO Wix Studio (slug, titre, description, **2 catégories** = Ressources et notions juridiques + thématique, tags, image hero + alt, JSON-LD FAQPage).
+   g. Mise à jour LEARNINGS.md + ARTICLE_TEMPLATE.md si nouveau pattern.
 10. Commit Git local : `git add -A`, vérifier que `.env` n'est pas inclus, puis `git commit -m "Article #N : slug"` (+ mention refresh prévu M+6 — LEARN-046). Pas de chaînage `&&`.
 11. Push GitHub sur "OK push" explicite uniquement (`git push origin main`).
 ```

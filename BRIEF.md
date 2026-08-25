@@ -107,9 +107,11 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 
 ---
 
-## 4. Workflow — 4 étapes, STOP entre chaque
+## 4. Workflow — 4 étapes de production + 1 étape de mesure
 
 **Règle d'or :** à chaque fin d'étape, livrable + STOP + validation explicite ("OK go" ou correction). On ne passe à l'étape suivante qu'après feu vert.
+
+**Les quatre premières étapes produisent l'article** (cadrage → collecte → plan → rédaction et push), chacune fermée par un STOP. **L'Étape 5 le mesure**, trois mois après sa première impression : elle est asynchrone, sans STOP bloquant, et c'est elle qui referme la boucle en alimentant le cadrage de l'article suivant (RETEX 2026-08-25).
 
 ### Étape 1 — Cadrage stratégique
 
@@ -119,7 +121,8 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 
 - Sujet (titre de travail)
 - Intention de recherche cible : informationnelle / commerciale / navigationnelle / mixte
-- Requête principale (head term) visée
+- **Qualification des requêtes candidates** (cf. règle ci-dessous) — le tableau qui désigne la requête d'entrée
+- Requête principale (head term) visée — **issue du tableau, pas du volume**
 - 5–10 requêtes long-tail dérivées
 - Persona prospect : qui tape ces requêtes ? contexte émotionnel (urgence / prise de conscience / recherche prestataire / curiosité)
 - Page(s) d'expertise cible(s)
@@ -127,7 +130,29 @@ Pipeline de **24+ articles** sur les prochains mois → workflow agile, reproduc
 
 **Sources autorisées :** brief + reco rapide via web search et lecture du sitemap concurrent si utile.
 
+**Qualification de la requête d'entrée (RETEX 2026-08-25 — LEARN-081).** Le volume ne décide pas, et la taille de la niche non plus : **c'est l'état du chercheur qui décide**. Qualifier chaque requête candidate sur une échelle à trois états, dans un tableau du livrable :
+
+| État du chercheur | Ce qu'il tape ressemble à | Ce que ça vaut |
+|---|---|---|
+| **Problème en cours** | « victime d'escroquerie indemnisation », « refus indemnisation assurance habitation », « faux conseiller bancaire remboursement » | La seule porte d'entrée qui produit des contacts |
+| **S'informe** | « changer d'avocat en cours de procédure », « barème indemnisation traumatisme crânien » | Trafic réel, conversion faible — bon adjuvant, mauvaise porte |
+| **Cherche une définition** | « tétraplégique c'est quoi », « chirurgie esthétique ratée », « échelle de Glasgow » | Aucune valeur de contact, quel que soit le volume |
+
+**Règle** : la **requête principale retenue doit être de l'état « problème en cours »**, même à 10 recherches/mois. Une niche minuscule dont chaque chercheur a un dossier réel vaut mieux qu'un head term à 1 600/mois de curiosité — le cabinet vit de la valeur du dossier, pas du débit d'audience.
+
+**Si aucune requête du champ n'est de cet état**, deux issues, tranchées et écrites noir sur blanc dans le livrable :
+- **Actif d'autorité** — on écrit quand même, on l'assume comme tel (cf. LEARN-058 ci-dessous), et **l'objectif déclaré n'est pas le contact** : pas de CTA sur-dimensionné, pas de reproche à faire à l'article six mois plus tard sur un objectif qu'il n'avait pas.
+- **NO-GO** — on abandonne le sujet et on note pourquoi. C'est la porte de sortie qui manquait : sur #01, le cadrage posait « head term ≥ 500/mois », l'Étape 2 a mesuré 90/mois, et quatre mille mots ont été écrits sans qu'aucune décision ne soit prise ni tracée.
+
+**Ce que la règle corrige** : sur #07, la niche « tétraplégie » était pertinente — un dossier de blessé médullaire vaut très cher. C'est la **porte** qui était mauvaise : l'article est entré par « indemnisation tétraplégie » et il est ressorti sur « tétraplégique c'est quoi ». Sur #02, « chirurgie esthétique ratée » (1 600/mois) est une requête de curiosité : 762 impressions, 1 clic, 1 contact en trois mois. Le sujet n'était pas mauvais, la porte l'était.
+
+**Cette qualification est une hypothèse jusqu'au Bloc B**, qui la confirme ou l'infirme sur le SERP et les PAA réels. Le tableau se rejoue à l'Étape 2 s'il est démenti — et la décision GO / NO-GO / actif d'autorité se re-signe alors.
+
 **Sujets mixtes (violences conjugales, accident impliquant 2 parties, etc.)** : si l'article peut servir simultanément une persona victime ET une persona défendeur, l'arbitrage se fait ici. L'article est cadré par sa page d'expertise cible — `/defense-penale/...` → modulation défense pénale ; `/indemnisation-des-victimes/...` → modulation victimes. Un article ne cible jamais 2 personas opposés sans arbitrage explicite Nicolas inscrit dans le livrable Étape 1.
+
+**Vocabulaire réversible : nommer le mot qui écarte (RETEX 2026-08-25 — LEARN-083).** Certains mots du sujet marchent dans les deux sens — *renversé*, *fraude*, *ratée*, *accident*, *plainte* — et Google tranche à notre place si on ne tranche pas. Quand le champ lexical est réversible, le livrable Étape 1 porte **une ligne explicite** : quel persona est visé, et **par quel mot le H1 écarte l'autre**. Cette ligne devient la contrainte du H1 à l'Étape 3.
+
+Cas d'espèce : #04 a été écrit pour le cycliste victime, sous le H1 *« Cycliste renversé : preuves à réunir et étapes pour se faire indemniser »*. Sa requête la plus captée est *« sanction pour avoir renversé un cycliste »* — l'automobiliste fautif. Le participe « renversé » désigne les deux côtés du choc ; rien dans le titre ne disait lequel. Le mot qui aurait écarté existait : « indemnisation **du** cycliste », « vous avez été renversé », « victime cycliste ».
 
 **Sujets de niche à faible volume (LEARN-058, promu 2026-08-14)** : un head term à volume nul ou marginal ne disqualifie pas le sujet — il en fait un **actif d'autorité**, dont la valeur est la qualité de l'intent, pas son débit. Deux conditions pour le cadrer ainsi : l'assumer explicitement dans le livrable (« niche-autorité », pas « pilier »), et **nommer le pilier-volume adjacent** — le head term voisin à fort volume qui justifiera un futur article. Sur #7, « tétraplégie » plafonnait à ~10 recherches/mois avec « nomenclature dintilhac » à 3 600/mo juste à côté. Le pilier repéré s'inscrit dans le champ dédié du livrable de cadrage (`ARTICLE_TEMPLATE.md` §Étape 1) : le backlog des futurs piliers se reconstitue alors par `grep` sur les `etape-1-cadrage.md`, à partir de volumes observés plutôt que d'intuitions — et il ne dépend d'aucun fichier de backlog séparé, qui dériverait.
 
@@ -214,7 +239,8 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 
 **Livrable Markdown :**
 
-- H1 final + 3 variantes
+- **Carte cluster → porteur** (cf. règle ci-dessous) — **en tête du livrable, avant le plan** : c'est elle qui produit le plan
+- H1 final + 3 variantes — **le H1 porte les mots du cluster principal** et, si le vocabulaire est réversible, le mot qui écarte l'autre persona (BRIEF §4 Étape 1)
 - Méta-title (≤ 60 car.) + méta-description (≤ 155 car.)
 - Slug recommandé — **sans accent** (learning : accents = doublons raw/percent-encoded sur Wix)
 - Plan détaillé H2/H3 avec, pour chaque section :
@@ -225,6 +251,18 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
   - Sources
 - **Stratégie de liens internes** : pages d'expertise (placement, ancre, raison), autres ressources, CTA
 - **Stratégie GEO** : encadrés définitions, **FAQ 8-10 Q** (LEARN-044 — réponses 40-80 mots), données chiffrées sourcées, listes ordonnées
+
+**Le plan part des requêtes, pas de la trame (RETEX 2026-08-25 — LEARN-082).** Le geste a changé d'ordre. On n'ouvre plus `ARTICLE_TEMPLATE.md` pour habiller ses six rôles de section avec le sujet du jour : **on part de la liste de clusters produite au Bloc B**, et la trame ne sert qu'en seconde passe, pour repérer ce qui manque (cadre légal, procédure, cas limites).
+
+Trois règles :
+
+1. **Chaque cluster reçoit un titre porteur** — H2 ou H3 — **qui contient ses mots**. Pas une paraphrase, pas un titre de tonalité : les mots que les gens tapent.
+2. **Un cluster sans porteur est un trou**, à combler ou à renoncer explicitement dans le livrable.
+3. **Un H2 sans cluster** passe en H3, fusionne, ou disparaît — sauf justification écrite (le cadre légal et la procédure n'ont pas toujours de cluster propre et restent nécessaires ; c'est une exception à motiver, pas un droit acquis).
+
+**Ce que la règle corrige** : sur les 12 articles publiés, 32 angles avaient été explicitement désignés comme différenciants dans les livrables. **Douze captent zéro impression** et quatorze en captent entre 1 et 10 — dont le H2 « preuves à figer dans les 48 h » de #04, présenté au plan comme *« cette section seule justifie le ranking distinctif de l'article »*. À l'inverse, les deux seules choses qui produisent du volume n'avaient été désignées nulle part : le mot « indemnisation » sur #03 (2 793 impressions, 19 clics — absent du H1 et de tous les titres) et la lettre-type de #10 (première requête de la page, laissée en simple encadré sans titre ni ancre).
+
+**Corollaire de vocabulaire** : les titres s'écrivent en langue de requête, pas en langue de tonalité. *« Récupérer votre argent »* ne capte rien ; « indemnisation » captait tout. Le front-loading (LEARN-029) dit déjà de mettre les mots porteurs en tête — il manquait de dire **quels** mots sont porteurs : ceux du cluster.
 
 🛑 STOP — validation requise avant Étape 4.
 
@@ -251,7 +289,31 @@ Présentation : notes structurées, citables, **pas encore de rédaction**.
 - **Régénérer `ricos.min.json` à chaque modification de l'article** et resynchroniser le draft — sans quoi le draft Wix diverge silencieusement du markdown (constaté sur #10 : draft poussé avant le fix TDM, donc publié sans sommaire).
 - **Fallback** : si l'API échoue, **Nicolas copie-colle le markdown** dans l'éditeur Wix Studio et refait la mise en page (LEARN-002 + LEARN-004).
 
-**Post-livraison :** mise à jour de `LEARNINGS.md` et `ARTICLE_TEMPLATE.md`. Date de prochain refresh dans le commit message (LEARN-046).
+**Post-livraison :** mise à jour de `LEARNINGS.md` et `ARTICLE_TEMPLATE.md`. Date de prochain refresh dans le commit message (LEARN-046). **Date de mesure M+3 dans la section « Refresh » des métadonnées** (Étape 5 ci-dessous).
+
+### Étape 5 — Mesure M+3 (RETEX 2026-08-25 — LEARN-084)
+
+*Est-ce que l'article a capté ce qu'on lui avait demandé de capter ?*
+
+**Pourquoi cette étape existe.** Aucun des quinze dossiers produits entre mai et août 2026 ne contient d'objectif chiffré ni de mesure après publication. #01 énonçait comme seul critère de succès *« le taux de clic vers /honoraires-rendez-vous sur les 28 prochains jours »* — personne n'est jamais revenu le relever. Le pipeline apprenait donc sur sa propre fabrication (78 learnings, tous issus de la production ou de l'outillage) et jamais sur ses résultats. Sans cette étape, la qualification de l'Étape 1 et la carte de l'Étape 3 restent des paris.
+
+**Quand** : trois mois après la **première impression GSC**, jamais après la date de publication Wix — celle-ci est antidatable et ment sur l'âge SEO réel (piège 8 du playbook `cooked`). Si l'article n'a pas encore d'impression à M+3, l'échéance glisse et on le note.
+
+**Livrable** : `etape-5-mesure.md` dans le dossier de l'article. Dix à quinze lignes, pas un rapport. Cinq questions, cinq réponses chiffrées :
+
+1. **La requête d'entrée qualifiée « problème en cours » à l'Étape 1 a-t-elle capté ?** Impressions, position, clics.
+2. **Chaque titre porteur de la carte Étape 3 apparaît-il dans les requêtes captées ?** Un porteur à zéro est un constat, pas une faute — mais il doit être écrit.
+3. **Quelles requêtes non prévues portent le trafic ?** C'est la ligne la plus utile : sur #03, elle aurait rendu « victime d'escroquerie indemnisation » en trois semaines au lieu de trois mois.
+4. **Combien de contacts ?** Et par quel canal (appel / formulaire).
+5. **Verdict** : cible atteinte / déplacée / trop tôt pour dire — et **une action**, ou l'absence d'action assumée.
+
+**Source de données** : base `cooked` (Supabase projet `mxycmjkeotrycyneacje`) — `gsc_path_daily` pour les totaux, `gsc_query_page_daily` pour l'attribution requête × page, `conversion_weekly` pour les contacts. **Deux pièges à respecter** : l'attribution requête × page ne couvre que 4 à 38 % des impressions (un zéro y signifie « non observé », pas « absent ») ; et la position GSC n'est pas la position à l'écran (AI Overview, PAA et pack local s'intercalent au-dessus). Le playbook complet vit dans le dépôt `cooked` (`docs/PLAYBOOK-analyse-seo.md`, « Les 15 pièges »).
+
+**Ce que la mesure alimente** : le tableau de qualification de l'Étape 1 du **prochain** article. Un état du chercheur qui s'est révélé faux se corrige là, pas dans une note de bas de page.
+
+**Rapport à l'Étape 4 et au refresh M+6** : l'Étape 5 ne remplace ni l'une ni l'autre. Elle mesure la **capture** à trois mois ; le refresh M+6 vérifie la **péremption** du fond (chiffres, jurisprudence, textes) et n'est pas une réécriture d'office. Les deux se lisent ensemble : un porteur à zéro constaté à M+3 devient un candidat de réécriture au refresh.
+
+**Pas de STOP bloquant** : l'Étape 5 est asynchrone et ne conditionne pas la production de l'article suivant. Elle se livre à Nicolas comme les autres, et son absence sort en avertissement au lint une fois la date échue.
 
 ### Procédure refresh M+6 (LEARN-046)
 

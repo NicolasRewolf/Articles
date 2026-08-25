@@ -24,6 +24,7 @@ import json
 import re
 import sys
 import unicodedata
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -432,6 +433,72 @@ def verifier_livrables(dossier: Path, bloquant: bool, rap: Rapport) -> None:
             rap.avertir(f"{dossier.name}/etape-1-cadrage.md",
                         "section « Preuve d'originalité » absente ou vide "
                         "(champ Étape 1 obligatoire depuis 2026-08-07)")
+
+    verifier_ciblage(dossier, rap)
+
+
+# --------------------------------------------------------------------------
+# Contrôles — ciblage (RETEX 2026-08-25)
+# --------------------------------------------------------------------------
+
+# Le RETEX du 2026-08-25 a mesuré, sur les 12 articles publiés, 32 angles
+# déclarés différenciants dans les livrables : 12 captent zéro impression et 14
+# entre 1 et 10. Cause : le plan H2 dérivait de la trame du TEMPLATE, jamais de
+# la liste de requêtes du Bloc B. Trois contrôles mécanisent la correction.
+#
+# AVERTISSEMENT seulement, y compris hors LEGACY : aucun dossier existant n'a
+# été écrit sous ces règles, et le repo ne fait pas d'audit rétro. À passer en
+# `signaler(bloquant, …)` une fois le premier article produit sous le nouveau
+# protocole — c'est le même chemin que « Preuve d'originalité ».
+
+# Apostrophe droite ET typographique : un rédacteur tape naturellement « ’ »,
+# le template porte « ' ». Une regex qui n'en accepte qu'une échoue en silence.
+VERDICT_RE = re.compile(r"\bNO-?GO\b|\bGO\b|(?i:ACTIF\s+D['’]\s*AUTORIT[EÉ])")
+MESURE_RE = re.compile(r"Mesure\s+M\+3[^:\n]*:\s*(\d{4})-(\d{2})-(\d{2})", re.I)
+
+
+def verifier_ciblage(dossier: Path, rap: Rapport) -> None:
+    # 1. Étape 1 — la requête d'entrée est qualifiée, et le verdict est posé.
+    cadrage = dossier / "etape-1-cadrage.md"
+    if cadrage.exists():
+        txt = cadrage.read_text(encoding="utf-8")
+        bloc = _section(txt, r"Qualification des requêtes")
+        if bloc is None or not bloc.strip():
+            rap.avertir(f"{dossier.name}/etape-1-cadrage.md",
+                        "section « Qualification des requêtes candidates » absente "
+                        "(BRIEF §4 Étape 1 — RETEX 2026-08-25)")
+        elif not VERDICT_RE.search(bloc):
+            rap.avertir(f"{dossier.name}/etape-1-cadrage.md",
+                        "verdict de qualification absent — attendu GO / NO-GO / "
+                        "ACTIF D'AUTORITÉ dans la section « Qualification des requêtes »")
+
+    # 2. Étape 3 — la carte cluster → porteur existe et porte des lignes.
+    plan = dossier / "etape-3-plan.md"
+    if plan.exists():
+        bloc = _section(plan.read_text(encoding="utf-8"), r"Carte cluster")
+        if bloc is None:
+            rap.avertir(f"{dossier.name}/etape-3-plan.md",
+                        "carte « cluster → porteur » absente — c'est elle qui produit "
+                        "le plan (BRIEF §4 Étape 3 — RETEX 2026-08-25)")
+        else:
+            lignes = [l for l in bloc.splitlines()
+                      if l.strip().startswith("|") and not re.match(r"^\s*\|[\s|:-]+\|\s*$", l)]
+            # 1 ligne d'en-tête + au moins 1 cluster
+            if len(lignes) < 2:
+                rap.avertir(f"{dossier.name}/etape-3-plan.md",
+                            "carte « cluster → porteur » vide — aucun cluster porté")
+
+    # 3. Étape 5 — la mesure M+3 est due et n'a pas été produite.
+    meta = dossier / "etape-4-metadonnees-wix.md"
+    mesure = dossier / "etape-5-mesure.md"
+    if meta.exists() and not mesure.exists():
+        m = MESURE_RE.search(meta.read_text(encoding="utf-8"))
+        if m:
+            due = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+            if due <= date.today():
+                rap.avertir(f"{dossier.name}",
+                            f"mesure M+3 due depuis le {due.isoformat()} et "
+                            "`etape-5-mesure.md` absent (BRIEF §4 Étape 5)")
 
 
 # --------------------------------------------------------------------------

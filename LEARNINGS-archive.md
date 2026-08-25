@@ -88,10 +88,16 @@
 | LEARN-073 | Le plafond du push Wix est le transport, pas l'API | **PROMU** (2026-08-14) | BRIEF.md §4 Push Wix + README §Quirks — corrige le « ~36-40 Ko » devenu faux |
 | LEARN-074 | Judilibre : une base vide est une information, et se constate au Bloc A | **ARCHIVÉ SAVOIR** (2026-08-14) | signaux structurels conservés ici ; règle d'ordre inscrite en BRIEF.md §4 Bloc A |
 | LEARN-075 | Fonds `LODA_DATE` pour les textes du JORF, pas WebSearch par réflexe | **PROMU** (2026-08-14, fusionné LEARN-062) | BRIEF.md §4 Bloc A + §5 tableau outils |
+| LEARN-081 | Qualifier la requête d'entrée sur l'état du chercheur, pas sur le volume | **PROMU** (2026-08-25, RETEX) | BRIEF.md §4 Étape 1 « Qualification de la requête d'entrée » + ARTICLE_TEMPLATE.md §Étape 1 (tableau + verdict) + checklist Bloc Ciblage + `lint_pipeline.py` |
+| LEARN-082 | Le plan H2/H3 part des clusters du Bloc B, jamais de la trame | **PROMU** (2026-08-25, RETEX) | BRIEF.md §4 Étape 3 + ARTICLE_TEMPLATE.md §Étape 2 Bloc B (clusters) et §Étape 3 (carte cluster → porteur) + checklist Bloc Ciblage + `lint_pipeline.py` |
+| LEARN-083 | Vocabulaire réversible : nommer le persona écarté et le mot qui l'écarte | **PROMU** (2026-08-25, RETEX) | BRIEF.md §4 Étape 1 « Vocabulaire réversible » + ARTICLE_TEMPLATE.md §Étape 1 et §Étape 3 (contrôles du H1) + checklist Bloc Ciblage |
+| LEARN-084 | Étape 5 — mesure M+3 depuis `cooked`, la boucle qui manquait | **PROMU** (2026-08-25, RETEX) | BRIEF.md §4 Étape 5 + ARTICLE_TEMPLATE.md §Étape 5 + README.md (workflow, carte, procédure type) + `lint_pipeline.py` |
 | LEARN-META-1 | Une session ≠ tout le workflow | **RETIRÉ DE L'ACTIF** (2026-06-01) | non-opérationnel — couvert par README.md ; dédupliqué |
 | LEARN-META-2 | Cible volume 2 000-2 500 vs pratique 3 900-5 700 | **RÉSOLU** (2026-06-01) | décision Nicolas option b — BRIEF.md §3 + §4 Étape 4 + TEMPLATE.md |
 
-**Bilan (maj 2026-08-24 — recompté ligne à ligne sur la cartographie ci-dessus ; vérifié par `scripts/lint_pipeline.py`)** : **56 promus**, **13 archivés** comme savoirs techniques ou principes stratégiques (référence consultable), **4 retirés du protocole** (LEARN-022/023/050/051 — NotebookLM, décision Nicolas, voir §Retrait du protocole), **1 fusionné** (LEARN-013 → LEARN-031 — le bilan précédent portait « → LEARN-012 » ; la cartographie fait foi), **1 résolu** (LEARN-META-2), **1 retiré de l'actif** (LEARN-META-1). **Actif restant dans `LEARNINGS.md`** : voir le journal (à cette date : LEARN-066, 076, 077, 078).
+**Bilan (maj 2026-08-25 — recompté ligne à ligne sur la cartographie ci-dessus ; vérifié par `scripts/lint_pipeline.py`)** : **60 promus**, **13 archivés** comme savoirs techniques ou principes stratégiques (référence consultable), **4 retirés du protocole** (LEARN-022/023/050/051 — NotebookLM, décision Nicolas, voir §Retrait du protocole), **1 fusionné** (LEARN-013 → LEARN-031 — le bilan précédent portait « → LEARN-012 » ; la cartographie fait foi), **1 résolu** (LEARN-META-2), **1 retiré de l'actif** (LEARN-META-1). **Actif restant dans `LEARNINGS.md`** : voir le journal (à cette date : LEARN-066, 076, 077, 078, 079, 080 — les quatre promotions du RETEX n'y sont jamais passées, cf. §Digestion 2026-08-25).
+
+*Bilan précédent, conservé pour l'historique (maj 2026-08-24, avant la digestion RETEX du 2026-08-25) : 56 promus / 13 archivés. Sa ligne « actifs » omettait LEARN-079 et LEARN-080, capturés lors de #15 — même maladie de compteur écrit à la main que celle diagnostiquée le 5 août.*
 
 *Bilan précédent, conservé pour l'historique (maj 2026-08-14, avant le retrait NotebookLM) : 60 promus / 13 archivés, actif restant LEARN-066.*
 
@@ -385,6 +391,57 @@ Nicolas n'utilise plus NotebookLM : l'outil sort du pipeline en entier. Même pa
 **Ce qui tient le fact-check désormais** (rien de neuf, le flux existant se resserre) : WebSearch ciblée (Légifrance/courdecassation.fr/juricaf.org) en 1er recours, contrôle par l'API PISTE (`scripts/legifrance.py` verbatim + version applicable, `scripts/judilibre.py` pourvois) ; si toujours non confirmé → reformulation prudente + `⚠️ À vérifier` signalé à Nicolas (LEARN-021 + LEARN-049). L'item ouvert de la digestion 2026-08-14 (« arbitrer l'ordre du fact-check », WebSearch vs API) reste ouvert — ce retrait ne le tranche pas.
 
 **Même passe — MCP `datagouv` réparé** : le serveur (`https://mcp.data.gouv.fr/mcp`) était déclaré au scope du projet `/Users/nicolas` — invisible depuis `~/Desktop/Articles` et ses worktrees, d'où un Bloc D sans MCP. Redéclaré au **scope user** (toutes sessions, worktrees compris). Fallback sans MCP, conforme LEARN-078 : API ouverte `https://www.data.gouv.fr/api/1/` en curl, testée ce jour.
+
+---
+
+## Digestion 2026-08-25 — RETEX de performance (LEARN-081 à 084)
+
+**Première digestion dont la matière ne vient pas de la production, mais du terrain.** Les 78 learnings précédents étaient tous issus de la fabrication ou de l'outillage — jamais des résultats. Le RETEX du 25 août a confronté les cibles déclarées des 15 articles (mai → août 2026) aux mesures de la base `cooked` : GSC 16 mois, engagement par canal, contacts macro.
+
+**Le constat qui commande les quatre promotions.** Sur les 12 articles publiés, 32 angles avaient été explicitement désignés comme différenciants dans les livrables (« Information Gain », « cœur différenciant », « découverte clé », head term principal). **Douze captent zéro impression attribuée**, quatorze en captent entre 1 et 10. À l'inverse, les deux seules choses qui produisent du volume n'avaient été désignées nulle part : le mot « indemnisation » sur #03 — 2 793 impressions et 19 clics, absent du H1 et de tous les titres, six occurrences dans 5 800 mots — et la lettre-type de #10, première requête de la page, laissée en simple encadré sans titre ni ancre.
+
+Cinq head terms à fort volume validés au Bloc B sont à zéro impression attribuée : `dégât des eaux assurance` 1 300/mo (#08), `médiateur assurance` 6 600/mo (#08, « découverte clé n°1 »), `fraude bancaire` 4 400/mo (#13), `médiateur bancaire` 1 600/mo (#13), `obligation de sécurité employeur` 590/mo (#11). Ces volumes sont assez élevés pour que l'anonymisation GSC ne les explique pas.
+
+**Ce qui n'est PAS en cause, et qu'il fallait vérifier avant de conclure** : la rédaction. Lues par canal — le playbook `cooked` l'impose, un dwell global mélange du social à 2 s et de l'organique à 45 s — les durées de lecture médianes en organique vont de 55 à 132 secondes. Et le taux de clic, mesuré contre la courbe propre du site (écrasée d'un facteur 5 à 8 par les AI Overviews, PAA et packs locaux sur les SERP juridiques), n'est pas anormal. Le défaut est en amont (ce qu'on va chercher) et en aval (ce qu'on en fait), jamais dans le texte.
+
+### LEARN-081 — ✅ PROMU → BRIEF §4 Étape 1 + ARTICLE_TEMPLATE §Étape 1 + lint
+
+Le volume ne décide pas, et la taille de la niche non plus : c'est **l'état du chercheur**. Trois états — problème en cours / s'informe / cherche une définition — et une règle : la requête principale doit être du premier, même à 10 recherches/mois.
+
+**Arbitrage Nicolas du 2026-08-25** : la première formulation triait sur l'intention transactionnelle seule, ce qui aurait condamné les niches. Corrigée — *« c'est pas parce que c'est une petite niche que ça va pas rapporter gros au cabinet »*. Un dossier de tétraplégie vaut infiniment plus qu'un dossier de chirurgie esthétique. Sur #07 la niche était bonne, **la porte était mauvaise** : entré par « indemnisation tétraplégie », ressorti sur « tétraplégique c'est quoi ». La règle porte donc sur la requête d'entrée, jamais sur la taille du marché. Elle resserre LEARN-058 (actif d'autorité) sans le contredire, et lui ajoute ce qui lui manquait : **une porte de sortie** (verdict GO / NO-GO / actif d'autorité écrit dans le livrable). Sur #01, le cadrage posait « head term ≥ 500/mois », l'Étape 2 a mesuré 90/mois, et quatre mille mots ont été écrits sans qu'aucune décision ne soit tracée.
+
+### LEARN-082 — ✅ PROMU → BRIEF §4 Étape 3 + ARTICLE_TEMPLATE §Étape 2 et §Étape 3 + lint
+
+Le geste change d'ordre : **le plan sort des clusters du Bloc B, la trame se lit en seconde passe.** Un cluster sans porteur est un trou ; un H2 sans cluster passe en H3 ou disparaît, sauf justification écrite (cadre légal, procédure).
+
+À noter pour la traçabilité : `ARTICLE_TEMPLATE.md` disait déjà que ses six rôles étaient « des rôles de section, pas des titres à recopier » et « des exemples, pas un carcan ». La trame n'était donc pas prescriptive **sur le papier** — elle l'est devenue en pratique, sept articles sur douze la suivant de près. La promotion ne corrige pas un texte faux : elle inverse un ordre d'exécution que rien n'imposait mais que rien n'interdisait non plus.
+
+Corollaire de vocabulaire inscrit dans la règle : les titres s'écrivent en langue de requête, pas en langue de tonalité. Le front-loading (LEARN-029) disait de mettre les mots porteurs en tête ; il ne disait pas **quels** mots sont porteurs — ceux du cluster.
+
+### LEARN-083 — ✅ PROMU → BRIEF §4 Étape 1 + ARTICLE_TEMPLATE §Étape 1 et §Étape 3
+
+Quand le vocabulaire du sujet est réversible — *renversé*, *fraude*, *ratée*, *accident*, *plainte* — le cadrage nomme le persona visé, le persona écarté, et **le mot qui les sépare**. Sans cette ligne, Google tranche à notre place. #04 a été écrit pour le cycliste victime ; sa requête la plus captée est « sanction pour avoir renversé un cycliste » — l'automobiliste fautif. Prolonge la règle « sujets mixtes » déjà en place au même endroit, qui n'arbitrait que la page d'expertise cible et pas le lexique.
+
+*Un article net (#04). Promu malgré un seul cas confirmé parce que la règle est de coût nul — une ligne au cadrage — et que le défaut qu'elle prévient a coûté la moitié du trafic d'un article. Arbitrage Nicolas, signalé comme tel.*
+
+### LEARN-084 — ✅ PROMU → BRIEF §4 Étape 5 (nouvelle) + ARTICLE_TEMPLATE §Étape 5 + README + lint
+
+Le pipeline n'avait aucun miroir. Aucun des quinze dossiers ne contient d'objectif chiffré ni de mesure après publication ; #01 énonçait « le taux de clic vers /honoraires-rendez-vous sur les 28 prochains jours » comme seul critère de succès, et personne n'est jamais revenu le relever. **Étape 5 — mesure M+3** : dix à quinze lignes lues dans `cooked`, trois mois après la première impression GSC (jamais après la date Wix, antidatable — piège 8 du playbook), et ce qu'elle mesure redescend dans le tableau de qualification de l'Étape 1 du prochain article.
+
+Sans cette étape, LEARN-081 et LEARN-082 resteraient des paris : on aurait changé la machine sans jamais savoir si le changement a produit quelque chose.
+
+### Mécanisation — trois contrôles ajoutés à `lint_pipeline.py`
+
+Conformément à l'enseignement central de l'audit du 5 août (« une règle qui n'est ni unique ni vérifiée par une machine finit toujours par dériver ») : verdict de qualification présent en Étape 1 ; carte cluster → porteur présente et non vide en Étape 3 ; mesure M+3 due et non produite. **En avertissement, y compris hors LEGACY** — aucun dossier existant n'a été écrit sous ces règles et le repo ne fait pas d'audit rétro. À passer en `signaler(bloquant, …)` une fois le premier article produit sous le nouveau protocole, même chemin que « Preuve d'originalité ».
+
+*Détail de la regex de verdict : elle accepte l'apostrophe droite **et** typographique. Une première version n'acceptait que la droite et échouait en silence sur « ACTIF D'AUTORITÉ » tapé naturellement — le genre de garde-fou qui donne l'illusion de garder.*
+
+### Ce que le RETEX a établi et qui n'est PAS promu
+
+- **L'ancrage local (LEARN-042) est appliqué 3 à 18 fois par article, médiane 11, pour un quota de 3 — et les 12 articles cumulent zéro impression sur une requête géolocalisée.** Le site capte pourtant ces requêtes (« avocat divorce bordeaux » 441 impressions), mais par la home et les pages d'expertise. Révision d'une règle promue : hors du périmètre d'une digestion, arbitrage Nicolas requis. Signalé, non modifié.
+- **Cannibalisation notion ↔ page d'expertise** : « avocat accident moto » oppose #01 (position 18,9), la page d'expertise accidents de la route (44,1) et un post d'affaire (90,7) — 510 impressions, zéro clic. Idem « avocat faute inexcusable » sur #11. L'inventaire de la catégorie Ressources (LEARN-067) ne voit pas ce conflit : il ne regarde que la catégorie Ressources. Extension à arbitrer.
+- **Le format de désambiguïsation « A ou B »** (`sarvi-ou-civi` : 7,30 % de CTR à la position 6,4, contre 1,42 % de moyenne pour le protocole) : zéro article du protocole l'a essayé. Hypothèse tirée de trois pages hors protocole — à tester sur un article, pas à promouvoir.
+- **Trois articles sur quinze (#12, #14, #15) rédigés et jamais publiés**, zéro impression. Décision de publication du ressort du client (Nicolas, 2026-08-25) — hors périmètre du protocole.
 
 ---
 

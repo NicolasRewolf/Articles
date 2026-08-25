@@ -7,7 +7,7 @@
 
 ## Quick Start
 
-Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat pénaliste & défense des victimes, Bordeaux — [jplouton-avocat.fr](https://www.jplouton-avocat.fr)). Cible : **24+ articles** dans la catégorie *"Ressources et notions juridiques"*, workflow agile en **4 étapes** avec STOP+validation entre chaque.
+Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat pénaliste & défense des victimes, Bordeaux — [jplouton-avocat.fr](https://www.jplouton-avocat.fr)). Cible : **24+ articles** dans la catégorie *"Ressources et notions juridiques"*, workflow agile en **4 étapes de production** avec STOP+validation entre chaque, **plus une Étape 5 de mesure** à M+3 qui referme la boucle.
 
 **Pour démarrer un article :**
 1. L'utilisateur (Nicolas) écrit : *"Article #N — sujet : [X]"*
@@ -39,7 +39,7 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 ```
 ~/Desktop/Articles/
 ├── README.md                 ← TU ES ICI (point d'entrée : carte + pointeurs, aucune règle)
-├── BRIEF.md                  ← brief utilisateur (workflow 4 étapes, ton, outils) — la constitution
+├── BRIEF.md                  ← brief utilisateur (workflow 4+1 étapes, ton, outils) — la constitution
 ├── ARTICLE_TEMPLATE.md       ← structure des livrables + Cap général (maison des chiffres structurels)
 ├── LEARNINGS.md              ← journal vivant (< 100 lignes) — observations fraîches non promues
 ├── LEARNINGS-archive.md      ← historique append-only des learnings promus + savoirs préservés
@@ -64,6 +64,7 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
     ├── etape-4-article.md    ← livrable Étape 4 (article complet)
     ├── etape-4-metadonnees-wix.md  ← méta SEO prêtes à coller (8 sections)
     ├── ricos.min.json        ← livrable Étape 4 : contenu Ricos poussé en draft Wix
+    ├── etape-5-mesure.md     ← livrable Étape 5 : relevé cooked à M+3 (10-15 lignes)
     └── (optionnels) inventaire-categorie-ressources.md (Bloc C), etape2-raw/, sources-a-exploiter.md
 ```
 
@@ -71,16 +72,19 @@ Ce projet est un **pipeline éditorial SEO/GEO** pour le Cabinet Plouton (avocat
 
 ---
 
-## Workflow 4 étapes — synthèse 1 page
+## Workflow — 4 étapes de production + 1 de mesure — synthèse 1 page
 
 | Étape | Livrable | Outils principaux | STOP attendu |
 |---|---|---|---|
-| **1 — Cadrage** | `etape-1-cadrage.md` (sujet, intent, persona, long-tail, page cible, hypothèse de valeur) | WebSearch, DataForSEO (light) | Oui — validation H1/persona/page cible |
-| **2 — Collecte** | `etape-2-collecte.md` (4 blocs : A juridique, B SEO, C interne, D stats) | WebSearch ciblée + PISTE (Judilibre/Légifrance), DataForSEO, Wix MCP (dont inventaire catégorie Ressources), data.gouv (MCP `datagouv` ou API ouverte) | Oui — décision angle confirmé sur data SERP |
-| **3 — Plan** | `etape-3-plan.md` (H1+variantes, méta-tags, slug, plan H2/H3 justifié, stratégie liens, stratégie GEO) | — (rédaction du plan) | Oui — validation plan + intro + TDM + volume |
+| **1 — Cadrage** | `etape-1-cadrage.md` (sujet, intent, **qualification des requêtes + verdict GO/NO-GO/actif d'autorité**, persona, long-tail, page cible, hypothèse de valeur) | WebSearch, DataForSEO (light) | Oui — validation H1/persona/page cible |
+| **2 — Collecte** | `etape-2-collecte.md` (4 blocs : A juridique, B SEO **dont clusters de requêtes**, C interne, D stats) | WebSearch ciblée + PISTE (Judilibre/Légifrance), DataForSEO, Wix MCP (dont inventaire catégorie Ressources), data.gouv (MCP `datagouv` ou API ouverte) | Oui — décision angle confirmé sur data SERP |
+| **3 — Plan** | `etape-3-plan.md` (**carte cluster → porteur en tête**, H1+variantes, méta-tags, slug, plan H2/H3 justifié, stratégie liens, stratégie GEO) | — (rédaction du plan) | Oui — validation plan + intro + TDM + volume |
 | **4 — Rédaction + push** | `etape-4-article.md` + `etape-4-metadonnees-wix.md` + `ricos.min.json` + JSON-LD FAQ (livré dans le chat) | WebSearch ciblée + API PISTE (fact-check), `md_to_ricos.py` + Wix MCP (push draft), `lint_pipeline.py`, Git/GitHub | Oui — validation finale avant push Wix + GitHub |
+| **5 — Mesure M+3** | `etape-5-mesure.md` (requête d'entrée, titres porteurs, requêtes non prévues, contacts, verdict + action) | base `cooked` (Supabase `mxycmjkeotrycyneacje`) | Non — asynchrone, livrée à Nicolas ; absence signalée par le lint une fois la date échue |
 
 **Règle d'or** : à chaque fin d'étape, livrable produit → STOP → validation explicite Nicolas ("OK go") → étape suivante. **Une action à la fois**, pas de chaînage `&&`, pas de parallélisation suggérée sans accord.
+
+**L'Étape 5 referme la boucle** (RETEX 2026-08-25) : elle se déclenche trois mois après la **première impression GSC** — jamais après la date Wix, antidatable — et ce qu'elle mesure redescend dans le tableau de qualification de l'Étape 1 du prochain article. Détail : [BRIEF.md §4](BRIEF.md).
 
 ---
 
@@ -132,7 +136,7 @@ python3 scripts/lint_pipeline.py
 
 Sans argument, le lint vérifie **tout le repo** (docs de gouvernance + tous les dossiers d'articles) ; avec un chemin (`python3 scripts/lint_pipeline.py 11-faute-inexcusable-employeur/`), il ne vérifie que ce dossier.
 
-**Quand le lancer** : en fin d'Étape 4 avant de livrer, et avant chaque commit d'article. Il sort en code 1 si une règle est violée. Ce qu'il couvre (détail et messages dans le script) : longueurs méta, slug sans accent, format et nombre de tags, liens internes absolus, bio auteur présente, FAQ (nombre de questions, position, présence dans la TDM), CTAs, cohérence `ricos.min.json` ↔ article, équilibre des fences markdown, unicité des préfixes de dossiers, absence de compteurs figés dans la documentation.
+**Quand le lancer** : en fin d'Étape 4 avant de livrer, et avant chaque commit d'article. Il sort en code 1 si une règle est violée. Ce qu'il couvre (détail et messages dans le script) : longueurs méta, slug sans accent, format et nombre de tags, liens internes absolus, bio auteur présente, FAQ (nombre de questions, position, présence dans la TDM), CTAs, cohérence `ricos.min.json` ↔ article, équilibre des fences markdown, unicité des préfixes de dossiers, absence de compteurs figés dans la documentation, **verdict de qualification Étape 1**, **carte cluster → porteur Étape 3**, **mesure M+3 échue et non produite** (ces trois derniers en avertissement tant qu'aucun article n'a été produit sous le protocole du RETEX 2026-08-25).
 
 ---
 
@@ -158,11 +162,11 @@ Sans argument, le lint vérifie **tout le repo** (docs de gouvernance + tous les
    - Sujet précis ou angle (s'il veut challenger)
    - Famille d'expertise cible (parmi les 14 pages d'expertise)
    - Cadence / contexte (test, production régulière, sprint)
-3. Sur ses réponses → tu lances Étape 1.
+3. Sur ses réponses → tu lances Étape 1. **Qualifier chaque requête candidate sur l'état du chercheur** (problème en cours / s'informe / définition) et poser le verdict GO / NO-GO / actif d'autorité — BRIEF §4 Étape 1.
 4. STOP fin Étape 1 → validation → Étape 2.
-5. Bloc B en premier (SERP+volumes+PAA via DataForSEO) → ça résout souvent l'incertitude sur l'angle.
+5. Bloc B en premier (SERP+volumes+PAA via DataForSEO) → ça résout souvent l'incertitude sur l'angle. **Sortie du Bloc B : la liste de clusters** + confirmation ou démenti de la qualification Étape 1.
 6. STOP fin Étape 2 → validation → Étape 3.
-7. Étape 3 : plan H2/H3 + intro Version D + TDM + mini-CTAs.
+7. Étape 3 : **carte cluster → porteur d'abord** (c'est elle qui produit le plan ; la trame du TEMPLATE se lit en seconde passe), puis plan H2/H3 + intro Version D + TDM + mini-CTAs.
 8. STOP fin Étape 3 → validation → Étape 4.
 9. Étape 4 :
    a. Fact-check juridique d'abord via WebSearch ciblée (Légifrance/courdecassation.fr/juricaf.org) + contrôle API PISTE (`legifrance.py` / `judilibre.py`).
@@ -174,6 +178,9 @@ Sans argument, le lint vérifie **tout le repo** (docs de gouvernance + tous les
    g. Mise à jour LEARNINGS.md + ARTICLE_TEMPLATE.md si nouveau pattern.
 10. Commit Git local : `git add -A`, vérifier que `.env` n'est pas inclus, puis `git commit -m "Article #N : slug"` (+ mention refresh prévu M+6 — LEARN-046). Pas de chaînage `&&`.
 11. Push GitHub sur "OK push" explicite uniquement (`git push origin main`).
+12. **Étape 5 — trois mois après la 1ʳᵉ impression GSC** : produire `etape-5-mesure.md` depuis la base `cooked`
+    (requête d'entrée, titres porteurs, requêtes non prévues, contacts, verdict + action). Asynchrone,
+    hors du cycle de production ; le lint la signale une fois la date `Mesure M+3` échue.
 ```
 
 ---

@@ -1,6 +1,6 @@
 # ARTICLE_TEMPLATE — Structure réutilisable affinée
 
-> Squelette des livrables du workflow 4 étapes. **Affiné après chaque article** sur la base des patterns qui ont marché.
+> Squelette des livrables du workflow — **4 étapes de production + 1 étape de mesure** (Étape 5, M+3). **Affiné après chaque article** sur la base des patterns qui ont marché.
 > Historique des mises à jour : `git log --oneline -- ARTICLE_TEMPLATE.md` (pas de date en dur — elle mentait ; audit 2026-08-05).
 
 ---
@@ -56,8 +56,33 @@ Reconnaître les limites du guide = crédibilité renforcée.
 - **Type** : informationnelle / commerciale / navigationnelle / mixte
 - **Justification** : [observée dans SERP via DataForSEO ; mention de l'intent classifié]
 
+## Qualification des requêtes candidates
+[OBLIGATOIRE — c'est ce tableau qui désigne la requête principale, pas le volume.
+Règle complète : BRIEF.md §4 Étape 1 « Qualification de la requête d'entrée ».
+États possibles : `problème en cours` / `s'informe` / `cherche une définition`.]
+
+| Requête candidate | Volume | État du chercheur | Commentaire |
+|---|---|---|---|
+| `[requête]` | [vol/mois ou n/d] | problème en cours | [pourquoi on le lit ainsi dans la SERP / les PAA] |
+| `[requête]` | … | s'informe | … |
+| `[requête]` | … | cherche une définition | … |
+
+**Verdict** : `GO` / `NO-GO` / `ACTIF D'AUTORITÉ`
+[GO → la requête principale ci-dessous est de l'état « problème en cours ».
+NO-GO → on abandonne, et on écrit pourquoi.
+ACTIF D'AUTORITÉ → aucune requête « problème en cours » dans le champ ; on écrit
+quand même, et **l'objectif déclaré n'est pas le contact** — le préciser ici, en
+une ligne, pour ne pas reprocher six mois plus tard à l'article un objectif qu'il
+n'avait pas. Nommer alors le pilier-volume adjacent ci-dessous (LEARN-058).]
+
+**Persona visé, et mot qui écarte l'autre** :
+[OBLIGATOIRE si le vocabulaire du sujet est réversible — *renversé*, *fraude*,
+*ratée*, *accident*, *plainte*. Écrire : « visé = [persona] ; écarté = [persona] ;
+le H1 le dit par [mot ou tournure] ». Sans objet si le champ n'est pas réversible.
+Cf. BRIEF.md §4 Étape 1 « Vocabulaire réversible ».]
+
 ## Requête principale
-`[head term]`
+`[head term — issu du tableau ci-dessus, état « problème en cours » sauf actif d'autorité assumé]`
 
 ## Pilier-volume adjacent
 [À remplir si le head term est de niche (volume nul ou marginal) — cf. BRIEF.md §4 Étape 1.
@@ -114,7 +139,21 @@ Champ vide après le Bloc B = pivoter ou abandonner le sujet. Cf. BRIEF.md §6
 | Rang | Domaine | Type | Note |
 ### PAA observées
 ### Volumes / intent / backlinks moyens
+### Clusters de requêtes (entrée directe de l'Étape 3)
+[Regrouper tout ce qui précède — volumes, PAA, related searches — en clusters
+de 3 à 8 requêtes qui partagent la même demande. C'est cette liste, et elle seule,
+qui produira le plan H2/H3 à l'Étape 3 (BRIEF.md §4 Étape 3). Nommer chaque cluster
+par les **mots que les gens tapent**, jamais par un intitulé de section.]
+
+| Cluster | Requêtes qui le composent | Volume cumulé | État du chercheur |
+|---|---|---|---|
+| `[mots du cluster]` | `[req 1]` · `[req 2]` · `[req 3]` | [vol] | problème en cours / s'informe / définition |
+
 ### Gap analysis (ce que personne ne traite)
+### Confirmation ou démenti de la qualification Étape 1
+[Le tableau de qualification de l'Étape 1 était une hypothèse. Le SERP et les PAA
+tranchent ici. S'il est démenti, re-signer le verdict `GO` / `NO-GO` /
+`ACTIF D'AUTORITÉ` avant de passer à l'Étape 3.]
 
 ## Bloc C — Contexte interne Plouton (Wix MCP)
 ### Inventaire catégorie Ressources (obligatoire — consigne 2026-06-23)
@@ -140,11 +179,33 @@ Champ vide après le Bloc B = pivoter ou abandonner le sujet. Cf. BRIEF.md §6
 ````markdown
 # Plan d'article — [Titre]
 
+## Carte cluster → porteur
+
+[OBLIGATOIRE, ET EN PREMIER — c'est cette carte qui produit le plan, pas la trame.
+Reprendre les clusters du Bloc B (Étape 2) et leur affecter un titre qui **contient
+leurs mots**. Règle complète : BRIEF.md §4 Étape 3.]
+
+| Cluster (Bloc B) | Volume | Titre porteur | Niveau |
+|---|---|---|---|
+| `[mots du cluster]` | [vol] | [le H2/H3 qui le porte, avec ses mots dedans] | H2 / H3 |
+
+**Clusters sans porteur** : [aucun] — *ou* liste + décision (on comble / on renonce, et pourquoi).
+**Titres sans cluster** : [aucun] — *ou* liste + justification. Le cadre légal et la
+procédure peuvent n'avoir aucun cluster propre et rester nécessaires : c'est une
+exception à motiver ligne par ligne, pas un droit acquis. Tout le reste passe en H3,
+fusionne, ou disparaît.
+
+---
+
 ## Méta-données
 
 ### H1 retenu
-**[Pose une question implicite OU annonce une différenciation explicite]**
+**[Pose une question implicite OU annonce une différenciation explicite — et porte les mots du cluster principal]**
 *Exemple validé sur article #1 : "Accident de moto : pourquoi votre indemnisation diffère de celle d'un automobiliste (guide AAAA)"*
+
+**Deux contrôles avant de figer le H1 :**
+- **Mots du cluster présents ?** Le H1 porte le vocabulaire du cluster principal de la carte ci-dessus. Un H1 qui ne contient aucun mot de son cluster ne le captera pas.
+- **Persona écarté nommé ?** Si le vocabulaire est réversible (*renversé*, *fraude*, *ratée*, *accident*, *plainte*), reprendre ici la ligne « visé / écarté / par quel mot » du cadrage Étape 1 et vérifier que le H1 la respecte. #04 : H1 *« Cycliste renversé… »*, requête n°1 captée *« sanction pour avoir renversé un cycliste »* — le mot qui écarte manquait.
 
 ### 3 variantes H1 alternatives (traçabilité)
 - [H1-B]
@@ -184,6 +245,8 @@ Format BLOCKQUOTE :
 
 *Squelette générique, valable pour les **3 familles d'expertise** du BRIEF (indemnisation des victimes, défense pénale, contrats & personnes). Les intitulés se réécrivent avec le vocabulaire du lecteur — ce sont des rôles de section, pas des titres à recopier.*
 
+> **Ce squelette se lit en SECONDE passe, jamais en première** (RETEX 2026-08-25). Le plan sort de la carte cluster → porteur ci-dessus ; la trame ne sert ensuite qu'à repérer ce qui manque — typiquement le cadre légal et la procédure, qui n'ont pas toujours de cluster propre. Ouvrir la trame en premier et l'habiller avec le sujet du jour est précisément ce qui a produit douze angles à zéro impression sur douze articles. Les six rôles ci-dessous sont une liste de contrôle, pas un moule.
+
 ### H2 1 — Contextualisation (pourquoi ce sujet appelle un traitement spécifique)
 - Encadré chiffré (BLOCKQUOTE, **prose continue — pas de bullets**, LEARN-025)
 - Transition vers le cadre légal
@@ -195,6 +258,7 @@ Format BLOCKQUOTE :
 
 ### H2 3 — Cœur différenciant (la profondeur distinctive — Information Gain LEARN-039)
 - 4-6 H3 sur ce qui est absent du top 10 SERP
+- **Chaque H3 différenciant est adossé à un cluster de la carte, ou assumé comme sans demande.** Un angle différenciant sans cluster est légitime — il sert l'E-E-A-T et la citabilité — mais il ne captera pas, et le plan doit le dire au lieu de lui prêter un rôle de capture. Sur #04, ce H2 était annoncé comme *« cette section seule justifie le ranking distinctif de l'article »* : il capte zéro impression.
 - Cross-links sortants vers les articles ressources existants (délégation de profondeur)
 - Lien vers une affaire cabinet en preuve
 
@@ -279,7 +343,7 @@ Format **BLOCKQUOTE** ~150 mots :
 Chaque article #N doit produire dans son dossier `0N-slug-article/` :
 
 1. **`etape-4-article.md`** — article complet en markdown (source de travail et d'archive ; entrée de `md_to_ricos.py` ; liens internes en URL absolue)
-2. **`etape-4-metadonnees-wix.md`** — **OBLIGATOIRE, NE PAS ZAPPER** — **8 sections** (format stabilisé #10, décision Nicolas 2026-08-05) : **SEO** (H1, méta-title ≤ 60, méta-description ≤ 155, slug sans accent), **Catégories Wix** (2 IDs : Ressources et notions juridiques + thématique — reco BRIEF/README, *pas* LEARN-041 qui concerne le schema FAQPage), **Tags** (10-15, **séparés par des virgules — jamais de middot ·**, règle mémoire), **Image hero + alt**, **Carte des liens** (internes sans rel / externes nofollow), **JSON-LD FAQPage** (renvoi : livré dans le chat), **Push Wix** (`draftPostId` + statut + garde-fou), **Refresh** (date M+6 + déclencheurs).
+2. **`etape-4-metadonnees-wix.md`** — **OBLIGATOIRE, NE PAS ZAPPER** — **8 sections** (format stabilisé #10, décision Nicolas 2026-08-05) : **SEO** (H1, méta-title ≤ 60, méta-description ≤ 155, slug sans accent), **Catégories Wix** (2 IDs : Ressources et notions juridiques + thématique — reco BRIEF/README, *pas* LEARN-041 qui concerne le schema FAQPage), **Tags** (10-15, **séparés par des virgules — jamais de middot ·**, règle mémoire), **Image hero + alt**, **Carte des liens** (internes sans rel / externes nofollow), **JSON-LD FAQPage** (renvoi : livré dans le chat), **Push Wix** (`draftPostId` + statut + garde-fou), **Refresh & mesure** (date M+6 + déclencheurs, **et date de mesure M+3** — Étape 5, ligne `Mesure M+3 : AAAA-MM-JJ`, comptée depuis la 1ʳᵉ impression GSC dès qu'elle est connue).
 3. **`ricos.min.json`** — sortie de `python3 scripts/md_to_ricos.py etape-4-article.md`, minifiée, poussée en **draft `UNPUBLISHED`** via `ExecuteWixAPI` (flux par défaut LEARN-064 — décision 2026-08-05). Garde-fou `nodes.length`/`faqCount` avant POST, vérif `GET …/draft-posts/{id}` après. **À régénérer + resynchroniser à chaque modification de l'article** (anti-drift : le draft #10 avait perdu sa TDM).
 4. **JSON-LD FAQPage** — **livré DIRECTEMENT dans le chat** (bloc code Markdown, JSON minifié one-liner, avec `type="application/ld+json"`). **PAS de fichier `.json` ou `.html` séparé** (LEARN-027 — validé : Wix Studio rejette les fichiers HTML pour ce champ, copier-coller depuis le chat est l'unique méthode fiable).
 5. *(optionnel)* **`etape-4-corrections-rouge.html`** — visualisation rouge des passages modifiés si fact-check post-rédaction a entraîné des corrections.
@@ -415,6 +479,43 @@ Les schémas Person, LegalService et Article sont gérés au niveau du site Wix 
 
 ---
 
+## Étape 5 — Mesure M+3 (template)
+
+Trois mois après la **première impression GSC** (jamais après la date Wix, antidatable). Règle complète : BRIEF.md §4 Étape 5. Livrable : `etape-5-mesure.md` dans le dossier de l'article — dix à quinze lignes, pas un rapport.
+
+```markdown
+# Mesure M+3 — Article #N : [slug]
+
+**Fenêtre** : 1ʳᵉ impression GSC [AAAA-MM-JJ] → [AAAA-MM-JJ] · **Relevé le** [AAAA-MM-JJ]
+**Couverture requête × page** : [X] % — *sous 20 %, les zéros par requête ne sont pas interprétables*
+
+## 1. La requête d'entrée a-t-elle capté ?
+`[requête qualifiée « problème en cours » à l'Étape 1]` → [imp] impressions · position [X] · [N] clics
+
+## 2. Les titres porteurs apparaissent-ils ?
+| Titre porteur (carte Étape 3) | Impressions | Verdict |
+|---|---|---|
+| [titre] | [imp] | capte / non observé |
+
+## 3. Requêtes non prévues qui portent le trafic
+1. `[requête]` — [imp] imp · [N] clics · position [X]
+2. …
+
+## 4. Contacts
+[N] au total — [N] appels, [N] formulaires. *(0 sous 30 entrées organiques n'est pas un verdict.)*
+
+## 5. Verdict et action
+**Verdict** : cible atteinte / cible déplacée / trop tôt pour dire
+**Action** : [une action concrète, ou « aucune, et voici pourquoi »]
+**Ce qui redescend dans le cadrage suivant** : [la correction à porter au tableau de qualification Étape 1]
+```
+
+**Requêtes `cooked` de base** (projet Supabase `mxycmjkeotrycyneacje`) : `gsc_path_daily` filtré sur `path = '/post/<slug>'` pour les totaux ; `gsc_query_page_daily` pour l'attribution requête × page ; `conversion_weekly` filtré sur `entry_path` pour les contacts (`contact_kind` vaut `phone` ou `form`).
+
+**Deux pièges à ne pas rejouer** : l'attribution requête × page ne couvre que 4 à 38 % des impressions — un zéro y signifie « non observé », jamais « absent » ; et la position GSC n'est pas la position à l'écran, l'AI Overview et le bloc « Autres questions » s'intercalent au-dessus. Le playbook complet vit dans le dépôt `cooked` (`docs/PLAYBOOK-analyse-seo.md`, « Les 15 pièges »).
+
+---
+
 ## Checklist qualité (à passer avant push)
 
 > **Convention de sévérité.** Les items marqués **🔴** sont des **portes bloquantes** : un seul manquement suffit à déclasser l'article, quel que soit le reste — c'est la règle 2 du *Standard qualité YMYL* (BRIEF.md §6). On ne pousse pas un article dont une porte 🔴 est ouverte. Les autres items sont des optimisations : on les vise tous, mais leur absence ne bloque pas la publication.
@@ -424,6 +525,14 @@ Les schémas Person, LegalService et Article sont gérés au niveau du site Wix 
 - [ ] 🔴 `⚠️ À vérifier` retiré ou résolu *(contrôlé par le lint)*
 - [ ] 🔴 **Chaque jurisprudence** = n° de pourvoi + date + chambre **confirmés** (LEARN-026)
 - [ ] 🔴 **Fact-check effectué AVANT rédaction** sur chaque zone juridique précise : WebSearch ciblée en 1er recours, API PISTE (`legifrance.py` / `judilibre.py`) en contrôle ; si toujours non confirmé → reformulation prudente + `⚠️` (LEARN-026 + LEARN-049 — procédure « Fact-check » ci-dessus)
+
+### Bloc Ciblage (RETEX 2026-08-25)
+- [ ] 🔴 **Verdict Étape 1 posé** : `GO` / `NO-GO` / `ACTIF D'AUTORITÉ` écrit dans le cadrage, et la requête principale est bien de l'état « problème en cours » — sauf actif d'autorité, dont l'objectif hors-contact est déclaré (BRIEF.md §4 Étape 1)
+- [ ] 🔴 **Carte cluster → porteur remplie** en tête de `etape-3-plan.md`, avec les deux lignes de contrôle : clusters sans porteur, titres sans cluster (BRIEF.md §4 Étape 3)
+- [ ] **Chaque titre porteur contient les mots de son cluster** — pas une paraphrase, pas un titre de tonalité
+- [ ] **H1 porte les mots du cluster principal**
+- [ ] **Persona écarté nommé** si le vocabulaire est réversible (*renversé*, *fraude*, *ratée*, *accident*, *plainte*) — la ligne « visé / écarté / par quel mot » du cadrage est respectée par le H1
+- [ ] **Date `Mesure M+3` posée** dans la section Refresh & mesure des métadonnées (Étape 5)
 
 ### Bloc Information Gain & E-E-A-T (Lucid Media 2026)
 - [ ] 🔴 **Preuve d'originalité tenue** : l'artefact nommé en Étape 1 est bien présent dans l'article publié (pas seulement annoncé au cadrage)
